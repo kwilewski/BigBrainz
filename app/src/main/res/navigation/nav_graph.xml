@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainScreenFragment">
+
+    <fragment
+        android:id="@+id/game1Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game1Fragment"
+        android:label="fragment_game_1"
+        tools:layout="@layout/fragment_game_1" />
+    <fragment
+        android:id="@+id/mainScreenFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.MainScreenFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_game1Selection"
+            app:destination="@id/game1Selection" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_game2SelectionFragment"
+            app:destination="@id/game2SelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game1Selection"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game1Selection"
+        android:label="fragment_game_1_selection"
+        tools:layout="@layout/fragment_game_1_selection" >
+        <action
+            android:id="@+id/action_game1Selection_to_game1Fragment"
+            app:destination="@id/game1Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game2SelectionFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2SelectionFragment"
+        android:label="fragment_game_2_selection"
+        tools:layout="@layout/fragment_game_2_selection" >
+        <action
+            android:id="@+id/action_game2SelectionFragment_to_game2Fragment"
+            app:destination="@id/game2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game2Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2Fragment"
+        android:label="fragment_game_2"
+        tools:layout="@layout/fragment_game_2" />
+</navigation>

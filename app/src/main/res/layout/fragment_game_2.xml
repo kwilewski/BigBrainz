@@ -4,57 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.Game1Fragment">
-
+    tools:context=".ui.tasks.Game2Fragment">
 
     <ImageView
+        android:id="@+id/g2_logo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/game1_iv"
-        app:layout_constraintTop_toBottomOf="@+id/gl_game1_1"
-        app:layout_constraintBottom_toTopOf="@+id/gl_game1_2"
-        tools:src="@drawable/ic_launcher_foreground" />
+        app:layout_constraintTop_toTopOf="@+id/gl_g2_h_1"
+        app:layout_constraintBottom_toTopOf="@+id/gl_g2_h_2"
+        android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintLeft_toRightOf="parent" />
 
-    <GridLayout
+    <ImageView
+        android:id="@+id/g2_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/game1_grid_layout"
-        app:layout_constraintTop_toBottomOf="@+id/gl_game1_3"
-        app:layout_constraintBottom_toTopOf="@+id/gl_game1_4" />
-
-
-
-
-
+        app:layout_constraintTop_toTopOf="@+id/gl_g2_h_3"
+        app:layout_constraintBottom_toTopOf="@+id/gl_g2_h_4"
+        tools:text="Clickable Area"
+        app:layout_constraintLeft_toRightOf="parent"
+        android:background="@color/colorBackground2"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_game1_1"
+        android:id="@+id/gl_g2_h_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10"/>
+        app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_game1_2"
+        android:id="@+id/gl_g2_h_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_game1_3"
+        android:id="@+id/gl_g2_h_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40"/>
+        app:layout_constraintGuide_percent="0.40" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_game1_4"
+        android:id="@+id/gl_g2_h_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80"/>
-
+        app:layout_constraintGuide_percent="0.80" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
