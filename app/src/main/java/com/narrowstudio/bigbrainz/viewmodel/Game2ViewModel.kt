@@ -1,25 +1,34 @@
 package com.narrowstudio.bigbrainz.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.narrowstudio.bigbrainz.utility.MyTimer
 import java.util.*
 import java.util.logging.Handler
 
 class Game2ViewModel : ViewModel() {
 
-    private var isGameRunning : Boolean = false;
-    private var timer = Timer()
+    private var isGameRunning: Boolean = false;
+    private var timer: MyTimer = MyTimer()
+    private var timeInMillis: Long = 0
 
-    public fun init(){
+
+
+    fun init(){
         isGameRunning = false
     }
 
-    public fun buttonPressed(){
+    fun buttonPressed(){
         if (isGameRunning){ //handle click when game is running
-
+            isGameRunning = timer.isTimerRunning()
+            timeInMillis = timer.stopTimer()
         } else {    //start the game - timer
-            isGameRunning = true
-
+            isGameRunning = timer.isTimerRunning()
+            timer.startTimer()
         }
+    }
+
+    fun getTimeAsString(): String{
+        return timeInMillis.toString()
     }
 
 
