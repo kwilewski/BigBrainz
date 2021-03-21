@@ -78,7 +78,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     }
 
     private fun updateButtonColor(){
-        when(gameState.value!!){
+        when(gameState.value){
             0 -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
             2 -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
             else -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
@@ -90,7 +90,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     }
 
     private fun restartGame(){
-        if(g2ViewModel.getShouldGameBeRestarted().value!!) {
+        if(g2ViewModel.getShouldGameBeRestarted().value == true) {
             g2_textview.text = getString(R.string.game_over)
         } else {
             g2_textview.text = ""

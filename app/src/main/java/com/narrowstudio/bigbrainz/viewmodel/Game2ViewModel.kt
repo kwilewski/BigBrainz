@@ -8,7 +8,6 @@ import java.lang.Runnable
 
 class Game2ViewModel : ViewModel() {
 
-    private var isGameRunning: Boolean = false;
     private var blankTime:Long = 0
     private lateinit var timeLD: LiveData<Long>
     private var timeArray: ArrayList<Long> = ArrayList()
@@ -38,11 +37,11 @@ class Game2ViewModel : ViewModel() {
             if(System.currentTimeMillis() >= blankTime) {
                 millisecondTime = System.currentTimeMillis() - blankTime
                 millisecondLD.postValue(millisecondTime)
-                if (gameState.value!! != 2){
+                if (gameState.value != 2){
                     gameState.postValue(2)
                 }
             } else {
-                if (gameState.value!! != 1){
+                if (gameState.value != 1){
                     gameState.postValue(1)
                 }
             }
@@ -53,7 +52,6 @@ class Game2ViewModel : ViewModel() {
 
 
     fun init(){
-        isGameRunning = false
         isRunning.postValue(false)
         millisecondLD.postValue(0)
         isButtonClickable.postValue(false)
@@ -63,27 +61,28 @@ class Game2ViewModel : ViewModel() {
     }
 
     fun buttonPressed(){
-        if (isGameRunning){ //handle click when game is running
-            isGameRunning = false
-            millisecondTime = stopTimer()
-            if(millisecondTime > 0) {
+        when (gameState.value){
+            0 -> {
+                val randomTime = randomizeTime()
+                setBlankTime(randomTime)
+                scope.launch {
+                    startTimer()
+                }
+                isButtonClickable.postValue(false)
+                gameState.postValue(1)
+            }
+            1 -> {
+                restartGame()
+            }
+            2 -> {
+                millisecondTime = stopTimer()
                 millisecondLD.postValue(millisecondTime)
                 isButtonClickable.postValue(false)
                 handleTimeArray()
-            } else {
-                restartGame()
+                gameState.postValue(0)
             }
-            gameState.postValue(0)
-        } else {    //start the game - timer
-            val randomTime = randomizeTime()
-            setBlankTime(randomTime)
-            scope.launch {
-                startTimer()
-            }
-            isGameRunning = true
-            isButtonClickable.postValue(false)
-            gameState.postValue(1)
         }
+
     }
 
     private fun handleTimeArray(){
@@ -123,9 +122,7 @@ class Game2ViewModel : ViewModel() {
         return (2000..6000).random()
     }
 
-    fun getIsGameRunning(): Boolean{
-        return isGameRunning
-    }
+
 
 
 
@@ -166,14 +163,13 @@ class Game2ViewModel : ViewModel() {
     }
 
     private suspend fun startTimer(){
-        //delay(blankTime.toLong())
-        if(isGameRunning){
+        //if(gameState.value != 0){
             isButtonClickable.postValue(true)
             startTime = System.currentTimeMillis()
             handler.removeCallbacks(runnable)
             handler.postDelayed(runnable, 1)
             isRunning.postValue(true)
-        }
+        //}
     }
 
     private fun stopTimer(): Long{
@@ -194,10 +190,9 @@ class Game2ViewModel : ViewModel() {
     }
 
     private fun resetValues(){
-        isGameRunning = false
+        handler.removeCallbacks(runnable)
         isRunning.postValue(false)
         isButtonClickable.postValue(false)
-        shouldGameBeRestarted.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
     }
