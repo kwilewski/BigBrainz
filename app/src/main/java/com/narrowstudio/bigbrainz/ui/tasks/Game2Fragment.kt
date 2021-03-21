@@ -3,15 +3,13 @@ package com.narrowstudio.bigbrainz.ui.tasks
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.*
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
@@ -23,6 +21,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     private lateinit var g2ViewModel : Game2ViewModel
     private lateinit var timerViewModel: TimerViewModel
     private lateinit var timeInMillisLD: MutableLiveData<Long>
+    private lateinit var time: LiveData<Long>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,16 +35,55 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         timerViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
         timerViewModel.init()
 
+        //updating timer text
+        time = g2ViewModel.getTime()
+        time.observe(viewLifecycleOwner, Observer {
+            updateTimer()
+        } )
+
+        //updating button color
+        g2ViewModel.getIsButtonClickable().observe(viewLifecycleOwner, Observer {
+            updateButtonColor()
+        })
+
+        g2ViewModel.getAverageTime().observe(viewLifecycleOwner, Observer {
+            gameFinished()
+        })
 
 
         g2_button.setOnClickListener {
             g2ViewModel.buttonPressed()
         }
 
+
+        /*g2_button.setOnTouchListener(View.OnTouchListener{v, event ->
+            val action = event.action
+            when(action){
+                MotionEvent.ACTION_UP -> {
+                    g2ViewModel.buttonPressed()}
+            }
+            true
+        })*/
+
+
     }
 
+    private fun updateTimer() {
+        g2_textview.text = g2ViewModel.getTimeAsString()
+    }
 
+    private fun updateButtonColor(){
+        if(!g2ViewModel.getIsGameRunning()){
+            g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+        } else if(g2ViewModel.getIsButtonClickable().value!!){
+            g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
+        } else {
+            g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+        }
+    }
 
-
+    private fun gameFinished(){
+        g2_textview.text = "Your average time is: " + g2ViewModel.getAverageTimeAsString()
+    }
 
 }

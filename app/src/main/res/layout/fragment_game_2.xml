@@ -15,7 +15,7 @@
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintLeft_toRightOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/g2_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toTopOf="@+id/gl_g2_h_4"
         tools:text="Clickable Area"
         app:layout_constraintLeft_toRightOf="parent"
-        android:background="@color/colorBackground2"/>
+        android:background="@color/colorButtonWaiting"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_g2_h_1"
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="40dp"
-        android:text="TextView"
+        tools:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/g2_button" />
