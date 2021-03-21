@@ -21,6 +21,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     private lateinit var g2ViewModel : Game2ViewModel
     private lateinit var timerViewModel: TimerViewModel
     private lateinit var timeInMillisLD: MutableLiveData<Long>
+    private lateinit var gameState: LiveData<Int>
     private lateinit var time: LiveData<Long>
 
 
@@ -42,28 +43,32 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         } )
 
         //updating button color
-        g2ViewModel.getIsButtonClickable().observe(viewLifecycleOwner, Observer {
+        gameState = g2ViewModel.getGameState()
+        gameState.observe(viewLifecycleOwner, Observer {
             updateButtonColor()
         })
 
         g2ViewModel.getAverageTime().observe(viewLifecycleOwner, Observer {
             gameFinished()
         })
+        g2ViewModel.getShouldGameBeRestarted().observe(viewLifecycleOwner, Observer {
+            restartGame()
+        })
 
 
-        g2_button.setOnClickListener {
+        /*g2_button.setOnClickListener {
             g2ViewModel.buttonPressed()
-        }
+        }*/
 
 
-        /*g2_button.setOnTouchListener(View.OnTouchListener{v, event ->
+        g2_button.setOnTouchListener(View.OnTouchListener{v, event ->
             val action = event.action
             when(action){
-                MotionEvent.ACTION_UP -> {
+                MotionEvent.ACTION_DOWN -> {
                     g2ViewModel.buttonPressed()}
             }
             true
-        })*/
+        })
 
 
     }
@@ -73,17 +78,24 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     }
 
     private fun updateButtonColor(){
-        if(!g2ViewModel.getIsGameRunning()){
-            g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
-        } else if(g2ViewModel.getIsButtonClickable().value!!){
-            g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
-        } else {
-            g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+        when(gameState.value!!){
+            0 -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+            2 -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
+            else -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
         }
     }
 
     private fun gameFinished(){
         g2_textview.text = "Your average time is: " + g2ViewModel.getAverageTimeAsString()
     }
+
+    private fun restartGame(){
+        if(g2ViewModel.getShouldGameBeRestarted().value!!) {
+            g2_textview.text = getString(R.string.game_over)
+        } else {
+            g2_textview.text = ""
+        }
+    }
+
 
 }
