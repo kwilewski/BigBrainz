@@ -16,7 +16,6 @@ class Game2ViewModel : ViewModel() {
     private var millisecondTime: Long = 0
     private var millisecondLD: MutableLiveData<Long> = MutableLiveData()
     private var averageTime: MutableLiveData<Long> = MutableLiveData()
-    private var isRunning: MutableLiveData<Boolean> = MutableLiveData()
     private var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
     private var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
     private var gameState: MutableLiveData<Int> = MutableLiveData()
@@ -26,7 +25,6 @@ class Game2ViewModel : ViewModel() {
     2 - running green
      */
 
-    private var isRunningBoolean: Boolean = false
     private var handler = Handler(Looper.getMainLooper())
 
 
@@ -52,7 +50,6 @@ class Game2ViewModel : ViewModel() {
 
 
     fun init(){
-        isRunning.postValue(false)
         millisecondLD.postValue(0)
         isButtonClickable.postValue(false)
         shouldGameBeRestarted.postValue(false)
@@ -99,7 +96,6 @@ class Game2ViewModel : ViewModel() {
             }
             averageTime.postValue(average)
             resetTimeArray()
-            //ToDO show medium time on the screen
         }
 
     }
@@ -128,9 +124,6 @@ class Game2ViewModel : ViewModel() {
 
     //----------------------------------------------------------    Timer
 
-    fun isTimerRunning(): LiveData<Boolean>{
-        return isRunning
-    }
 
     fun getTime(): LiveData<Long>{
         return millisecondLD
@@ -168,18 +161,17 @@ class Game2ViewModel : ViewModel() {
             startTime = System.currentTimeMillis()
             handler.removeCallbacks(runnable)
             handler.postDelayed(runnable, 1)
-            isRunning.postValue(true)
         //}
     }
 
     private fun stopTimer(): Long{
         handler.removeCallbacks(runnable)
-        isRunning.postValue(false)
+        gameState.postValue(0)
         return millisecondTime
     }
 
     private fun resetTimeArray(){
-        for (i in 0 until timeArray.size-1) {
+        for (i in 0 until timeArray.size) {
             timeArray.removeAt(0)
         }
     }
@@ -191,7 +183,6 @@ class Game2ViewModel : ViewModel() {
 
     private fun resetValues(){
         handler.removeCallbacks(runnable)
-        isRunning.postValue(false)
         isButtonClickable.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
