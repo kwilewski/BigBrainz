@@ -2,11 +2,17 @@ package com.narrowstudio.bigbrainz.viewmodel
 
 import android.os.Handler
 import android.os.Looper
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.narrowstudio.bigbrainz.data.G2Dao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
+import javax.inject.Inject
 
-class Game2ViewModel : ViewModel() {
+class Game2ViewModel @Inject constructor(
+    private val g2Dao: G2Dao
+    ) : ViewModel() {
 
     private var blankTime:Long = 0
     private lateinit var timeLD: LiveData<Long>
@@ -24,6 +30,7 @@ class Game2ViewModel : ViewModel() {
     1 - running red
     2 - running green
      */
+
 
     private var handler = Handler(Looper.getMainLooper())
 

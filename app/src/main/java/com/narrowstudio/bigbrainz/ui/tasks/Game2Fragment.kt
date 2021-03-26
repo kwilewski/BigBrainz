@@ -9,13 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_game_2.*
 
-
+@AndroidEntryPoint
 class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
 
     private lateinit var g2ViewModel : Game2ViewModel
