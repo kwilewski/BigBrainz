@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.Flow
 interface G2Dao {
 
     @Query("SELECT * FROM game_2_table")
-    fun getEntry(): Flow<List<G2Dao>>
+    fun getEntries(): Flow<List<G2DBEntry>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(entry: G2Dao)
+    suspend fun insert(entry: com.narrowstudio.bigbrainz.data.G2DBEntry)
 
     @Update
-    suspend fun update(entry: G2Dao)
+    suspend fun update(entry: G2DBEntry)
 
     @Delete
-    suspend fun delete(entry: G2Dao)
+    suspend fun delete(entry: G2DBEntry)
 }

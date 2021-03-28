@@ -20,16 +20,16 @@ import kotlinx.android.synthetic.main.fragment_game_2.*
 @AndroidEntryPoint
 class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
 
-    private lateinit var g2ViewModel : Game2ViewModel
+    private val g2ViewModel : Game2ViewModel by viewModels()
     private lateinit var timerViewModel: TimerViewModel
-    private lateinit var timeInMillisLD: MutableLiveData<Long>
     private lateinit var gameState: LiveData<Int>
     private lateinit var time: LiveData<Long>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        g2ViewModel = ViewModelProvider(this).get(com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel::class.java)
+
+        //g2ViewModel = ViewModelProvider(this).get(Game2ViewModel::class.java)
         g2ViewModel.init()
         g2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
             g2_textview.text = g2ViewModel.getTimeAsString()
@@ -58,16 +58,25 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         })
 
 
+        //saves
+        g2ViewModel.saves.observe(viewLifecycleOwner) {
+            //TODO stats
+            g2_textview.text =  " amount of entries: " + g2ViewModel.saves.value?.size
+
+        }
+
+
         /*g2_button.setOnClickListener {
             g2ViewModel.buttonPressed()
         }*/
 
 
         g2_button.setOnTouchListener(View.OnTouchListener{v, event ->
-            val action = event.action
-            when(action){
+            when(event.action){
                 MotionEvent.ACTION_DOWN -> {
-                    g2ViewModel.buttonPressed()}
+                    g2ViewModel.buttonPressed()
+                    g2_button.performClick()
+                }
             }
             true
         })

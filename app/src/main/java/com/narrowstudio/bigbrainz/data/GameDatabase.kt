@@ -23,7 +23,7 @@ abstract class GameDatabase : RoomDatabase() {
             val dao = database.get().g2Dao()
 
             applicationScope.launch {
-                //dao.insert(G2DBEntry(201))
+                //dao.insert(G2DBEntry(201, 0,0))
             }
         }
     }

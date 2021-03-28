@@ -4,13 +4,14 @@ import android.os.Handler
 import android.os.Looper
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.narrowstudio.bigbrainz.data.G2DBEntry
 import com.narrowstudio.bigbrainz.data.G2Dao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import javax.inject.Inject
 
-class Game2ViewModel @Inject constructor(
+class Game2ViewModel @ViewModelInject constructor(
     private val g2Dao: G2Dao
     ) : ViewModel() {
 
@@ -30,6 +31,10 @@ class Game2ViewModel @Inject constructor(
     1 - running red
     2 - running green
      */
+
+    val saves = g2Dao.getEntries().asLiveData()
+
+
 
 
     private var handler = Handler(Looper.getMainLooper())
@@ -102,6 +107,7 @@ class Game2ViewModel @Inject constructor(
                 }
             }
             averageTime.postValue(average)
+            insertNewEntry()
             resetTimeArray()
         }
 
@@ -193,6 +199,15 @@ class Game2ViewModel @Inject constructor(
         isButtonClickable.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
+    }
+
+
+
+    //-------------------------------------------------- DB
+    private fun insertNewEntry() {
+        scope.launch {
+            g2Dao.insert(G2DBEntry(201, averageTime.value!!))
+        }
     }
 
 
