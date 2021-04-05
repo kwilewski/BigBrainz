@@ -59,11 +59,11 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
 
 
         //saves
-        g2ViewModel.saves.observe(viewLifecycleOwner) {
+        g2ViewModel.totalAverage.observe(viewLifecycleOwner, Observer {
             //TODO stats
-            g2_textview.text =  " amount of entries: " + g2ViewModel.saves.value?.size
+            g2_textview.text =  "Your average time is: " + g2ViewModel.saves.value?.size
 
-        }
+        })
 
 
         /*g2_button.setOnClickListener {

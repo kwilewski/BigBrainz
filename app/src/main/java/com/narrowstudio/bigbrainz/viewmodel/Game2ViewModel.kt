@@ -34,6 +34,8 @@ class Game2ViewModel @ViewModelInject constructor(
 
     val saves = g2Dao.getEntries().asLiveData()
 
+    var totalAverage: MutableLiveData<Long> = MutableLiveData()
+
 
 
 
@@ -67,6 +69,7 @@ class Game2ViewModel @ViewModelInject constructor(
         shouldGameBeRestarted.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
+        calculateTotalAverage()
     }
 
     fun buttonPressed(){
@@ -94,6 +97,21 @@ class Game2ViewModel @ViewModelInject constructor(
 
     }
 
+    private fun calculateTotalAverage(){
+        if (saves.value?.size != 0 || saves.value?.size != null){
+            var sum: Long = 0
+            val entries: Int? = saves.value?.size
+
+            //summing total average time of saved entries
+            /*for (i in 0 until (entries!!-1)){
+                sum += saves.value!![i].averageTime
+            }*/
+            totalAverage.postValue(saves.value?.size?.toLong())
+        } else {
+            totalAverage.postValue(0)
+        }
+    }
+
     private fun handleTimeArray(){
         // first add time to the array, then process
         timeArray.add(millisecondTime)
@@ -109,6 +127,7 @@ class Game2ViewModel @ViewModelInject constructor(
             averageTime.postValue(average)
             insertNewEntry()
             resetTimeArray()
+            calculateTotalAverage()
         }
 
     }
