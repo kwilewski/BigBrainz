@@ -1,5 +1,6 @@
 package com.narrowstudio.bigbrainz.viewmodel
 
+import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import androidx.hilt.lifecycle.ViewModelInject
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 class Game2ViewModel @ViewModelInject constructor(
     private val g2Dao: G2Dao
-    ) : ViewModel() {
+) : ViewModel() {
+
 
     private var blankTime:Long = 0
     private lateinit var timeLD: LiveData<Long>
@@ -32,7 +34,7 @@ class Game2ViewModel @ViewModelInject constructor(
      */
 
     val saves = g2Dao.getEntries().asLiveData()
-    var totalAverage: MutableLiveData<Long> = MutableLiveData()
+    var totalAverage: MutableLiveData<Float> = MutableLiveData()
 
 
 
@@ -97,19 +99,19 @@ class Game2ViewModel @ViewModelInject constructor(
     }
 
     private fun calculateTotalAverage(){
-        if (saves.value?.size != 0 || saves.value?.size != null){
+        val entries: Int? = saves.value?.size
+        if (entries != 0){
             var sum: Long = 0
-            val entries: Int? = saves.value?.size
 
             //summing total average time of saved entries
             if(entries != null && entries > 1) {
-                for (i in 0 until (entries-1)){
+                for (i in 0 until entries){
                     sum += saves.value!![i].averageTime
                 }
+                totalAverage.postValue(sum.toFloat() / (entries * 1000))
             }
-            totalAverage.postValue(saves.value?.size?.toLong())
         } else {
-            totalAverage.postValue(0)
+            totalAverage.postValue(2137f)
         }
     }
 
@@ -117,8 +119,8 @@ class Game2ViewModel @ViewModelInject constructor(
         // first add time to the array, then process
         timeArray.add(millisecondTime)
         val repeats: Int = 5
-        var average: Long = 0
         if (timeArray.size == repeats) {
+            var average: Long = 0
             for (i in 0 until repeats){
                 average += timeArray[i]
                 if (i == repeats-1){ //if last step, divide the sum by repeats
@@ -180,6 +182,12 @@ class Game2ViewModel @ViewModelInject constructor(
 
     fun getShouldGameBeRestarted(): LiveData<Boolean>{
         return shouldGameBeRestarted
+    }
+
+    fun getTotalTimeAsString(): String{
+        val time: Float = totalAverage.value!!.minus(totalAverage.value!!.rem(1000))
+        //context.resources.getString(R.string.wda)
+        return " "
     }
 
 
