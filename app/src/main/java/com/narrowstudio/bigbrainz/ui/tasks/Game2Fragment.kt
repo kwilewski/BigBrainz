@@ -61,8 +61,9 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         //saves
         g2ViewModel.saves.observe(viewLifecycleOwner) {
             //TODO stats
-            g2_textview.text =  " amount of entries: " + g2ViewModel.saves.value?.size
-
+            if (g2ViewModel.saves.value?.size != 0) {
+                g2_textview.text = " amount of entries: " + g2ViewModel.saves.value!![0].averageTime
+            }
         }
 
 
