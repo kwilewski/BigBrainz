@@ -7,4 +7,5 @@
     <string name="mode_medium">Medium</string>
     <string name="mode_hard">Hard</string>
     <string name="game_over">OOOPS… TRY AGAIN!</string>
+    <string name="average_time">Your average time: </string>
 </resources>
