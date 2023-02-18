@@ -23,11 +23,11 @@ class Game2ViewModel @ViewModelInject constructor(
     private var startTime: Long = 0
     private var millisecondTime: Long = 0
     private var millisecondLD: MutableLiveData<Long> = MutableLiveData()
-    private var averageTime: MutableLiveData<Long> = MutableLiveData()
+    var averageTime: MutableLiveData<Long> = MutableLiveData()
     private var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
     private var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
     private var gameState: MutableLiveData<Int> = MutableLiveData()
-    /* ---------------------- gameState
+    /* ---------------------- gameState ----------------------------------
     0 - not running
     1 - running red
     2 - running green
@@ -145,13 +145,19 @@ class Game2ViewModel @ViewModelInject constructor(
     }
 
     fun getAverageTimeAsString(): String{
-        val time: Float = averageTime.value!!.toFloat()/1000
+        val at: Long? = averageTime.value
+        var time: Float = 0F
+        if (at != null) {
+            time = at!!.toFloat() / 1000
+        }
         return time.toString() + "s"
     }
 
     private fun randomizeTime(): Int {
         return (2000..6000).random()
     }
+
+
 
 
 
@@ -185,8 +191,11 @@ class Game2ViewModel @ViewModelInject constructor(
     }
 
     fun getTotalTimeAsString(): String{
-        val time: Float = totalAverage.value!!.minus(totalAverage.value!!.rem(1000))
-        //context.resources.getString(R.string.wda)
+        if (totalAverage.value != null) {
+            val time: Float = totalAverage.value!!.minus(totalAverage.value!!.rem(1000))
+            return time.toString()
+        }
+            //context.resources.getString(R.string.wda)
         return " "
     }
 
