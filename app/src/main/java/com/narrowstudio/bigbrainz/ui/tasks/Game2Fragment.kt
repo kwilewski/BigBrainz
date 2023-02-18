@@ -25,21 +25,13 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     private lateinit var gameState: LiveData<Int>
     private lateinit var time: LiveData<Long>
 
+
+    // used by jetpack View Binding
     private var _binding: FragmentGame2Binding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        _binding = FragmentGame2Binding.inflate(inflater, container, false)
-//        val view = binding.root
-//        return view
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -51,16 +43,8 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?{
-        //super.onViewCreated(view, savedInstanceState)
-
-
         _binding = FragmentGame2Binding.inflate(inflater, container, false)
         val view = binding.root
-//        binding = FragmentGame2Binding.inflate(layoutInflater)
-//        val view = binding.root
-        //setContentView(view)
-
-        //g2ViewModel = ViewModelProvider(this).get(Game2ViewModel::class.java)
         g2ViewModel.init()
         g2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
             binding.g2Textview.text = g2ViewModel.getTimeAsString()
