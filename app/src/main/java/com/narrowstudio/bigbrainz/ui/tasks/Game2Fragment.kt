@@ -12,10 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import com.narrowstudio.bigbrainz.R
+import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_game_2.*
 
 @AndroidEntryPoint
 class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
@@ -25,14 +25,45 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     private lateinit var gameState: LiveData<Int>
     private lateinit var time: LiveData<Long>
 
+    private var _binding: FragmentGame2Binding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        _binding = FragmentGame2Binding.inflate(inflater, container, false)
+//        val view = binding.root
+//        return view
+//    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View?{
+        //super.onViewCreated(view, savedInstanceState)
+
+
+        _binding = FragmentGame2Binding.inflate(inflater, container, false)
+        val view = binding.root
+//        binding = FragmentGame2Binding.inflate(layoutInflater)
+//        val view = binding.root
+        //setContentView(view)
 
         //g2ViewModel = ViewModelProvider(this).get(Game2ViewModel::class.java)
         g2ViewModel.init()
         g2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
-            g2_textview.text = g2ViewModel.getTimeAsString()
+            binding.g2Textview.text = g2ViewModel.getTimeAsString()
         })
 
         timerViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
@@ -62,7 +93,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         g2ViewModel.saves.observe(viewLifecycleOwner) {
             //TODO stats
             if (g2ViewModel.saves.value?.size != 0) {
-                g2_textview.text = " amount of entries: " + g2ViewModel.saves.value!![0].averageTime
+                binding.g2Textview.text = "Average time: " //+ g2ViewModel.getTotalTimeAsString() //g2ViewModel.saves.value!![0].averageTime
             }
         }
 
@@ -72,40 +103,41 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         }*/
 
 
-        g2_button.setOnTouchListener(View.OnTouchListener{v, event ->
+        binding.g2Button.setOnTouchListener(View.OnTouchListener{v, event ->
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
+                    binding.g2Textview.text = "Average time: " + g2ViewModel.getTotalTimeAsString()
                     g2ViewModel.buttonPressed()
-                    g2_button.performClick()
+                    //g2_button.performClick()
                 }
             }
             true
         })
 
-
+        return view
     }
 
     private fun updateTimer() {
-        g2_textview.text = g2ViewModel.getTimeAsString()
+        binding.g2Textview.text = g2ViewModel.getTimeAsString()
     }
 
     private fun updateButtonColor(){
         when(gameState.value){
-            0 -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
-            2 -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
-            else -> g2_button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+            0 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+            2 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
+            else -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
         }
     }
 
     private fun gameFinished(){
-        g2_textview.text = "Your average time is: " + g2ViewModel.getAverageTimeAsString()
+        binding.g2Textview.text = "Your average time is: " + g2ViewModel.getAverageTimeAsString()
     }
 
     private fun restartGame(){
         if(g2ViewModel.getShouldGameBeRestarted().value == true) {
-            g2_textview.text = getString(R.string.game_over)
+            binding.g2Textview.text = getString(R.string.game_over)
         } else {
-            g2_textview.text = ""
+            binding.g2Textview.text = ""
         }
     }
 
