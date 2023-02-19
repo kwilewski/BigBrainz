@@ -7,11 +7,13 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.narrowstudio.bigbrainz.data.G2DBEntry
 import com.narrowstudio.bigbrainz.data.G2Dao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import javax.inject.Inject
 
-class Game2ViewModel @ViewModelInject constructor(
+@HiltViewModel
+class Game2ViewModel @Inject constructor(
     private val g2Dao: G2Dao
 ) : ViewModel() {
 
