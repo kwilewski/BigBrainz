@@ -11,7 +11,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
+//for Dagger 2.31+
 @HiltViewModel
 class Game2ViewModel @Inject constructor(
     private val g2Dao: G2Dao
@@ -78,6 +80,7 @@ class Game2ViewModel @Inject constructor(
     fun buttonPressed(){
         when (gameState.value){
             0 -> {
+                // starting the counter
                 val randomTime = randomizeTime()
                 setBlankTime(randomTime)
                 scope.launch {
@@ -110,8 +113,9 @@ class Game2ViewModel @Inject constructor(
                 for (i in 0 until entries){
                     sum += saves.value!![i].averageTime
                 }
-                totalAverage.postValue(sum.toFloat() / (entries * 1000))
+                totalAverage.postValue(sum.toFloat() / (entries * 1000).toFloat())
             }
+
         } else {
             totalAverage.postValue(2137f)
         }
@@ -123,6 +127,7 @@ class Game2ViewModel @Inject constructor(
         val repeats: Int = 5
         if (timeArray.size == repeats) {
             var average: Long = 0
+            // counting average time
             for (i in 0 until repeats){
                 average += timeArray[i]
                 if (i == repeats-1){ //if last step, divide the sum by repeats
@@ -133,6 +138,7 @@ class Game2ViewModel @Inject constructor(
             insertNewEntry()
             resetTimeArray()
             calculateTotalAverage()
+            gameState.postValue(0)
         }
 
     }
@@ -194,8 +200,9 @@ class Game2ViewModel @Inject constructor(
 
     fun getTotalTimeAsString(): String{
         if (totalAverage.value != null) {
-            val time: Float = totalAverage.value!!.minus(totalAverage.value!!.rem(1000))
-            return time.toString()
+            val time: Float = totalAverage.value!!
+            // TODO format the string to always show 3 places after dot
+            return String.format("%.3f", time)
         }
             //context.resources.getString(R.string.wda)
         return " "
