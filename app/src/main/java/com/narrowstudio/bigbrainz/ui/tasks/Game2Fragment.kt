@@ -77,7 +77,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         g2ViewModel.saves.observe(viewLifecycleOwner) {
             //TODO stats
             if (g2ViewModel.saves.value?.size != 0) {
-                binding.g2Textview.text = "Average time: " //+ g2ViewModel.getTotalTimeAsString() //g2ViewModel.saves.value!![0].averageTime
+                binding.g2Textview.text = "Average time: " + g2ViewModel.getTotalTimeAsString() //g2ViewModel.saves.value!![0].averageTime
             }
         }
 
