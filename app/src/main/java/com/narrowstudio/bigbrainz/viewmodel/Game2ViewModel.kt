@@ -198,10 +198,11 @@ class Game2ViewModel @Inject constructor(
         return shouldGameBeRestarted
     }
 
+    // function returns total average time as string
     fun getTotalTimeAsString(): String{
         if (totalAverage.value != null) {
             val time: Float = totalAverage.value!!
-            // TODO format the string to always show 3 places after dot
+            // formatting the string to show 3 digits after dot
             return String.format("%.3f", time)
         }
             //context.resources.getString(R.string.wda)

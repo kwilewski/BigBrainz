@@ -45,4 +45,7 @@
         android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2Fragment"
         android:label="fragment_game_2"
         tools:layout="@layout/fragment_game_2" />
+
+
+
 </navigation>
