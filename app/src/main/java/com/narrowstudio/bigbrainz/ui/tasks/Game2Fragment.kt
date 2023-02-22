@@ -11,6 +11,8 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
@@ -25,6 +27,10 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     private lateinit var gameState: LiveData<Int>
     private lateinit var time: LiveData<Long>
 
+    // opening score
+    private lateinit var openScore: LiveData<Boolean>
+
+    var navController : NavController? = null
 
     // used by jetpack View Binding
     private var _binding: FragmentGame2Binding? = null
@@ -45,6 +51,9 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
     ): View?{
         _binding = FragmentGame2Binding.inflate(inflater, container, false)
         val view = binding.root
+
+        navController = Navigation.findNavController(view)
+
         g2ViewModel.init()
         g2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
             binding.g2Textview.text = g2ViewModel.getTimeAsString()
@@ -80,6 +89,12 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
                 binding.g2Textview.text = "Average time: " + g2ViewModel.getTotalTimeAsString() //g2ViewModel.saves.value!![0].averageTime
             }
         }
+
+        //opening score fragment
+        openScore = g2ViewModel.openScore
+        openScore.observe(viewLifecycleOwner, Observer{
+            openScoreFragment()
+        })
 
 
         /*g2_button.setOnClickListener {
@@ -122,6 +137,12 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
             binding.g2Textview.text = getString(R.string.game_over)
         } else {
             binding.g2Textview.text = ""
+        }
+    }
+
+    private fun openScoreFragment(){
+        if (openScore.value == true) {
+            navController!!.navigate(R.id.action_game2Fragment_to_game2ScoreFragment)
         }
     }
 

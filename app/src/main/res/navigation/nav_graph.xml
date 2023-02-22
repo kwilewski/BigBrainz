@@ -44,8 +44,23 @@
         android:id="@+id/game2Fragment"
         android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2Fragment"
         android:label="fragment_game_2"
-        tools:layout="@layout/fragment_game_2" />
-
+        tools:layout="@layout/fragment_game_2" >
+        <action
+            android:id="@+id/action_game2Fragment_to_game2ScoreFragment"
+            app:destination="@id/game2ScoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game2ScoreFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2ScoreFragment"
+        android:label="fragment_game2_score"
+        tools:layout="@layout/fragment_game2_score" >
+        <action
+            android:id="@+id/action_game2ScoreFragment_to_game2Fragment"
+            app:destination="@id/game2Fragment" />
+        <action
+            android:id="@+id/action_game2ScoreFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 
 
 </navigation>

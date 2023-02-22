@@ -5,6 +5,9 @@ import android.os.Handler
 import android.os.Looper
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.data.G2DBEntry
 import com.narrowstudio.bigbrainz.data.G2Dao
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,12 +33,18 @@ class Game2ViewModel @Inject constructor(
     var averageTime: MutableLiveData<Long> = MutableLiveData()
     private var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
     private var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
+
+//    ---------------------- gameState ----------------------------------
+//    0 - not running
+//    1 - running red
+//    2 - running green
     private var gameState: MutableLiveData<Int> = MutableLiveData()
-    /* ---------------------- gameState ----------------------------------
-    0 - not running
-    1 - running red
-    2 - running green
-     */
+
+    // sends info to fragment to open score fragment
+    var openScore: MutableLiveData<Boolean> = MutableLiveData()
+
+
+
 
     val saves = g2Dao.getEntries().asLiveData()
     var totalAverage: MutableLiveData<Float> = MutableLiveData()
@@ -72,9 +81,12 @@ class Game2ViewModel @Inject constructor(
         millisecondLD.postValue(0)
         isButtonClickable.postValue(false)
         shouldGameBeRestarted.postValue(false)
+        openScore.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
         calculateTotalAverage()
+        // setting up NavController
+        // navController = Navigation.findNavController(view)
     }
 
     fun buttonPressed(){
@@ -121,6 +133,8 @@ class Game2ViewModel @Inject constructor(
         }
     }
 
+
+    // this function counts repeats and opens the score after 5
     private fun handleTimeArray(){
         // first add time to the array, then process
         timeArray.add(millisecondTime)
@@ -139,6 +153,7 @@ class Game2ViewModel @Inject constructor(
             resetTimeArray()
             calculateTotalAverage()
             gameState.postValue(0)
+            openScore()
         }
 
     }
@@ -246,6 +261,12 @@ class Game2ViewModel @Inject constructor(
         isButtonClickable.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
+    }
+
+
+    // opening score after the game
+    private fun openScore(){
+        openScore.postValue(true)
     }
 
 
