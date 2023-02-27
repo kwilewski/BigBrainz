@@ -3,7 +3,6 @@ package com.narrowstudio.bigbrainz.viewmodel
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
