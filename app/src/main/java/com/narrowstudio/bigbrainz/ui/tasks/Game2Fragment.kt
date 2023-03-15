@@ -13,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
@@ -52,7 +54,10 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         _binding = FragmentGame2Binding.inflate(inflater, container, false)
         val view = binding.root
 
-        navController = Navigation.findNavController(view)
+
+
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+
 
         g2ViewModel.init()
         g2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {

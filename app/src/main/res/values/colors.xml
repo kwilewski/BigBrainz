@@ -19,8 +19,8 @@
     <color name="colorAccent">#bb0000</color>
     <color name="colorAccentDark">#666666</color>
 
-    <color name="colorBackground">#000000</color>
-    <color name="colorBackgroundDark">#000000</color>
+    <color name="colorBackground">#99ff99</color>
+    <color name="colorBackgroundDark">#55dd55</color>
 
     <color name="colorBackground2">#cccccc</color>
     <color name="colorBackgroundDark2">#222222</color>

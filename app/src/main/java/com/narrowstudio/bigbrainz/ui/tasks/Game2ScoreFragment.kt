@@ -33,6 +33,8 @@ class Game2ScoreFragment : Fragment(R.layout.fragment_game2_score), LifecycleOwn
 
     private lateinit var viewModel: Game2ScoreViewModel
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +42,8 @@ class Game2ScoreFragment : Fragment(R.layout.fragment_game2_score), LifecycleOwn
         _binding = FragmentGame2ScoreBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        navController = Navigation.findNavController(view)
+
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
         // home button
         binding.g2scoreButtonHome.setOnClickListener(View.OnClickListener { view ->
