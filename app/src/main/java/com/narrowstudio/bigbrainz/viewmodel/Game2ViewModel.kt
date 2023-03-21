@@ -50,10 +50,7 @@ class Game2ViewModel @Inject constructor(
 
 
 
-
-
     private var handler = Handler(Looper.getMainLooper())
-
 
     private val scope = CoroutineScope(Dispatchers.Main)
 
@@ -84,8 +81,6 @@ class Game2ViewModel @Inject constructor(
         gameState.postValue(0)
         resetTimeArray()
         calculateTotalAverage()
-        // setting up NavController
-        // navController = Navigation.findNavController(view)
     }
 
     fun buttonPressed(){

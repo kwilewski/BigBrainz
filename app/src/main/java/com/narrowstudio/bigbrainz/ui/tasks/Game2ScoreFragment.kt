@@ -42,8 +42,19 @@ class Game2ScoreFragment : Fragment(R.layout.fragment_game2_score), LifecycleOwn
         _binding = FragmentGame2ScoreBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+
+
+
+
+
+        g2scoreViewModel.saves.observe(viewLifecycleOwner){
+            // opening database
+            setScores()
+        }
+
+        g2scoreViewModel.init()
+        setScores()
 
         // home button
         binding.g2scoreButtonHome.setOnClickListener(View.OnClickListener { view ->
@@ -55,12 +66,14 @@ class Game2ScoreFragment : Fragment(R.layout.fragment_game2_score), LifecycleOwn
             navController!!.navigate(R.id.action_game2ScoreFragment_to_game2Fragment)
         })
 
-        return inflater.inflate(R.layout.fragment_game2_score, container, false)
+        return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(Game2ScoreViewModel::class.java)
+    private fun setScores(){
+        g2scoreViewModel.getTimesFromDB()
+        binding.g2scoreScoreText.text = "your score: " + g2scoreViewModel.lastTime
+        binding.g2scoreAverageScoreText.text = "average score: " + g2scoreViewModel.averageTime
+
     }
 
 

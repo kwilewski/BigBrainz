@@ -34,7 +34,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
 
     var navController : NavController? = null
 
-    // used by jetpack View Binding
+    // View Binding
     private var _binding: FragmentGame2Binding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
