@@ -1,14 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kotlinVersion = '1.7.20'
+        kotlinVersion = '1.8.20'
         navigationVersion = '2.5.3'
         hiltVersion = '2.44'
     }
-    ext.kotlin_version = "1.5.30"
+    ext.kotlin_version = "1.8.20"
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.1'
@@ -22,7 +22,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -35,23 +35,26 @@ ext {
     // Sdk and tools
     minSdkVersion = 21
     targetSdkVersion = 33
+    targetSdkPreview = "UpsideDownCake"
     compileSdkVersion = 33
+    compileSdkPreview = "UpsideDownCake"
+
 
     // App dependencies
     appCompatVersion = '1.6.1'
-    constraintLayoutVersion = '2.1.3'
-    espressoVersion = '3.4.0'
+    constraintLayoutVersion = '2.1.4'
+    espressoVersion = '3.5.1'
     glideVersion = '4.11.0'
-    hiltAndroidXVersion = '1.0.0-alpha03'
-    junitVersion = '4.13.1'
-    ktxVersion = '1.7.0'
+    hiltAndroidXVersion = '1.0.0'
+    junitVersion = '4.13.2'
+    ktxVersion = '1.10.0'
     pagingVersion = '3.0.0-alpha09'
     retrofitVersion = '2.9.0'
-    testExtJunitVersion = '1.1.3'
-    lifecycleVersion = "2.4.1"
+    testExtJunitVersion = '1.1.5'
+    lifecycleVersion = '2.6.1'
     archVersion = "2.1.0"
-    materialVersion = "1.6.0-alpha03"
+    materialVersion = '1.10.0-alpha02'
     coroutinesVersion = "1.3.9"
-    roomVersion = "2.4.2"
+    roomVersion = '2.5.1'
     dataStoreVersion = "1.0.0"
 }

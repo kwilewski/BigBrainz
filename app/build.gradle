@@ -9,12 +9,16 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdk compileSdkVersion
+    compileSdkPreview compileSdkPreview
 
     defaultConfig {
         applicationId "com.narrowstudio.bigbrainz"
         minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        targetSdk rootProject.targetSdkVersion
+        targetSdkPreview rootProject.targetSdkPreview
+        compileSdk rootProject.compileSdkVersion
+        compileSdkPreview rootProject.compileSdkPreview
         versionCode 1
         versionName "1.0"
 
@@ -28,11 +32,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
     buildFeatures {

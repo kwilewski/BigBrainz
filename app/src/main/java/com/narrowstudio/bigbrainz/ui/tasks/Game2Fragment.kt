@@ -56,12 +56,14 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
 
 
 
+
+
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
 
         g2ViewModel.init()
         g2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
-            binding.g2Textview.text = g2ViewModel.getTimeAsString()
+
         })
 
         timerViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
@@ -70,7 +72,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         //updating timer text
         time = g2ViewModel.getTime()
         time.observe(viewLifecycleOwner, Observer {
-            updateTimer()
+
         } )
 
         //updating button color
@@ -80,7 +82,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         })
 
         g2ViewModel.getAverageTime().observe(viewLifecycleOwner, Observer {
-            gameFinished()
+
         })
         g2ViewModel.getShouldGameBeRestarted().observe(viewLifecycleOwner, Observer {
             restartGame()
@@ -89,10 +91,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
 
         //saves
         g2ViewModel.saves.observe(viewLifecycleOwner) {
-            //TODO stats
-            if (g2ViewModel.saves.value?.size != 0) {
-                binding.g2Textview.text = "Average time: " + g2ViewModel.getTotalTimeAsString() //g2ViewModel.saves.value!![0].averageTime
-            }
+
         }
 
         //opening score fragment
@@ -110,7 +109,6 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         binding.g2Button.setOnTouchListener(View.OnTouchListener{v, event ->
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
-                    binding.g2Textview.text = "Average time: " + g2ViewModel.getTotalTimeAsString()
                     g2ViewModel.buttonPressed()
                     //g2_button.performClick()
                 }
@@ -118,12 +116,12 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
             true
         })
 
+
+
+
         return view
     }
 
-    private fun updateTimer() {
-        binding.g2Textview.text = g2ViewModel.getTimeAsString()
-    }
 
     private fun updateButtonColor(){
         when(gameState.value){
@@ -133,9 +131,6 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         }
     }
 
-    private fun gameFinished(){
-        binding.g2Textview.text = "Your average time is: " + g2ViewModel.getAverageTimeAsString()
-    }
 
     private fun restartGame(){
         if(g2ViewModel.getShouldGameBeRestarted().value == true) {

@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.narrowstudio.bigbrainz.viewmodel.Game2ScoreViewModel
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
@@ -48,6 +50,7 @@ class Game2ScoreFragment : Fragment(R.layout.fragment_game2_score), LifecycleOwn
 
 
 
+
         g2scoreViewModel.saves.observe(viewLifecycleOwner){
             // opening database
             setScores()
@@ -66,13 +69,30 @@ class Game2ScoreFragment : Fragment(R.layout.fragment_game2_score), LifecycleOwn
             navController!!.navigate(R.id.action_game2ScoreFragment_to_game2Fragment)
         })
 
+        /*requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    //navController!!.navigate(R.id.action_game2ScoreFragment_to_game2Fragment)
+                    findNavController().navigate(R.id.action_game2ScoreFragment_to_game2Fragment)
+                }
+            }
+        )*/
+
+
+
         return view
     }
 
+
+
+
+
     private fun setScores(){
         g2scoreViewModel.getTimesFromDB()
-        binding.g2scoreScoreText.text = "your score: " + g2scoreViewModel.lastTime
-        binding.g2scoreAverageScoreText.text = "average score: " + g2scoreViewModel.averageTime
+        binding.g2scoreScoreText.text = "your score: " + g2scoreViewModel.lastTimeString
+        binding.g2scoreBestScoreText.text = "best score: " + g2scoreViewModel.bestTimeString
+        binding.g2scoreAverageScoreText.text = "average score: " + g2scoreViewModel.averageTimeString
 
     }
 

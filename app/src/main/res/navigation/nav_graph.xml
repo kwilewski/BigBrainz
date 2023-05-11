@@ -51,6 +51,11 @@
         <action
             android:id="@+id/action_game2Fragment_to_game2ScoreFragment"
             app:destination="@id/game2ScoreFragment" />
+        <action
+            android:id="@+id/action_game2Fragment_to_game2SelectionFragment"
+            app:destination="@id/game2SelectionFragment"
+            app:popUpTo="@+id/game2SelectionFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/game2ScoreFragment"
@@ -59,10 +64,14 @@
         tools:layout="@layout/fragment_game2_score" >
         <action
             android:id="@+id/action_game2ScoreFragment_to_game2Fragment"
-            app:destination="@id/game2Fragment" />
+            app:destination="@id/game2Fragment"
+            app:popUpTo="@+id/game2Fragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_game2ScoreFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@+id/mainScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 

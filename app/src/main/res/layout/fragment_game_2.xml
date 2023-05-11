@@ -23,7 +23,8 @@
         app:layout_constraintBottom_toTopOf="@+id/gl_g2_h_4"
         tools:text="Clickable Area"
         app:layout_constraintLeft_toRightOf="parent"
-        android:background="@color/colorButtonWaiting"/>
+        android:background="@color/colorButtonWaiting"
+        android:src="@drawable/ic_baseline_touch"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_g2_h_1"
@@ -57,7 +58,7 @@
         android:id="@+id/g2_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
+        android:textSize="40sp"
         tools:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
