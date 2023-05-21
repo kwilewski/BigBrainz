@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_game2SelectionFragment_to_game2ScoreFragment"
             app:destination="@id/game2ScoreFragment" />
+        <action
+            android:id="@+id/action_game2SelectionFragment_to_game2l2Fragment"
+            app:destination="@id/game2l2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/game2Fragment"
@@ -71,6 +74,17 @@
             android:id="@+id/action_game2ScoreFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment"
             app:popUpTo="@+id/mainScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/game2l2Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2l2Fragment"
+        android:label="fragment_game_2_l_2"
+        tools:layout="@layout/fragment_game_2_l_2" >
+        <action
+            android:id="@+id/action_game2l2Fragment_to_game2SelectionFragment"
+            app:destination="@id/game2SelectionFragment"
+            app:popUpTo="@+id/game2SelectionFragment"
             app:popUpToInclusive="true" />
     </fragment>
 

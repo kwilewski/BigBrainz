@@ -25,7 +25,7 @@ class Game2SelectionFragment : Fragment(R.layout.fragment_game_2_selection), Vie
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.g2s_m1_button -> navController!!.navigate(R.id.action_game2SelectionFragment_to_game2Fragment)
-            R.id.g2s_m2_button -> navController!!.navigate(R.id.action_game2SelectionFragment_to_game2ScoreFragment)
+            R.id.g2s_m2_button -> navController!!.navigate(R.id.action_game2SelectionFragment_to_game2l2Fragment)
             R.id.g2s_m3_button -> navController!!.navigate(R.id.action_game2SelectionFragment_to_game2Fragment)
         }
     }

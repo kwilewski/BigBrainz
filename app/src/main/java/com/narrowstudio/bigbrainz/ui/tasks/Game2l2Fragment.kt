@@ -6,16 +6,11 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
@@ -23,7 +18,7 @@ import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
+class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
 
     private val g2ViewModel : Game2ViewModel by viewModels()
     private lateinit var timerViewModel: TimerViewModel
