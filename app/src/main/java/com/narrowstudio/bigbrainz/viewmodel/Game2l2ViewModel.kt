@@ -22,21 +22,21 @@ class Game2l2ViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private var blankTime:Long = 0
-    private var timeArray: ArrayList<Long> = ArrayList()
+    var blankTime:Long = 0
+    var timeArray: ArrayList<Long> = ArrayList()
 
-    private var startTime: Long = 0
-    private var millisecondTime: Long = 0
-    private var millisecondLD: MutableLiveData<Long> = MutableLiveData()
+    var startTime: Long = 0
+    var millisecondTime: Long = 0
+    var millisecondLD: MutableLiveData<Long> = MutableLiveData()
     var averageTime: MutableLiveData<Long> = MutableLiveData()
-    private var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
-    private var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
+    var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
+    var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
 
 //    ---------------------- gameState ----------------------------------
 //    0 - not running
 //    1 - running red
 //    2 - running green
-    private var gameState: MutableLiveData<Int> = MutableLiveData()
+    var gameState: MutableLiveData<Int> = MutableLiveData()
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()

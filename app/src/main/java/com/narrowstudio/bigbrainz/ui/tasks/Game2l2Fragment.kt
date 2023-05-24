@@ -14,13 +14,14 @@ import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
+import com.narrowstudio.bigbrainz.viewmodel.Game2l2ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
 
-    private val g2ViewModel : Game2ViewModel by viewModels()
+    private val g2l2ViewModel : Game2l2ViewModel by viewModels()
     private lateinit var timerViewModel: TimerViewModel
     private lateinit var gameState: LiveData<Int>
     private lateinit var time: LiveData<Long>
@@ -57,41 +58,41 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
 
-        g2ViewModel.init()
-        g2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
+        g2l2ViewModel.init()
+        g2l2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
 
         })
 
-        timerViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
+        timerViewModel = ViewModelProvider(this)[TimerViewModel::class.java]
         timerViewModel.init()
 
         //updating timer text
-        time = g2ViewModel.getTime()
+        time = g2l2ViewModel.millisecondLD
         time.observe(viewLifecycleOwner, Observer {
 
         } )
 
         //updating button color
-        gameState = g2ViewModel.getGameState()
+        gameState = g2l2ViewModel.gameState
         gameState.observe(viewLifecycleOwner, Observer {
             updateButtonColor()
         })
 
-        g2ViewModel.getAverageTime().observe(viewLifecycleOwner, Observer {
+        g2l2ViewModel.averageTime.observe(viewLifecycleOwner, Observer {
 
         })
-        g2ViewModel.getShouldGameBeRestarted().observe(viewLifecycleOwner, Observer {
+        g2l2ViewModel.shouldGameBeRestarted.observe(viewLifecycleOwner, Observer {
             restartGame()
         })
 
 
         //saves
-        g2ViewModel.saves.observe(viewLifecycleOwner) {
+        g2l2ViewModel.saves.observe(viewLifecycleOwner) {
 
         }
 
         //opening score fragment
-        openScore = g2ViewModel.openScore
+        openScore = g2l2ViewModel.openScore
         openScore.observe(viewLifecycleOwner, Observer{
             openScoreFragment()
         })
@@ -105,8 +106,8 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         binding.g2Button.setOnTouchListener(View.OnTouchListener{v, event ->
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
-                    g2ViewModel.buttonPressed()
-                    //g2_button.performClick()
+                    g2l2ViewModel.buttonPressed()
+                    //binding.g2Button.performClick()
                 }
             }
             true
@@ -129,7 +130,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
 
 
     private fun restartGame(){
-        if(g2ViewModel.getShouldGameBeRestarted().value == true) {
+        if(g2l2ViewModel.shouldGameBeRestarted.value == true) {
             binding.g2Textview.text = getString(R.string.game_over)
         } else {
             binding.g2Textview.text = ""
