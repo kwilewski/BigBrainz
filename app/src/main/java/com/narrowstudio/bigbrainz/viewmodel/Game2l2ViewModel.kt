@@ -1,6 +1,5 @@
 package com.narrowstudio.bigbrainz.viewmodel
 
-import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.*
@@ -22,7 +21,7 @@ class Game2l2ViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    var blankTime:Long = 0
+    var blankTime: Long = 0
     var timeArray: ArrayList<Long> = ArrayList()
 
     var startTime: Long = 0
@@ -32,17 +31,22 @@ class Game2l2ViewModel @Inject constructor(
     var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
     var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
 
-//    ---------------------- gameState ----------------------------------
-//    0 - not running
-//    1 - running red
-//    2 - running green
+    /**    ---------------------- gameState ----------------------------------
+     *     0 - not running
+     *     1 - running "red" - all but green
+     *     2 - running green
+     */
     var gameState: MutableLiveData<Int> = MutableLiveData()
+
+    // sends color to the fragment
+    var currentButtonColor: MutableLiveData<Int> = MutableLiveData()
+    private var colorCounter: Int = 0
+    private val maxColorCounter: Int = 6
+    lateinit var colorList: IntArray
+    //val colorList: IntArray = intArrayOf(R.color.g2l2Green, R.color.g2l2Red, R.color.g2l2Blue, R.color.g2l2Yellow)
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
-
-
-
 
     val saves = g2Dao.getEntries().asLiveData()
     var totalAverage: MutableLiveData<Float> = MutableLiveData()
@@ -55,15 +59,13 @@ class Game2l2ViewModel @Inject constructor(
 
     private var runnable: Runnable = object:  Runnable {
         override fun run(){
-            if(System.currentTimeMillis() >= blankTime) {
-                millisecondTime = System.currentTimeMillis() - blankTime
-                millisecondLD.postValue(millisecondTime)
-                if (gameState.value != 2){
-                    gameState.postValue(2)
-                }
-            } else {
-                if (gameState.value != 1){
-                    gameState.postValue(1)
+            if (System.currentTimeMillis() >= blankTime){
+                if (currentButtonColor.value == R.color.g2l2Green){
+                    millisecondTime = System.currentTimeMillis() - blankTime
+                    millisecondLD.postValue(millisecondTime)
+                } else {
+                    buttonColorHandler()
+                    setBlankTime(randomizeTime())
                 }
             }
             handler.postDelayed(this, 1)
@@ -78,6 +80,7 @@ class Game2l2ViewModel @Inject constructor(
         shouldGameBeRestarted.postValue(false)
         openScore.postValue(false)
         gameState.postValue(0)
+        colorCounter = 0
         resetTimeArray()
         calculateTotalAverage()
     }
@@ -91,7 +94,9 @@ class Game2l2ViewModel @Inject constructor(
                 scope.launch {
                     startTimer()
                 }
+                colorCounter = 0
                 isButtonClickable.postValue(false)
+                buttonColorHandler()
                 gameState.postValue(1)
             }
             1 -> {
@@ -106,6 +111,37 @@ class Game2l2ViewModel @Inject constructor(
             }
         }
 
+    }
+
+    private fun buttonColorHandler(){
+        // always start with red
+        if(gameState.value == 0) {
+            currentButtonColor.postValue(R.color.g2l2Red)
+            colorCounter++
+            return
+        }
+
+        // when restarting show grey
+        if (gameState.value == 2){
+            colorCounter = 0
+            currentButtonColor.postValue(R.color.colorButtonWaiting)
+            return
+        }
+
+        // if color counter reaches max show green
+        if (colorCounter > maxColorCounter){
+            currentButtonColor.postValue(R.color.g2l2Green)
+            gameState.postValue(2)
+            return
+        }
+
+        // randomize new color
+        val newColorIndex = randomizeColor()
+        if (colorList[newColorIndex] == R.color.g2l2Green){
+            gameState.postValue(2)
+        }
+        colorCounter++
+        currentButtonColor.postValue(colorList[newColorIndex])
     }
 
     private fun calculateTotalAverage(){
@@ -170,7 +206,11 @@ class Game2l2ViewModel @Inject constructor(
     }
 
     private fun randomizeTime(): Int {
-        return (2000..6000).random()
+        return (500..1500).random()
+    }
+
+    private fun randomizeColor(): Int {
+        return (colorList.indices).random()
     }
 
 
@@ -225,6 +265,7 @@ class Game2l2ViewModel @Inject constructor(
         isButtonClickable.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
+        colorCounter = 0
     }
 
 

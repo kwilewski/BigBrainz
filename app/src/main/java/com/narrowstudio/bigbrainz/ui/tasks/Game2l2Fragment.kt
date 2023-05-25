@@ -59,6 +59,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
 
 
         g2l2ViewModel.init()
+        g2l2ViewModel.colorList = requireContext().resources.getIntArray(R.array.g2l2)
         g2l2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
 
         })
@@ -95,6 +96,11 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         openScore = g2l2ViewModel.openScore
         openScore.observe(viewLifecycleOwner, Observer{
             openScoreFragment()
+        })
+
+
+        g2l2ViewModel.currentButtonColor.observe(viewLifecycleOwner, Observer {
+            binding.g2Button.setBackgroundColor(g2l2ViewModel.currentButtonColor.value!!)
         })
 
 

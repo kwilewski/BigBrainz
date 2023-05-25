@@ -47,4 +47,17 @@
     <color name="colorButtonCheckedText">#cccccc</color>
 
     <color name="colorIconBackground">#77ccff</color>
+
+    <color name="g2l2Red">#bb0000</color>
+    <color name="g2l2Green">#00bb00</color>
+    <color name="g2l2Blue">#1188ff</color>
+    <color name="g2l2Yellow">#dddd00</color>
+    
+    <array name="g2l2">
+        <item>@color/g2l2Green</item>
+        <item>@color/g2l2Red</item>
+        <item>@color/g2l2Blue</item>
+        <item>@color/g2l2Yellow</item>
+    </array>
+
 </resources>
