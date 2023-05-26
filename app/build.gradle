@@ -16,9 +16,9 @@ android {
         applicationId "com.narrowstudio.bigbrainz"
         minSdkVersion rootProject.minSdkVersion
         targetSdk rootProject.targetSdkVersion
-        targetSdkPreview rootProject.targetSdkPreview
+        //targetSdkPreview rootProject.targetSdkPreview
         compileSdk rootProject.compileSdkVersion
-        compileSdkPreview rootProject.compileSdkPreview
+        //compileSdkPreview rootProject.compileSdkPreview
         versionCode 1
         versionName "1.0"
 

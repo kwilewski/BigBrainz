@@ -118,6 +118,7 @@ class Game2l2ViewModel @Inject constructor(
         if(gameState.value == 0) {
             currentButtonColor.postValue(R.color.g2l2Red)
             colorCounter++
+            shouldGameBeRestarted.postValue(false)
             return
         }
 
@@ -137,8 +138,9 @@ class Game2l2ViewModel @Inject constructor(
 
         // randomize new color
         val newColorIndex = randomizeColor()
-        if (colorList[newColorIndex] == R.color.g2l2Green){
+        if (newColorIndex == 0){
             gameState.postValue(2)
+            isButtonClickable.postValue(true)
         }
         colorCounter++
         currentButtonColor.postValue(colorList[newColorIndex])
