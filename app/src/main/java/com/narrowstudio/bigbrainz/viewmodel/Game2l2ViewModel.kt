@@ -60,7 +60,7 @@ class Game2l2ViewModel @Inject constructor(
     private var runnable: Runnable = object:  Runnable {
         override fun run(){
             if (System.currentTimeMillis() >= blankTime){
-                if (currentButtonColor.value == R.color.g2l2Green){
+                if (gameState.value == 2){
                     millisecondTime = System.currentTimeMillis() - blankTime
                     millisecondLD.postValue(millisecondTime)
                 } else {
@@ -103,8 +103,7 @@ class Game2l2ViewModel @Inject constructor(
                 restartGame()
             }
             2 -> {
-                millisecondTime = stopTimer()
-                millisecondLD.postValue(millisecondTime)
+                stopTimer()
                 isButtonClickable.postValue(false)
                 handleTimeArray()
                 gameState.postValue(0)
@@ -152,7 +151,7 @@ class Game2l2ViewModel @Inject constructor(
             var sum: Long = 0
 
             //summing total average time of saved entries
-            if(entries != null && entries > 1) {
+            if((entries != null) && (entries > 1)) {
                 for (i in 0 until entries){
                     sum += saves.value!![i].averageTime
                 }
@@ -160,7 +159,7 @@ class Game2l2ViewModel @Inject constructor(
             }
 
         } else {
-            totalAverage.postValue(2137f)
+            totalAverage.postValue(0f)
         }
     }
 
@@ -168,7 +167,9 @@ class Game2l2ViewModel @Inject constructor(
     // this function counts repeats and opens the score after 5
     private fun handleTimeArray(){
         // first add time to the array, then process
+        println("time in array: " + millisecondTime)
         timeArray.add(millisecondTime)
+        println("time in array: " + timeArray.get(0))
         val repeats: Int = 5
         if (timeArray.size == repeats) {
             var average: Long = 0
@@ -245,10 +246,9 @@ class Game2l2ViewModel @Inject constructor(
         //}
     }
 
-    private fun stopTimer(): Long{
+    private fun stopTimer(){
         handler.removeCallbacks(runnable)
         gameState.postValue(0)
-        return millisecondTime
     }
 
     private fun resetTimeArray(){
@@ -268,6 +268,8 @@ class Game2l2ViewModel @Inject constructor(
         gameState.postValue(0)
         resetTimeArray()
         colorCounter = 0
+        millisecondTime = 0
+        millisecondLD.postValue(0)
     }
 
 
