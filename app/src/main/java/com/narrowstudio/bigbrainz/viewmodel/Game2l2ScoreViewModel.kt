@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 //for Dagger 2.31+
 @HiltViewModel
-class Game2ScoreViewModel @Inject constructor(
+class Game2l2ScoreViewModel @Inject constructor(
     private val g2Dao: G2Dao
 ): ViewModel() {
 
@@ -22,7 +22,7 @@ class Game2ScoreViewModel @Inject constructor(
     var lastTimeString: String = ""
     var bestTimeString: String = ""
     var averageTimeString: String = ""
-    val gameID: Int = 201
+    val gameID: Int = 202
 
     val saves = g2Dao.getEntries().asLiveData()
     private var savesList: MutableList<G2DBEntry> = mutableListOf()
@@ -89,7 +89,7 @@ class Game2ScoreViewModel @Inject constructor(
     }
 
     private fun formatLastTime(){
-            // formatting the string to show 3 digits after dot
+        // formatting the string to show 3 digits after dot
         lastTimeString = String.format("%.3f", lastTime)
     }
 

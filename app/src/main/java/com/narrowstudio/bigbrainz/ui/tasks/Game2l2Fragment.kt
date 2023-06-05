@@ -147,7 +147,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
     private fun openScoreFragment(){
         if (openScore.value == true) {
             //Game2ScoreFragment().show((activity as AppCompatActivity).supportFragmentManager, "Score")
-            //navController!!.navigate(R.id.action_game2Fragment_to_game2ScoreFragment)
+            navController!!.navigate(R.id.action_game2l2Fragment_to_game2l2ScoreFragment)
         }
     }
 
