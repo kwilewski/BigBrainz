@@ -65,7 +65,6 @@ class Game2l2ViewModel @Inject constructor(
                     millisecondLD.postValue(millisecondTime)
                 } else {
                     buttonColorHandler()
-                    setBlankTime(randomizeTime())
                 }
             }
             handler.postDelayed(this, 1)
@@ -94,6 +93,7 @@ class Game2l2ViewModel @Inject constructor(
                 scope.launch {
                     startTimer()
                 }
+                millisecondTime = 0
                 colorCounter = 0
                 isButtonClickable.postValue(false)
                 buttonColorHandler()
@@ -130,8 +130,9 @@ class Game2l2ViewModel @Inject constructor(
 
         // if color counter reaches max show green
         if (colorCounter > maxColorCounter){
-            currentButtonColor.postValue(R.color.g2l2Green)
+            currentButtonColor.postValue(colorList[0])
             gameState.postValue(2)
+            isButtonClickable.postValue(true)
             return
         }
 
@@ -140,6 +141,9 @@ class Game2l2ViewModel @Inject constructor(
         if (newColorIndex == 0){
             gameState.postValue(2)
             isButtonClickable.postValue(true)
+        } else {
+            //if the button is green, go without setting new threshold for timer, otherwise set new
+            setBlankTime(randomizeTime())
         }
         colorCounter++
         currentButtonColor.postValue(colorList[newColorIndex])
@@ -167,9 +171,7 @@ class Game2l2ViewModel @Inject constructor(
     // this function counts repeats and opens the score after 5
     private fun handleTimeArray(){
         // first add time to the array, then process
-        println("time in array: " + millisecondTime)
         timeArray.add(millisecondTime)
-        println("time in array: " + timeArray.get(0))
         val repeats: Int = 5
         if (timeArray.size == repeats) {
             var average: Long = 0
