@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.Game2l2Fragment">
+    tools:context=".ui.tasks.Game2l3Fragment">
 
     <ImageView
         android:id="@+id/g2_logo"

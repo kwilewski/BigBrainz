@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.Game2l2ScoreFragment">
+    tools:context=".ui.tasks.Game2l3ScoreFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_g2score_h_1"
