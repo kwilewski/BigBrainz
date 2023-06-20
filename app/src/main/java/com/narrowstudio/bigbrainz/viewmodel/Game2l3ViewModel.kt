@@ -43,6 +43,7 @@ class Game2l3ViewModel @Inject constructor(
     private var colorCounter: Int = 0
     private val maxColorCounter: Int = 6
     lateinit var colorList: IntArray
+    var colorNameList = arrayOf<String>()
     //val colorList: IntArray = intArrayOf(R.color.g2l2Green, R.color.g2l2Red, R.color.g2l2Blue, R.color.g2l2Yellow)
 
     // sends info to fragment to open score fragment
@@ -285,7 +286,7 @@ class Game2l3ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
         scope.launch {
-            g2Dao.insert(G2DBEntry(202, averageTime.value!!))
+            g2Dao.insert(G2DBEntry(203, averageTime.value!!))
         }
     }
 

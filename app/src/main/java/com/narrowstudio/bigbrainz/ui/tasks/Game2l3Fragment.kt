@@ -61,6 +61,9 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
         g2l3ViewModel.init()
         //passing color array to VM
         g2l3ViewModel.colorList = requireContext().resources.getIntArray(R.array.g2l2)
+        //passing color names to VM
+        g2l3ViewModel.colorNameList = requireContext().resources.getStringArray(R.array.g2l3_color_names)
+
         g2l3ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
 
         })
