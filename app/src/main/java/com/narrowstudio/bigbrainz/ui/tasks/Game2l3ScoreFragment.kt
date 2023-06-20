@@ -29,7 +29,7 @@ class Game2l3ScoreFragment : Fragment(R.layout.fragment_game_2_l_3_score), Lifec
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: Game2ScoreViewModel
+    private lateinit var viewModel: Game2l3ScoreViewModel
 
 
 
