@@ -33,21 +33,30 @@ class Game2l3ViewModel @Inject constructor(
 
     /**    ---------------------- gameState ----------------------------------
      *     0 - not running
-     *     1 - running "red" - all but green
-     *     2 - running green
+     *     1 - running red button - no text
+     *     1 - running not matching - text do not match color
+     *     2 - running text matching
      */
     var gameState: MutableLiveData<Int> = MutableLiveData()
 
     // sends color to the fragment
     var currentButtonColor: MutableLiveData<Int> = MutableLiveData()
+    //sends color name to the fragment
+    var currentColorName: MutableLiveData<String> = MutableLiveData()
     private var colorCounter: Int = 0
     private val maxColorCounter: Int = 6
+    // chance of getting the same color and name - in percent
+    private val chanceOfMatch: Int = 33
     lateinit var colorList: IntArray
     var colorNameList = arrayOf<String>()
-    //val colorList: IntArray = intArrayOf(R.color.g2l2Green, R.color.g2l2Red, R.color.g2l2Blue, R.color.g2l2Yellow)
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
+
+    // true when the button should display the icon
+    var buttonImageStatus: MutableLiveData<Boolean> = MutableLiveData()
+    // true when the button should display the text
+    var buttonTextStatus: MutableLiveData<Boolean> = MutableLiveData()
 
     val saves = g2Dao.getEntries().asLiveData()
     var totalAverage: MutableLiveData<Float> = MutableLiveData()
@@ -83,6 +92,8 @@ class Game2l3ViewModel @Inject constructor(
         colorCounter = 0
         resetTimeArray()
         calculateTotalAverage()
+        buttonImageStatus.postValue(true)
+        buttonTextStatus.postValue(false)
     }
 
     fun buttonPressed(){
@@ -106,6 +117,7 @@ class Game2l3ViewModel @Inject constructor(
             2 -> {
                 stopTimer()
                 isButtonClickable.postValue(false)
+                buttonTextStatus.postValue(false)
                 handleTimeArray()
                 gameState.postValue(0)
             }
@@ -119,6 +131,8 @@ class Game2l3ViewModel @Inject constructor(
             currentButtonColor.postValue(R.color.g2l2Red)
             colorCounter++
             shouldGameBeRestarted.postValue(false)
+            buttonImageStatus.postValue(false)
+            buttonTextStatus.postValue(false)
             return
         }
 
@@ -126,28 +140,45 @@ class Game2l3ViewModel @Inject constructor(
         if (gameState.value == 2){
             colorCounter = 0
             currentButtonColor.postValue(R.color.colorButtonWaiting)
+            buttonTextStatus.postValue(false)
+            buttonImageStatus.postValue(true)
             return
         }
 
         // if color counter reaches max show green
         if (colorCounter > maxColorCounter){
-            currentButtonColor.postValue(colorList[0])
+            val randomColor = randomizeColor()
+            buttonTextStatus.postValue(true)
+            currentButtonColor.postValue(colorList[randomColor])
+            currentColorName.postValue(colorNameList[randomColor])
             gameState.postValue(2)
             isButtonClickable.postValue(true)
             return
         }
 
-        // randomize new color
-        val newColorIndex = randomizeColor()
-        if (newColorIndex == 0){
+        // randomize if colors match
+        val matchingColors = randomizeMatch()
+        if (matchingColors){
             gameState.postValue(2)
             isButtonClickable.postValue(true)
+            val randomColor = randomizeColor()
+            buttonTextStatus.postValue(true)
+            currentButtonColor.postValue(colorList[randomColor])
+            currentColorName.postValue(colorNameList[randomColor])
         } else {
-            //if the button is green, go without setting new threshold for timer, otherwise set new
+            // randomize colors, reroll when are the same
+            val colorIndex = randomizeColor()
+            var colorNameIndex = randomizeColorName()
+            while (colorNameIndex == colorIndex){
+                colorNameIndex = randomizeColorName()
+            }
+            buttonTextStatus.postValue(true)
+            currentButtonColor.postValue(colorList[colorIndex])
+            currentColorName.postValue(colorNameList[colorNameIndex])
             setBlankTime(randomizeTime())
         }
+
         colorCounter++
-        currentButtonColor.postValue(colorList[newColorIndex])
     }
 
     private fun calculateTotalAverage(){
@@ -219,6 +250,16 @@ class Game2l3ViewModel @Inject constructor(
         return (colorList.indices).random()
     }
 
+    private fun randomizeColorName(): Int {
+        return (colorNameList.indices).random()
+    }
+
+    private fun randomizeMatch(): Boolean {
+        val randomNumber = (1 .. 100).random()
+        if (randomNumber <= chanceOfMatch) return true
+        return false
+    }
+
 
 
 
@@ -262,6 +303,8 @@ class Game2l3ViewModel @Inject constructor(
 
     private fun restartGame(){
         shouldGameBeRestarted.postValue(true)
+        buttonTextStatus.postValue(false)
+        buttonImageStatus.postValue(true)
         resetValues()
     }
 

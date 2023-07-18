@@ -63,12 +63,12 @@ class Game2l2ScoreFragment : Fragment(R.layout.fragment_game_2_l_2_score), Lifec
 
         // home button
         binding.g2scoreButtonHome.setOnClickListener(View.OnClickListener { view ->
-            navController!!.navigate(R.id.action_game2ScoreFragment_to_mainScreenFragment)
+            navController!!.navigate(R.id.action_game2l2ScoreFragment_to_mainScreenFragment)
         })
 
         // repeat button
         binding.g2scoreButtonRepeat.setOnClickListener(View.OnClickListener { view ->
-            navController!!.navigate(R.id.action_game2ScoreFragment_to_game2Fragment)
+            navController!!.navigate(R.id.action_game2l2ScoreFragment_to_game2l2Fragment)
         })
 
         /*requireActivity().onBackPressedDispatcher.addCallback(

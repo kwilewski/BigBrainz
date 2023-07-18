@@ -15,18 +15,35 @@
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintLeft_toRightOf="parent" />
 
-    <ImageButton
-        android:id="@+id/g2_button"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorButtonWaiting"
-        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/gl_g2_h_4"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gl_g2_h_3"
-        tools:text="Clickable Area" />
-<!--        android:src="@drawable/ic_baseline_touch"-->
-        />
+        android:id="@+id/frame_g2l3_w_button">
+        <ImageButton
+            android:id="@+id/g2_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorButtonWaiting"
+            android:textAlignment="center"
+            android:src="@drawable/ic_baseline_touch"
+            />
+
+        <TextView
+            android:id="@+id/g2l3_color_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/g2l2Red"
+            android:clickable="false"
+            tools:text="Clickable Area" />
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_g2_h_1"
@@ -64,7 +81,7 @@
         tools:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/g2_button" />
+        app:layout_constraintTop_toBottomOf="@+id/frame_g2l3_w_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

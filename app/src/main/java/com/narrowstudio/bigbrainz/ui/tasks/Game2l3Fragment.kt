@@ -1,6 +1,7 @@
 package com.narrowstudio.bigbrainz.ui.tasks
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -13,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
+import com.narrowstudio.bigbrainz.databinding.FragmentGame2L3Binding
 import com.narrowstudio.bigbrainz.viewmodel.Game2l2ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.Game2l3ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
@@ -32,7 +34,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
     var navController : NavController? = null
 
     // View Binding
-    private var _binding: FragmentGame2Binding? = null
+    private var _binding: FragmentGame2L3Binding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -48,7 +50,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?{
-        _binding = FragmentGame2Binding.inflate(inflater, container, false)
+        _binding = FragmentGame2L3Binding.inflate(inflater, container, false)
         val view = binding.root
 
 
@@ -104,14 +106,21 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
 
 
         g2l3ViewModel.currentButtonColor.observe(viewLifecycleOwner, Observer {
-            binding.g2Button.setBackgroundColor(g2l3ViewModel.currentButtonColor.value!!)
+            updateButtonColor()
+        })
+
+        g2l3ViewModel.currentColorName.observe(viewLifecycleOwner, Observer{
+            updateButtonText()
         })
 
 
-        /*g2_button.setOnClickListener {
-            g2ViewModel.buttonPressed()
-        }*/
+        g2l3ViewModel.buttonImageStatus.observe(viewLifecycleOwner, Observer {
+            updateButtonIcon()
+        })
 
+        g2l3ViewModel.buttonTextStatus.observe(viewLifecycleOwner, Observer{
+            updateButtonText()
+        })
 
         binding.g2Button.setOnTouchListener(View.OnTouchListener{v, event ->
             when(event.action){
@@ -133,9 +142,30 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
     private fun updateButtonColor(){
         when(gameState.value){
             0 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
-            2 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
-            else -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+            else -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+                binding.g2l3ColorLabel.setTextColor(g2l3ViewModel.currentButtonColor.value!!)
+            }
         }
+    }
+
+    private fun updateButtonIcon(){
+        if(g2l3ViewModel.buttonImageStatus.value!!){
+            binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
+            Log.d("", "button icon set to ic_baseline_touch")
+            return
+        }
+        binding.g2Button.setImageDrawable(null)
+    }
+
+    private fun updateButtonText(){
+        println("updateButtonText()")
+        if(g2l3ViewModel.buttonTextStatus.value!!){
+            binding.g2l3ColorLabel.text = g2l3ViewModel.currentColorName.value
+            println("should be color")
+            return
+        }
+        binding.g2l3ColorLabel.text = null
     }
 
 

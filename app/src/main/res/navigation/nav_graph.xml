@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_game2SelectionFragment_to_game2l2Fragment"
             app:destination="@id/game2l2Fragment" />
+        <action
+            android:id="@+id/action_game2SelectionFragment_to_game2l3Fragment"
+            app:destination="@id/game2l3Fragment" />
     </fragment>
     <fragment
         android:id="@+id/game2Fragment"
