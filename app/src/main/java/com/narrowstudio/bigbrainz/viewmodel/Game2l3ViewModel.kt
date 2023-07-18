@@ -33,9 +33,9 @@ class Game2l3ViewModel @Inject constructor(
 
     /**    ---------------------- gameState ----------------------------------
      *     0 - not running
-     *     1 - running red button - no text
      *     1 - running not matching - text do not match color
      *     2 - running text matching
+     *     3 - running red button - no text
      */
     var gameState: MutableLiveData<Int> = MutableLiveData()
 
@@ -100,8 +100,7 @@ class Game2l3ViewModel @Inject constructor(
         when (gameState.value){
             0 -> {
                 // starting the counter
-                val randomTime = randomizeTime()
-                setBlankTime(randomTime)
+                setBlankTime(1000)
                 scope.launch {
                     startTimer()
                 }
@@ -109,7 +108,7 @@ class Game2l3ViewModel @Inject constructor(
                 colorCounter = 0
                 isButtonClickable.postValue(false)
                 buttonColorHandler()
-                gameState.postValue(1)
+                gameState.postValue(3)
             }
             1 -> {
                 restartGame()
@@ -120,6 +119,9 @@ class Game2l3ViewModel @Inject constructor(
                 buttonTextStatus.postValue(false)
                 handleTimeArray()
                 gameState.postValue(0)
+            }
+            3 -> {
+                restartGame()
             }
         }
 
@@ -143,6 +145,11 @@ class Game2l3ViewModel @Inject constructor(
             buttonTextStatus.postValue(false)
             buttonImageStatus.postValue(true)
             return
+        }
+
+        // after red button update gameState and proceed
+        if (gameState.value == 3){
+            gameState.postValue(1)
         }
 
         // if color counter reaches max show green
