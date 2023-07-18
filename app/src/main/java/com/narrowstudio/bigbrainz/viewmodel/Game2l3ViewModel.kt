@@ -119,6 +119,8 @@ class Game2l3ViewModel @Inject constructor(
                 buttonTextStatus.postValue(false)
                 handleTimeArray()
                 gameState.postValue(0)
+                buttonImageStatus.postValue(true)
+                buttonTextStatus.postValue(false)
             }
             3 -> {
                 restartGame()
