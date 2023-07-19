@@ -42,6 +42,12 @@ class Game2ViewModel @Inject constructor(
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
 
+    // nr of repetitions before score is opened
+    private val repeats: Int = 5
+
+    // nr of measurements done
+    var remainingMeasurements: Int = repeats
+
 
 
 
@@ -111,17 +117,15 @@ class Game2ViewModel @Inject constructor(
 
     private fun calculateTotalAverage(){
         val entries: Int? = saves.value?.size
-        if (entries != 0){
+        if (entries != 0 && entries != null){
             var sum: Long = 0
-
             //summing total average time of saved entries
-            if(entries != null && entries > 1) {
+            if(entries > 1) {
                 for (i in 0 until entries){
                     sum += saves.value!![i].averageTime
                 }
                 totalAverage.postValue(sum.toFloat() / (entries * 1000).toFloat())
             }
-
         } else {
             totalAverage.postValue(2137f)
         }
@@ -132,7 +136,8 @@ class Game2ViewModel @Inject constructor(
     private fun handleTimeArray(){
         // first add time to the array, then process
         timeArray.add(millisecondTime)
-        val repeats: Int = 5
+        // update remainingMeasurements for fragment
+        remainingMeasurements = repeats - timeArray.size
         if (timeArray.size == repeats) {
             var average: Long = 0
             // counting average time
@@ -255,6 +260,7 @@ class Game2ViewModel @Inject constructor(
         isButtonClickable.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
+        remainingMeasurements = repeats
     }
 
 

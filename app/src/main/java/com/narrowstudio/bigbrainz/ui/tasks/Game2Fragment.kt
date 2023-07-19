@@ -111,7 +111,6 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
                     g2ViewModel.buttonPressed()
-                    //g2_button.performClick()
                 }
             }
             true
@@ -126,24 +125,29 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
 
     private fun updateButtonColor(){
         when(gameState.value){
-            0 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
-            2 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
-            else -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+            0 -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+                binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
+            }
+            2 -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
+                binding.g2Button.setImageDrawable(null)
+            }
+            else -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+                binding.g2Button.setImageDrawable(null)
+            }
         }
+        binding.g2Textview.text = getString(R.string.g2l1_info, g2ViewModel.remainingMeasurements)
     }
 
 
     private fun restartGame(){
-        if(g2ViewModel.getShouldGameBeRestarted().value == true) {
-            binding.g2Textview.text = getString(R.string.game_over)
-        } else {
-            binding.g2Textview.text = ""
-        }
+
     }
 
     private fun openScoreFragment(){
         if (openScore.value == true) {
-            //Game2ScoreFragment().show((activity as AppCompatActivity).supportFragmentManager, "Score")
             navController!!.navigate(R.id.action_game2Fragment_to_game2ScoreFragment)
         }
     }

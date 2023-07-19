@@ -129,9 +129,18 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
 
     private fun updateButtonColor(){
         when(gameState.value){
-            0 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
-            2 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
-            else -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+            0 -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+                binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
+            }
+            2 -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
+                binding.g2Button.setImageDrawable(null)
+            }
+            else -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+                binding.g2Button.setImageDrawable(null)
+            }
         }
     }
 
