@@ -58,6 +58,12 @@ class Game2l3ViewModel @Inject constructor(
     // true when the button should display the text
     var buttonTextStatus: MutableLiveData<Boolean> = MutableLiveData()
 
+    // nr of repetitions before score is opened
+    private val repeats: Int = 5
+
+    // nr of measurements done
+    var remainingMeasurements: Int = repeats
+
     val saves = g2Dao.getEntries().asLiveData()
     var totalAverage: MutableLiveData<Float> = MutableLiveData()
 
@@ -325,6 +331,7 @@ class Game2l3ViewModel @Inject constructor(
         colorCounter = 0
         millisecondTime = 0
         millisecondLD.postValue(0)
+        remainingMeasurements = repeats
     }
 
 

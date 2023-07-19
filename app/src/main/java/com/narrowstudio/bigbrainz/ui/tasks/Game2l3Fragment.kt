@@ -148,6 +148,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
                 binding.g2l3ColorLabel.setTextColor(g2l3ViewModel.currentButtonColor.value!!)
             }
         }
+        binding.g2Textview.text = getString(R.string.g2l3_info, g2l3ViewModel.remainingMeasurements)
     }
 
     private fun updateButtonIcon(){
