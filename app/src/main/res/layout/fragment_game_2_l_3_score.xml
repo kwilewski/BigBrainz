@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="?attr/colorSecondary"
     tools:context=".ui.tasks.Game2l3ScoreFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -18,7 +18,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.9"
-        android:background="@color/colorBackground"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gl_g2score_h_1"
@@ -41,7 +40,7 @@
             tools:text="Your score:"
             android:textSize="50sp"
             android:textAlignment="center"
-            android:textColor="@color/colorMainFont"
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/g2score_best_score_text"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +51,7 @@
             tools:text="Best score:"
             android:textSize="30sp"
             android:textAlignment="center"
-            android:textColor="@color/colorMainFont2"
+            android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintBottom_toTopOf="@+id/g2score_average_score_text"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -63,7 +62,7 @@
             tools:text="Average score:"
             android:textSize="30sp"
             android:textAlignment="center"
-            android:textColor="@color/colorMainFont2"
+            android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintBottom_toTopOf="@id/g2score_button_home" />
 
         <ImageButton
@@ -72,7 +71,7 @@
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_home"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@id/gl_g2score_v_1" />
@@ -82,7 +81,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_replay"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorPrimary"
             app:layout_constraintLeft_toLeftOf="@id/gl_g2score_v_1"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/g2score_button_home"

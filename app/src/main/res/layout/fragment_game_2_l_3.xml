@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="?attr/colorSecondary"
     tools:context=".ui.tasks.Game2l3Fragment">
 
     <ImageView
@@ -82,7 +82,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textSize="14sp"
-        android:textColor="@color/colorMainFont2"
+        android:textColor="?attr/colorPrimaryVariant"
         tools:text="@string/g2l3_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

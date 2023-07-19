@@ -1,28 +1,21 @@
 package com.narrowstudio.bigbrainz.ui.tasks
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.narrowstudio.bigbrainz.viewmodel.Game2ScoreViewModel
 import com.narrowstudio.bigbrainz.R
-import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2ScoreBinding
-import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Game2ScoreFragment : Fragment(R.layout.fragment_game2_score), LifecycleOwner {
+class Game2ScoreFragment : Fragment(R.layout.fragment_game_2_score), LifecycleOwner {
 
     private val g2scoreViewModel : Game2ScoreViewModel by viewModels()
     var navController : NavController? = null
