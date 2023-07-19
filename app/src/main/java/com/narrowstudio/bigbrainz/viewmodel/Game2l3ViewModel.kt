@@ -46,7 +46,7 @@ class Game2l3ViewModel @Inject constructor(
     private var colorCounter: Int = 0
     private val maxColorCounter: Int = 6
     // chance of getting the same color and name - in percent
-    private val chanceOfMatch: Int = 33
+    private val chanceOfMatch: Int = 30
     lateinit var colorList: IntArray
     var colorNameList = arrayOf<String>()
 

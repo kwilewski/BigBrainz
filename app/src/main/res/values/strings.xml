@@ -7,7 +7,9 @@
     <string name="mode_medium">Medium</string>
     <string name="mode_hard">Hard</string>
     <string name="game_over">OOOPS… TRY AGAIN!</string>
-    <string name="average_time">Your average time: </string>
+    <string name="score">Score: %1$ss</string>
+    <string name="best_score">Best: %1$ss</string>
+    <string name="average_score">Average: %1$ss</string>
     <string name="green">Green</string>
     <string name="blue">Blue</string>
     <string name="yellow">Yellow</string>

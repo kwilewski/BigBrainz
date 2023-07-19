@@ -153,7 +153,6 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
     private fun updateButtonIcon(){
         if(g2l3ViewModel.buttonImageStatus.value!!){
             binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
-            Log.d("", "button icon set to ic_baseline_touch")
             return
         }
         binding.g2Button.setImageDrawable(null)
@@ -163,7 +162,6 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
         println("updateButtonText()")
         if(g2l3ViewModel.buttonTextStatus.value!!){
             binding.g2l3ColorLabel.text = g2l3ViewModel.currentColorName.value
-            println("should be color")
             return
         }
         binding.g2l3ColorLabel.text = null
