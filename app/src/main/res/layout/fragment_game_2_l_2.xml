@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".ui.tasks.Game2l2Fragment">
 
     <ImageView
@@ -12,7 +13,7 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="@+id/gl_g2_h_1"
         app:layout_constraintBottom_toTopOf="@+id/gl_g2_h_2"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_baseline_reaction"
         app:layout_constraintLeft_toRightOf="parent" />
 
     <ImageButton
@@ -61,7 +62,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="@color/colorMainFont2"
         tools:text="@string/g2l2_info"
         app:layout_constraintEnd_toEndOf="parent"

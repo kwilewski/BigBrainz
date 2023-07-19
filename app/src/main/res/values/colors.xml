@@ -8,22 +8,22 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorButtonWaiting">#bbbbbb</color>
+    <color name="colorButtonWaiting">#c0bbbb</color>
     <color name="colorButtonReady">#00aa33</color>
     <color name="colorButtonNotReady">#aa0000</color>
 
     <color name="colorPrimary">#AC3B69</color>
-    <color name="colorPrimaryDark">#800000</color>
+    <color name="colorPrimaryDark">#2E9CCA</color>
     <color name="colorPrimary2">#123C69</color>
-    <color name="colorPrimaryDark2">#444444</color>
+    <color name="colorPrimaryDark2">#2964BA</color>
     <color name="colorAccent">#EDC787</color>
-    <color name="colorAccentDark">#666666</color>
+    <color name="colorAccentDark">#25274D</color>
 
     <color name="colorBackground">#EEE2DC</color>
-    <color name="colorBackgroundDark">#55dd55</color>
+    <color name="colorBackgroundDark">#464866</color>
 
     <color name="colorBackground2">#BAB2B5</color>
-    <color name="colorBackgroundDark2">#222222</color>
+    <color name="colorBackgroundDark2">#AAABB8</color>
 
     <color name="colorBackgroundFV">#aaffffff</color>
     <color name="colorBackgroundFVDark">#aa000000</color>
@@ -32,10 +32,10 @@
     <color name="colorCheckedDark">#bb0000</color>
 
     <color name="colorMainFont">#AC3B61</color>
-    <color name="colorMainFontDark">#888888</color>
+    <color name="colorMainFontDark">#2E9CCA</color>
 
     <color name="colorMainFont2">#123C69</color>
-    <color name="colorMainFontDark2">#666666</color>
+    <color name="colorMainFontDark2">#2964BA</color>
 
     <color name="colorMainFont3">#181818</color>
     <color name="colorMainFontDark3">#888888</color>

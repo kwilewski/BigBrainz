@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".ui.tasks.Game2ScoreFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="185dp" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <TextView
             android:id="@+id/g2score_score_text"
@@ -51,7 +52,7 @@
             tools:text="Best score:"
             android:textSize="30sp"
             android:textAlignment="center"
-            android:textColor="@color/colorMainFont"
+            android:textColor="@color/colorMainFont2"
             app:layout_constraintBottom_toTopOf="@+id/g2score_average_score_text"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -62,7 +63,7 @@
             tools:text="Average score:"
             android:textSize="30sp"
             android:textAlignment="center"
-            android:textColor="@color/colorMainFont"
+            android:textColor="@color/colorMainFont2"
             app:layout_constraintBottom_toTopOf="@id/g2score_button_home" />
 
         <ImageButton
