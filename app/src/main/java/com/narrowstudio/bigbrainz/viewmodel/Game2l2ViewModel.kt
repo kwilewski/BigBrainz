@@ -48,6 +48,13 @@ class Game2l2ViewModel @Inject constructor(
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
 
+    // nr of repetitions before score is opened
+    private val repeats: Int = 5
+
+    // nr of measurements done
+    var remainingMeasurements: Int = repeats
+
+
     val saves = g2Dao.getEntries().asLiveData()
     var totalAverage: MutableLiveData<Float> = MutableLiveData()
 
@@ -172,7 +179,8 @@ class Game2l2ViewModel @Inject constructor(
     private fun handleTimeArray(){
         // first add time to the array, then process
         timeArray.add(millisecondTime)
-        val repeats: Int = 5
+        // update remainingMeasurements for fragment
+        remainingMeasurements = repeats - timeArray.size
         if (timeArray.size == repeats) {
             var average: Long = 0
             // counting average time
@@ -272,6 +280,7 @@ class Game2l2ViewModel @Inject constructor(
         colorCounter = 0
         millisecondTime = 0
         millisecondLD.postValue(0)
+        remainingMeasurements = repeats
     }
 
 

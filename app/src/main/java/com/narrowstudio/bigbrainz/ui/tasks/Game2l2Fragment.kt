@@ -142,6 +142,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
                 binding.g2Button.setImageDrawable(null)
             }
         }
+        binding.g2Textview.text = getString(R.string.g2l1_info, g2l2ViewModel.remainingMeasurements)
     }
 
 
