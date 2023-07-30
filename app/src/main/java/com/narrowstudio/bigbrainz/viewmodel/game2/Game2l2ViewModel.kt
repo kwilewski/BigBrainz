@@ -1,11 +1,8 @@
-package com.narrowstudio.bigbrainz.viewmodel
+package com.narrowstudio.bigbrainz.viewmodel.game2
 
-import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.*
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.data.G2DBEntry
 import com.narrowstudio.bigbrainz.data.G2Dao
@@ -13,31 +10,37 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 //for Dagger 2.31+
 @HiltViewModel
-class Game2ViewModel @Inject constructor(
+class Game2l2ViewModel @Inject constructor(
     private val g2Dao: G2Dao
 ) : ViewModel() {
 
 
-    private var blankTime:Long = 0
-    private lateinit var timeLD: LiveData<Long>
-    private var timeArray: ArrayList<Long> = ArrayList()
+    var blankTime: Long = 0
+    var timeArray: ArrayList<Long> = ArrayList()
 
-    private var startTime: Long = 0
-    private var millisecondTime: Long = 0
-    private var millisecondLD: MutableLiveData<Long> = MutableLiveData()
+    var startTime: Long = 0
+    var millisecondTime: Long = 0
+    var millisecondLD: MutableLiveData<Long> = MutableLiveData()
     var averageTime: MutableLiveData<Long> = MutableLiveData()
-    private var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
-    private var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
+    var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
+    var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
 
-//    ---------------------- gameState ----------------------------------
-//    0 - not running
-//    1 - running red
-//    2 - running green
-    private var gameState: MutableLiveData<Int> = MutableLiveData()
+    /**    ---------------------- gameState ----------------------------------
+     *     0 - not running
+     *     1 - running "red" - all but green
+     *     2 - running green
+     */
+    var gameState: MutableLiveData<Int> = MutableLiveData()
+
+    // sends color to the fragment
+    var currentButtonColor: MutableLiveData<Int> = MutableLiveData()
+    private var colorCounter: Int = 0
+    private val maxColorCounter: Int = 6
+    lateinit var colorList: IntArray
+    //val colorList: IntArray = intArrayOf(R.color.g2l2Green, R.color.g2l2Red, R.color.g2l2Blue, R.color.g2l2Yellow)
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
@@ -47,8 +50,6 @@ class Game2ViewModel @Inject constructor(
 
     // nr of measurements done
     var remainingMeasurements: Int = repeats
-
-
 
 
     val saves = g2Dao.getEntries().asLiveData()
@@ -62,15 +63,12 @@ class Game2ViewModel @Inject constructor(
 
     private var runnable: Runnable = object:  Runnable {
         override fun run(){
-            if(System.currentTimeMillis() >= blankTime) {
-                millisecondTime = System.currentTimeMillis() - blankTime
-                millisecondLD.postValue(millisecondTime)
-                if (gameState.value != 2){
-                    gameState.postValue(2)
-                }
-            } else {
-                if (gameState.value != 1){
-                    gameState.postValue(1)
+            if (System.currentTimeMillis() >= blankTime){
+                if (gameState.value == 2){
+                    millisecondTime = System.currentTimeMillis() - blankTime
+                    millisecondLD.postValue(millisecondTime)
+                } else {
+                    buttonColorHandler()
                 }
             }
             handler.postDelayed(this, 1)
@@ -85,6 +83,7 @@ class Game2ViewModel @Inject constructor(
         shouldGameBeRestarted.postValue(false)
         openScore.postValue(false)
         gameState.postValue(0)
+        colorCounter = 0
         resetTimeArray()
         calculateTotalAverage()
     }
@@ -98,15 +97,17 @@ class Game2ViewModel @Inject constructor(
                 scope.launch {
                     startTimer()
                 }
+                millisecondTime = 0
+                colorCounter = 0
                 isButtonClickable.postValue(false)
+                buttonColorHandler()
                 gameState.postValue(1)
             }
             1 -> {
                 restartGame()
             }
             2 -> {
-                millisecondTime = stopTimer()
-                millisecondLD.postValue(millisecondTime)
+                stopTimer()
                 isButtonClickable.postValue(false)
                 handleTimeArray()
                 gameState.postValue(0)
@@ -115,19 +116,58 @@ class Game2ViewModel @Inject constructor(
 
     }
 
+    private fun buttonColorHandler(){
+        // always start with red
+        if(gameState.value == 0) {
+            currentButtonColor.postValue(R.color.g2l2Red)
+            colorCounter++
+            shouldGameBeRestarted.postValue(false)
+            return
+        }
+
+        // when restarting show grey
+        if (gameState.value == 2){
+            colorCounter = 0
+            currentButtonColor.postValue(R.color.colorButtonWaiting)
+            return
+        }
+
+        // if color counter reaches max show green
+        if (colorCounter > maxColorCounter){
+            currentButtonColor.postValue(colorList[0])
+            gameState.postValue(2)
+            isButtonClickable.postValue(true)
+            return
+        }
+
+        // randomize new color
+        val newColorIndex = randomizeColor()
+        if (newColorIndex == 0){
+            gameState.postValue(2)
+            isButtonClickable.postValue(true)
+        } else {
+            //if the button is green, go without setting new threshold for timer, otherwise set new
+            setBlankTime(randomizeTime())
+        }
+        colorCounter++
+        currentButtonColor.postValue(colorList[newColorIndex])
+    }
+
     private fun calculateTotalAverage(){
         val entries: Int? = saves.value?.size
-        if (entries != 0 && entries != null){
+        if (entries != 0){
             var sum: Long = 0
+
             //summing total average time of saved entries
-            if(entries > 1) {
+            if((entries != null) && (entries > 1)) {
                 for (i in 0 until entries){
                     sum += saves.value!![i].averageTime
                 }
                 totalAverage.postValue(sum.toFloat() / (entries * 1000).toFloat())
             }
+
         } else {
-            totalAverage.postValue(2137f)
+            totalAverage.postValue(0f)
         }
     }
 
@@ -176,41 +216,16 @@ class Game2ViewModel @Inject constructor(
     }
 
     private fun randomizeTime(): Int {
-        return (2000..6000).random()
+        return (500..1500).random()
+    }
+
+    private fun randomizeColor(): Int {
+        return (colorList.indices).random()
     }
 
 
 
 
-
-
-
-    //----------------------------------------------------------    Timer
-
-
-    fun getTime(): LiveData<Long>{
-        return millisecondLD
-    }
-
-    fun getTimeAsLong(): Long{
-        return millisecondTime
-    }
-
-    fun getIsButtonClickable(): LiveData<Boolean> {
-        return isButtonClickable
-    }
-
-    fun getAverageTime(): LiveData<Long> {
-        return averageTime
-    }
-
-    fun getGameState(): LiveData<Int> {
-        return gameState
-    }
-
-    fun getShouldGameBeRestarted(): LiveData<Boolean>{
-        return shouldGameBeRestarted
-    }
 
     // function returns total average time as string
     fun getTotalTimeAsString(): String{
@@ -238,10 +253,9 @@ class Game2ViewModel @Inject constructor(
         //}
     }
 
-    private fun stopTimer(): Long{
+    private fun stopTimer(){
         handler.removeCallbacks(runnable)
         gameState.postValue(0)
-        return millisecondTime
     }
 
     private fun resetTimeArray(){
@@ -260,6 +274,9 @@ class Game2ViewModel @Inject constructor(
         isButtonClickable.postValue(false)
         gameState.postValue(0)
         resetTimeArray()
+        colorCounter = 0
+        millisecondTime = 0
+        millisecondLD.postValue(0)
         remainingMeasurements = repeats
     }
 
@@ -274,7 +291,7 @@ class Game2ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
         scope.launch {
-            g2Dao.insert(G2DBEntry(201, averageTime.value!!))
+            g2Dao.insert(G2DBEntry(202, averageTime.value!!))
         }
     }
 

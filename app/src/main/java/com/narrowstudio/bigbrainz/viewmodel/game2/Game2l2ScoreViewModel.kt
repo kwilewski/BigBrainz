@@ -1,4 +1,4 @@
-package com.narrowstudio.bigbrainz.viewmodel
+package com.narrowstudio.bigbrainz.viewmodel.game2
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

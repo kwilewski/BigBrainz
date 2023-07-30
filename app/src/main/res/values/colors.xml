@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorButtonWaiting">#c0bbbb</color>
+    <color name="colorButtonWaiting">#CEC2BC</color>
+    <color name="colorButtonWaitingDark">#565876</color>
     <color name="colorButtonReady">#00aa33</color>
     <color name="colorButtonNotReady">#aa0000</color>
 

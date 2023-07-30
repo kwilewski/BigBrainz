@@ -1,10 +1,8 @@
-package com.narrowstudio.bigbrainz.viewmodel
+package com.narrowstudio.bigbrainz.viewmodel.game2
 
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.*
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.data.G2DBEntry
 import com.narrowstudio.bigbrainz.data.G2Dao
@@ -12,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 //for Dagger 2.31+
 @HiltViewModel

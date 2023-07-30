@@ -1,4 +1,4 @@
-package com.narrowstudio.bigbrainz.ui.tasks
+package com.narrowstudio.bigbrainz.ui.tasks.game2
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.narrowstudio.bigbrainz.viewmodel.Game2ScoreViewModel
+import com.narrowstudio.bigbrainz.viewmodel.game2.Game2ScoreViewModel
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2ScoreBinding
 import dagger.hilt.android.AndroidEntryPoint

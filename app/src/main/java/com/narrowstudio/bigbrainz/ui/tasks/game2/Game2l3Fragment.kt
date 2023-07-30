@@ -1,7 +1,7 @@
-package com.narrowstudio.bigbrainz.ui.tasks
+package com.narrowstudio.bigbrainz.ui.tasks.game2
 
 import android.os.Bundle
-import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -13,10 +13,8 @@ import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
-import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2L3Binding
-import com.narrowstudio.bigbrainz.viewmodel.Game2l2ViewModel
-import com.narrowstudio.bigbrainz.viewmodel.Game2l3ViewModel
+import com.narrowstudio.bigbrainz.viewmodel.game2.Game2l3ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -141,10 +139,26 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
 
     private fun updateButtonColor(){
         when(gameState.value){
-            0 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+            0 -> {
+                val typedValue = TypedValue()
+                requireActivity().theme.resolveAttribute(R.attr.colorButtonWaiting, typedValue, true)
+                if (typedValue.resourceId != 0) {
+                    binding.g2Button.setBackgroundResource(typedValue.resourceId)
+                } else {
+                    // this should work whether there was a resource id or not
+                    binding.g2Button.setBackgroundResource(typedValue.data)
+                }
+            }
             3 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
             else -> {
-                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonWaiting))
+                val typedValue = TypedValue()
+                requireActivity().theme.resolveAttribute(R.attr.colorButtonWaiting, typedValue, true)
+                if (typedValue.resourceId != 0) {
+                    binding.g2Button.setBackgroundResource(typedValue.resourceId)
+                } else {
+                    // this should work whether there was a resource id or not
+                    binding.g2Button.setBackgroundResource(typedValue.data)
+                }
                 binding.g2l3ColorLabel.setTextColor(g2l3ViewModel.currentButtonColor.value!!)
             }
         }

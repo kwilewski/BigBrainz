@@ -1,31 +1,23 @@
-package com.narrowstudio.bigbrainz.ui.tasks
+package com.narrowstudio.bigbrainz.ui.tasks.game2
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import com.narrowstudio.bigbrainz.viewmodel.Game2ScoreViewModel
 import com.narrowstudio.bigbrainz.R
-import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2ScoreBinding
-import com.narrowstudio.bigbrainz.viewmodel.Game2ViewModel
-import com.narrowstudio.bigbrainz.viewmodel.Game2l2ScoreViewModel
+import com.narrowstudio.bigbrainz.viewmodel.game2.Game2l3ScoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Game2l2ScoreFragment : Fragment(R.layout.fragment_game_2_l_2_score), LifecycleOwner {
+class Game2l3ScoreFragment : Fragment(R.layout.fragment_game_2_l_3_score), LifecycleOwner {
 
-    private val g2l2scoreViewModel : Game2l2ScoreViewModel by viewModels()
+    private val g2l3scoreViewModel : Game2l3ScoreViewModel by viewModels()
     var navController : NavController? = null
 
 
@@ -35,7 +27,7 @@ class Game2l2ScoreFragment : Fragment(R.layout.fragment_game_2_l_2_score), Lifec
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: Game2ScoreViewModel
+    private lateinit var viewModel: Game2l3ScoreViewModel
 
 
 
@@ -53,22 +45,22 @@ class Game2l2ScoreFragment : Fragment(R.layout.fragment_game_2_l_2_score), Lifec
 
 
 
-        g2l2scoreViewModel.saves.observe(viewLifecycleOwner){
+        g2l3scoreViewModel.saves.observe(viewLifecycleOwner){
             // opening database
             setScores()
         }
 
-        g2l2scoreViewModel.init()
+        g2l3scoreViewModel.init()
         setScores()
 
         // home button
         binding.g2scoreButtonHome.setOnClickListener(View.OnClickListener { view ->
-            navController!!.navigate(R.id.action_game2l2ScoreFragment_to_mainScreenFragment)
+            navController!!.navigate(R.id.action_game2l3ScoreFragment_to_mainScreenFragment)
         })
 
         // repeat button
         binding.g2scoreButtonRepeat.setOnClickListener(View.OnClickListener { view ->
-            navController!!.navigate(R.id.action_game2l2ScoreFragment_to_game2l2Fragment)
+            navController!!.navigate(R.id.action_game2l3ScoreFragment_to_game2l3Fragment)
         })
 
         /*requireActivity().onBackPressedDispatcher.addCallback(
@@ -91,10 +83,10 @@ class Game2l2ScoreFragment : Fragment(R.layout.fragment_game_2_l_2_score), Lifec
 
 
     private fun setScores(){
-        g2l2scoreViewModel.getTimesFromDB()
-        binding.g2scoreScoreText.text = "your score: " + g2l2scoreViewModel.lastTimeString
-        binding.g2scoreBestScoreText.text = "best score: " + g2l2scoreViewModel.bestTimeString
-        binding.g2scoreAverageScoreText.text = "average score: " + g2l2scoreViewModel.averageTimeString
+        g2l3scoreViewModel.getTimesFromDB()
+        binding.g2scoreScoreText.text = getString(R.string.score, g2l3scoreViewModel.lastTimeString)
+        binding.g2scoreBestScoreText.text = getString(R.string.best_score, g2l3scoreViewModel.bestTimeString)
+        binding.g2scoreAverageScoreText.text = getString(R.string.average_score, g2l3scoreViewModel.averageTimeString)
 
     }
 

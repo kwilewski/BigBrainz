@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/game2Fragment"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game2.Game2Fragment"
         android:label="fragment_game_2"
         tools:layout="@layout/fragment_game_2" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/game2ScoreFragment"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2ScoreFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game2.Game2ScoreFragment"
         android:label="fragment_game2_score"
         tools:layout="@layout/fragment_game_2_score" >
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/game2l2Fragment"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2l2Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game2.Game2l2Fragment"
         android:label="fragment_game_2_l_2"
         tools:layout="@layout/fragment_game_2_l_2" >
         <action
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/game2l2ScoreFragment"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2l2ScoreFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game2.Game2l2ScoreFragment"
         android:label="fragment_game_2_l_2_score"
         tools:layout="@layout/fragment_game_2_l_2_score" >
         <action
@@ -108,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/game2l3Fragment"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2l3Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game2.Game2l3Fragment"
         android:label="fragment_game_2_l_3"
         tools:layout="@layout/fragment_game_2_l_3" >
         <action
@@ -122,7 +122,7 @@
     </fragment>
     <fragment
         android:id="@+id/game2l3ScoreFragment"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game2l3ScoreFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game2.Game2l3ScoreFragment"
         android:label="fragment_game_2_l_3_score"
         tools:layout="@layout/fragment_game_2_l_3_score" >
         <action
