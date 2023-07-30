@@ -49,6 +49,11 @@
 
     <color name="colorIconBackground">#77ccff</color>
 
+    <color name="g1Red">#bb0000</color>
+    <color name="g1Green">#00bb00</color>
+    <color name="g1Blue">#1188ff</color>
+    <color name="g1Yellow">#dddd00</color>
+
     <color name="g2l2Red">#bb0000</color>
     <color name="g2l2Green">#00bb00</color>
     <color name="g2l2Blue">#1188ff</color>
