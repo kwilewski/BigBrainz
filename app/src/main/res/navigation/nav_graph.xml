@@ -6,10 +6,16 @@
     app:startDestination="@id/mainScreenFragment">
 
     <fragment
-        android:id="@+id/game1Fragment"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game1Fragment"
-        android:label="fragment_game_1"
-        tools:layout="@layout/fragment_game_1" />
+        android:id="@+id/game1l1Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game1.Game1l1Fragment"
+        android:label="fragment_game_1_l_1"
+        tools:layout="@layout/fragment_game_1_l_1" >
+        <action
+            android:id="@+id/action_game1l1Fragment_to_game1SelectionFragment"
+            app:destination="@id/Game1SelectionFragment"
+            app:popUpTo="@+id/Game1SelectionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.narrowstudio.bigbrainz.ui.tasks.MainScreenFragment"
@@ -17,19 +23,19 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainScreenFragment_to_game1Selection"
-            app:destination="@id/game1Selection" />
+            app:destination="@id/Game1SelectionFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_game2SelectionFragment"
             app:destination="@id/game2SelectionFragment" />
     </fragment>
     <fragment
-        android:id="@+id/game1Selection"
-        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game1Selection"
+        android:id="@+id/Game1SelectionFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game1SelectionFragment"
         android:label="fragment_game_1_selection"
         tools:layout="@layout/fragment_game_1_selection" >
         <action
-            android:id="@+id/action_game1Selection_to_game1Fragment"
-            app:destination="@id/game1Fragment" />
+            android:id="@+id/action_game1SelectionFragment_to_game1l1Fragment"
+            app:destination="@id/game1l1Fragment" />
     </fragment>
     <fragment
         android:id="@+id/game2SelectionFragment"

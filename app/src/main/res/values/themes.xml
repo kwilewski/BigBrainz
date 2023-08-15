@@ -10,10 +10,15 @@
         <item name="colorSecondaryVariant">@color/colorBackground2</item>
         <item name="colorOnSecondary">@color/colorMainFont</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="colorButtonWaiting">@color/colorButtonWaiting</item>
 
         <item name="android:colorBackground">@color/colorBackground</item>
+    </style>
+
+    <style name="Theme.Button.Red" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/g1Red</item>
+        <item name="android:backgroundTint">@color/g1Red</item>
     </style>
 </resources>

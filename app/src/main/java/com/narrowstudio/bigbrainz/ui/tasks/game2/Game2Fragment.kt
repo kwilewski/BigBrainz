@@ -49,13 +49,9 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View{
         _binding = FragmentGame2Binding.inflate(inflater, container, false)
         val view = binding.root
-
-
-
-
 
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 

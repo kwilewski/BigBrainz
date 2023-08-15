@@ -16,4 +16,8 @@
 
         <item name="android:colorBackground">@color/colorBackgroundDark</item>
     </style>
+
+    <style name="Theme.Button.Red" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/g1Red</item>
+    </style>
 </resources>
