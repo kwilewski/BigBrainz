@@ -39,7 +39,6 @@ class Game1l1ViewModel @Inject constructor(
 
 
 
-
     fun init(){
         gameState.postValue(0)
     }

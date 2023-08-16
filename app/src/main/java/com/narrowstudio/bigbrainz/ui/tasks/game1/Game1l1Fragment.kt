@@ -12,7 +12,9 @@ import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame1L1Binding
 import com.narrowstudio.bigbrainz.viewmodel.game1.Game1l1ViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
 
     private val g1l1ViewModel:  Game1l1ViewModel by viewModels()

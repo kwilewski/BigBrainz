@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import javax.inject.Inject
+import kotlin.random.Random
 
 //for Dagger 2.31+
 @HiltViewModel
@@ -171,7 +172,7 @@ class Game2ViewModel @Inject constructor(
     }
 
     private fun randomizeTime(): Int {
-        return (2000..6000).random()
+        return (2000..6000).random(Random(System.currentTimeMillis()))
     }
 
 
