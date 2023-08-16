@@ -21,13 +21,16 @@ object AppModule {
     fun provideDatabase(
         app: Application,
         callback: GameDatabase.Callback
-    ) = Room.databaseBuilder(app, GameDatabase::class.java, "g2_database")
+    ) = Room.databaseBuilder(app, GameDatabase::class.java, "database")
             .fallbackToDestructiveMigration()
             .addCallback(callback)
             .build()
 
     @Provides
     fun provideG2Dao(db: GameDatabase) = db.g2Dao()
+
+    @Provides
+    fun provideG1Dao(db: GameDatabase) = db.g1Dao()
 
     @ApplicationScope
     @Provides

@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import javax.inject.Inject
+import kotlin.random.Random
 
 //for Dagger 2.31+
 @HiltViewModel
@@ -216,11 +217,11 @@ class Game2l2ViewModel @Inject constructor(
     }
 
     private fun randomizeTime(): Int {
-        return (500..1500).random()
+        return (500..1500).random(Random(System.currentTimeMillis()))
     }
 
     private fun randomizeColor(): Int {
-        return (colorList.indices).random()
+        return (colorList.indices).random(Random(System.currentTimeMillis()))
     }
 
 

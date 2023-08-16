@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame1L1Binding
+import com.narrowstudio.bigbrainz.viewmodel.game1.Game1l1ViewModel
 
 class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
+
+    private val g1l1ViewModel:  Game1l1ViewModel by viewModels()
 
     var navController : NavController? = null
 
@@ -20,6 +24,8 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -35,6 +41,8 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
         val view = binding.root
 
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+
+        g1l1ViewModel.init()
 
 
         return view
