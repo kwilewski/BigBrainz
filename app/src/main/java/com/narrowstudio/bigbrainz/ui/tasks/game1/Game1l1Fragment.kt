@@ -118,7 +118,7 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
 
     private fun buttonVisibilityHandler(){
         when (g1l1ViewModel.gameState.value){
-            0, 1, 2 -> {
+            0, 1, 2, 4 -> {
                 binding.g1ColorDisplay.visibility = View.VISIBLE
                 binding.g1ButtonsGrid.visibility = View.INVISIBLE
             }

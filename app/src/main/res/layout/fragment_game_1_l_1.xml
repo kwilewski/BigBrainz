@@ -16,6 +16,22 @@
         android:src="@drawable/ic_baseline_reaction"
         app:layout_constraintLeft_toRightOf="parent" />
 
+    <TextView
+        android:id="@+id/g1l1_top_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="16sp"
+        tools:text="Remaining:1234567890"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl_g1_h_2"
+        app:layout_constraintBottom_toTopOf="@+id/gl_g1_h_3"
+        android:textAlignment="center"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:visibility="visible" />
+
     <FrameLayout
         android:id="@+id/g1_color_display"
         android:layout_width="match_parent"
@@ -137,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <TextView
         android:id="@+id/g1_textview"
