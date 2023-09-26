@@ -44,16 +44,18 @@ class Game1l1ViewModel @Inject constructor(
     // array with indexes of generated colors
     private var colorArray: ArrayList<Int> = ArrayList()
 
-    private var inputArray: ArrayList<Int> = ArrayList()
+    var inputArray: ArrayList<Int> = ArrayList()
+
+    val colorPressedLD:MutableLiveData<Boolean> = MutableLiveData()
 
     var buttonColor: Int = 4
 
     // length of the first challenge
-    private val colorsAtTheBeginning = 5
+    private val colorsAtTheBeginning = 3
     // length of level
-    private var colorsToBeShown = colorsAtTheBeginning
+    var colorsToBeShown = colorsAtTheBeginning
     // counter of already shown colors
-    private var counter = 0
+    var counter = 0
     // increment of length at each level
     private val levelUp = 1
 
@@ -150,6 +152,7 @@ class Game1l1ViewModel @Inject constructor(
 
     fun colorButtonPressed(color: Int){
         inputArray.add(color)
+        colorPressedLD.postValue(true)
         if (color != colorArray[inputArray.size-1]){
             restartGame()
             return

@@ -58,6 +58,12 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
             buttonColorHandler()
             buttonIconHandler()
             buttonVisibilityHandler()
+            topTextHandler()
+            bottomTextHandler()
+        })
+
+        g1l1ViewModel.colorPressedLD.observe(viewLifecycleOwner, Observer {
+            topTextHandler()
         })
 
         binding.g1Color1Button.setOnClickListener(View.OnClickListener {v ->
@@ -75,6 +81,31 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
 
 
         return view
+    }
+
+    private fun topTextHandler(){
+        when (g1l1ViewModel.gameState.value){
+            0, 2 -> {
+                binding.g1l1TopTextView.text = getString(R.string.g1l1_remaining,
+                    g1l1ViewModel.colorsToBeShown - g1l1ViewModel.counter)
+            }
+            3 -> {
+                binding.g1l1TopTextView.text = getString(R.string.g1l1_remaining,
+                    g1l1ViewModel.colorsToBeShown - g1l1ViewModel.inputArray.size)
+            }
+            4 -> {
+                binding.g1l1TopTextView.text = ""
+            }
+        }
+    }
+
+    private fun bottomTextHandler(){
+        when (g1l1ViewModel.gameState.value){
+            0, 1, 2, 3 -> {
+                binding.g1Textview.text = getString(R.string.g1l1_info,
+                    g1l1ViewModel.colorsToBeShown)
+            }
+        }
     }
 
 
