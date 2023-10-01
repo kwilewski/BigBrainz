@@ -10,8 +10,7 @@ import java.text.DateFormat
 @Parcelize
 data class G1DBEntry(
     val gameID: Int,
-    //val time: List<Long>,
-    val averageTime: Long,
+    val score: Int,
     val saveDate: Long = System.currentTimeMillis(),
     @PrimaryKey(autoGenerate = true) val id: Int = 0
     ): Parcelable{

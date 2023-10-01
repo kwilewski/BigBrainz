@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -21,6 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
 
     private val g1l1ViewModel:  Game1l1ViewModel by viewModels()
+
+    // opening score
+    private lateinit var openScore: LiveData<Boolean>
 
     var navController : NavController? = null
 
@@ -64,6 +68,12 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
 
         g1l1ViewModel.colorPressedLD.observe(viewLifecycleOwner, Observer {
             topTextHandler()
+        })
+
+        //opening score fragment
+        openScore = g1l1ViewModel.openScore
+        openScore.observe(viewLifecycleOwner, Observer{
+            openScoreFragment()
         })
 
         binding.g1Color1Button.setOnClickListener(View.OnClickListener {v ->
@@ -157,6 +167,12 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
                 binding.g1ColorDisplay.visibility = View.INVISIBLE
                 binding.g1ButtonsGrid.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun openScoreFragment(){
+        if (openScore.value == true) {
+            navController!!.navigate(R.id.action_game1l1Fragment_to_game1l1ScoreFragment)
         }
     }
 

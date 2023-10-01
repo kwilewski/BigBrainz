@@ -48,6 +48,9 @@ class Game1l1ViewModel @Inject constructor(
 
     val colorPressedLD:MutableLiveData<Boolean> = MutableLiveData()
 
+    // sends info to fragment to open score fragment
+    var openScore: MutableLiveData<Boolean> = MutableLiveData()
+
     var buttonColor: Int = 4
 
     // length of the first challenge
@@ -126,6 +129,7 @@ class Game1l1ViewModel @Inject constructor(
         buttonColor = 4
         colorArray.clear()
         inputArray.clear()
+        openScore.postValue(false)
         counter = 0
         wrongColorCounter = 0
     }
@@ -171,11 +175,18 @@ class Game1l1ViewModel @Inject constructor(
     }
 
     private fun restartGame(){
-        gameState.postValue(4)
-        colorsToBeShown = colorsAtTheBeginning
-        buttonColor = 4
-        startTime = System.currentTimeMillis()
-        startTimer()
+        // if any successful pattern, save
+        if (colorsToBeShown == colorsAtTheBeginning) {
+            gameState.postValue(4)
+            colorsToBeShown = colorsAtTheBeginning
+            buttonColor = 4
+            startTime = System.currentTimeMillis()
+            startTimer()
+        } else {
+            // if any successful pattern, open score
+            insertNewEntry()
+            openScore.postValue(true)
+        }
     }
 
     private fun nextLevel(){
@@ -214,7 +225,6 @@ class Game1l1ViewModel @Inject constructor(
         } else {
             stopTimer()
             init()
-            Log.d("Game status", "Game restarted")
         }
     }
 
@@ -241,7 +251,7 @@ class Game1l1ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
         scope.launch {
-            g1Dao.insert(G1DBEntry(101, 0L))
+            g1Dao.insert(G1DBEntry(101, colorsToBeShown - 1))
         }
     }
 
