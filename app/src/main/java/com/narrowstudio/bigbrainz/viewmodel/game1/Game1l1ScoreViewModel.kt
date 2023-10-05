@@ -59,7 +59,7 @@ class Game1l1ScoreViewModel @Inject constructor(
         if (entries != 0){
             best = savesList[0].score
             for (i in 0 until entries){
-                if (savesList[i].score < best) best = savesList[i].score
+                if (savesList[i].score > best) best = savesList[i].score
             }
             bestScore = best
         }

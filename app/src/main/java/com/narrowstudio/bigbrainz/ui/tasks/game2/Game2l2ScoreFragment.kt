@@ -85,9 +85,9 @@ class Game2l2ScoreFragment : Fragment(R.layout.fragment_game_2_l_2_score), Lifec
 
     private fun setScores(){
         g2l2scoreViewModel.getTimesFromDB()
-        binding.g2scoreScoreText.text = getString(R.string.score, g2l2scoreViewModel.lastTimeString)
-        binding.g2scoreBestScoreText.text = getString(R.string.best_score, g2l2scoreViewModel.bestTimeString)
-        binding.g2scoreAverageScoreText.text = getString(R.string.average_score, g2l2scoreViewModel.averageTimeString)
+        binding.g2scoreScoreText.text = getString(R.string.score_sec, g2l2scoreViewModel.lastTimeString)
+        binding.g2scoreBestScoreText.text = getString(R.string.best_score_sec, g2l2scoreViewModel.bestTimeString)
+        binding.g2scoreAverageScoreText.text = getString(R.string.average_score_sec, g2l2scoreViewModel.averageTimeString)
 
     }
 

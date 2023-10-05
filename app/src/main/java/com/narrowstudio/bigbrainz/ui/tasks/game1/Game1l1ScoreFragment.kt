@@ -75,8 +75,8 @@ class Game1l1ScoreFragment : Fragment(R.layout.fragment_game_1_l_1_score), Lifec
 
     private fun setScores(){
         g1l1scoreViewModel.getScoresFromDB()
-        binding.g1scoreScoreText.text = getString(R.string.score, g1l1scoreViewModel.lastScore.toString())
-        binding.g1scoreBestScoreText.text = getString(R.string.best_score, g1l1scoreViewModel.bestScore.toString())
+        binding.g1scoreScoreText.text = getString(R.string.score, g1l1scoreViewModel.lastScore)
+        binding.g1scoreBestScoreText.text = getString(R.string.best_score, g1l1scoreViewModel.bestScore)
 
     }
 }
