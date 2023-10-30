@@ -17,7 +17,7 @@
         app:layout_constraintLeft_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/g1l1_top_text_view"
+        android:id="@+id/g1l2_top_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -148,7 +148,7 @@
         app:layout_constraintGuide_percent="0.85" />
 
     <TextView
-        android:id="@+id/g1_textview"
+        android:id="@+id/g1l2_bottom_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

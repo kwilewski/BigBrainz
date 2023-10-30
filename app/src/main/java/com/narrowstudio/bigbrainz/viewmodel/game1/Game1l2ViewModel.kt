@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.narrowstudio.bigbrainz.data.G1DBEntry
 import com.narrowstudio.bigbrainz.data.G1Dao
-import com.narrowstudio.bigbrainz.data.G2DBEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class Game1l2ViewModel @Inject constructor(
 
     /**    ---------------------- gameState ----------------------------------
      *      0 - not running
-     *      1 - displaying the color
+     *      1 - displaying the code
      *      2 - displaying intercolor
      *      3 - reading the input
      *      4 - displaying wrong
@@ -31,42 +30,22 @@ class Game1l2ViewModel @Inject constructor(
     // time of starting the timer in millis
     private var startTime: Long = 0
 
-    /**     ---------------------- buttonColor ----------------------------------
-     *      0 - Red
-     *      1 - Green
-     *      2 - Blue
-     *      3 - Yellow
-     *      4 - Grey
-     */
-    // list of colors received from fragment
-    val colorList: ArrayList<Int> = ArrayList()
-
-    // array with indexes of generated colors
-    private var colorArray: ArrayList<Int> = ArrayList()
-
-    var inputArray: ArrayList<Int> = ArrayList()
-
-    val colorPressedLD:MutableLiveData<Boolean> = MutableLiveData()
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
 
-    var buttonColor: Int = 4
-
     // length of the first challenge
-    private val colorsAtTheBeginning = 3
+    private val lengthAtTheBeginning = 5
     // length of level
-    var colorsToBeShown = colorsAtTheBeginning
-    // counter of already shown colors
-    var counter = 0
+    var lengthToBeShown = lengthAtTheBeginning
     // increment of length at each level
     private val levelUp = 1
 
-    // time for each color in millis
-    private val displayTime = 600
+    // time for the code in millis
+    private val displayTime = 2000
 
     // time for intercolor in millis
-    private val interColorTIme = 250
+    private val interColorTIme = 1000
 
     // counting red screens after wrong click
     private var wrongColorCounter = 0
@@ -88,7 +67,7 @@ class Game1l2ViewModel @Inject constructor(
             when (gameState.value){
                 1 -> {
                     if (System.currentTimeMillis() >= startTime + displayTime){
-                        if (counter < colorsToBeShown) {
+                        if (counter < lengthToBeShown) {
                             colorToInter()
                         } else {
                             colorToInput()
@@ -161,7 +140,7 @@ class Game1l2ViewModel @Inject constructor(
             restartGame()
             return
         }
-        if (inputArray.size == colorsToBeShown){
+        if (inputArray.size == lengthToBeShown){
             nextLevel()
             return
         }
@@ -176,9 +155,9 @@ class Game1l2ViewModel @Inject constructor(
 
     private fun restartGame(){
         // if any successful pattern, save
-        if (colorsToBeShown == colorsAtTheBeginning) {
+        if (lengthToBeShown == lengthAtTheBeginning) {
             gameState.postValue(4)
-            colorsToBeShown = colorsAtTheBeginning
+            lengthToBeShown = lengthAtTheBeginning
             buttonColor = 4
             startTime = System.currentTimeMillis()
             startTimer()
@@ -190,8 +169,8 @@ class Game1l2ViewModel @Inject constructor(
     }
 
     private fun nextLevel(){
-        colorsToBeShown += levelUp
-        Log.d("Game status", "Level up. Current level: $colorsToBeShown")
+        lengthToBeShown += levelUp
+        Log.d("Game status", "Level up. Current level: $lengthToBeShown")
         init()
     }
 
@@ -251,7 +230,7 @@ class Game1l2ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
         scope.launch {
-            g1Dao.insert(G1DBEntry(101, colorsToBeShown - 1))
+            g1Dao.insert(G1DBEntry(101, lengthToBeShown - 1))
         }
     }
 
