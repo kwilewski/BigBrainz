@@ -30,6 +30,9 @@ class Game1l2ViewModel @Inject constructor(
     // time of starting the timer in millis
     private var startTime: Long = 0
 
+    // random code shown
+    val code: MutableLiveData<Int> = MutableLiveData()
+
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
@@ -105,11 +108,7 @@ class Game1l2ViewModel @Inject constructor(
 
     fun init(){
         stopTimer()
-        buttonColor = 4
-        colorArray.clear()
-        inputArray.clear()
         openScore.postValue(false)
-        counter = 0
         wrongColorCounter = 0
     }
 
@@ -133,23 +132,11 @@ class Game1l2ViewModel @Inject constructor(
         }
     }
 
-    fun colorButtonPressed(color: Int){
-        inputArray.add(color)
-        colorPressedLD.postValue(true)
-        if (color != colorArray[inputArray.size-1]){
-            restartGame()
-            return
-        }
-        if (inputArray.size == lengthToBeShown){
-            nextLevel()
-            return
-        }
-
-    }
 
     private fun startGame(){
         Log.d("Game status", "Game started")
-        interToColor()
+        gameState.postValue(1)
+        startTime = System.currentTimeMillis()
         startTimer()
     }
 
@@ -158,7 +145,6 @@ class Game1l2ViewModel @Inject constructor(
         if (lengthToBeShown == lengthAtTheBeginning) {
             gameState.postValue(4)
             lengthToBeShown = lengthAtTheBeginning
-            buttonColor = 4
             startTime = System.currentTimeMillis()
             startTimer()
         } else {
@@ -176,29 +162,18 @@ class Game1l2ViewModel @Inject constructor(
 
     // transition from state 1 to 2
     private fun colorToInter(){
-        buttonColor = 4
         gameState.postValue(2)
         startTime = System.currentTimeMillis()
     }
 
-    // transition from state 1 to 3
+    // transition from state 2 to 3
     private fun colorToInput(){
         stopTimer()
         gameState.postValue(3)
     }
 
-    // transition from state 2 to 1
-    private fun interToColor(){
-        counter++
-        colorArray.add(randomizeColor())
-        buttonColor = colorArray.last()
-        gameState.postValue(1)
-        startTime = System.currentTimeMillis()
-    }
-
     private fun wrongRed(){
         if (++wrongColorCounter < wrongColorMaxCount){
-            buttonColor = 4
             startTime = System.currentTimeMillis()
             gameState.postValue(4)
         } else {
@@ -209,11 +184,10 @@ class Game1l2ViewModel @Inject constructor(
 
     private fun wrongGrey(){
         startTime = System.currentTimeMillis()
-        buttonColor = 0
         gameState.postValue(4)
     }
 
-    private fun randomizeColor(): Int{
+    private fun randomizeCode(): Int{
         return (0..3).random(Random(System.currentTimeMillis()))
     }
 
