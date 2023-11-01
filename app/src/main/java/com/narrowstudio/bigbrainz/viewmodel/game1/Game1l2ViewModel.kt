@@ -11,6 +11,7 @@ import com.narrowstudio.bigbrainz.data.G1Dao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
+import kotlin.math.pow
 import kotlin.random.Random
 
 @HiltViewModel
@@ -32,7 +33,7 @@ class Game1l2ViewModel @Inject constructor(
     private var startTime: Long = 0
 
     // random code shown
-    val code: MutableLiveData<Int> = MutableLiveData()
+    val code: MutableLiveData<Long> = MutableLiveData()
 
 
     // sends info to fragment to open score fragment
@@ -79,12 +80,12 @@ class Game1l2ViewModel @Inject constructor(
                 }
                 4 -> {
                     if (System.currentTimeMillis() >= startTime + wrongTime){
-
+                        wrongToStart()
                     }
                 }
                 5 -> {
                     if (System.currentTimeMillis() >= startTime + wrongTime){
-
+                        correctToStart()
                     }
                 }
             }
@@ -98,7 +99,9 @@ class Game1l2ViewModel @Inject constructor(
 
     fun init(){
         stopTimer()
+        lengthToBeShown = lengthAtTheBeginning
         openScore.postValue(false)
+        gameState.postValue(0)
     }
 
     fun mainButtonPressed(){
@@ -124,6 +127,7 @@ class Game1l2ViewModel @Inject constructor(
 
     private fun startGame(){
         Log.d("Game status", "Game started")
+        randomizeCode()
         gameState.postValue(1)
         startTime = System.currentTimeMillis()
         startTimer()
@@ -173,10 +177,23 @@ class Game1l2ViewModel @Inject constructor(
         startTime = System.currentTimeMillis()
     }
 
+    // transition from 4 to 0
+    private fun wrongToStart(){
+        init()
+    }
+
+    // transition from 5 to 0
+    private fun correctToStart(){
+        stopTimer()
+        // increasing code by level up value
+        lengthToBeShown += levelUp
+        gameState.postValue(0)
+    }
 
 
-    private fun randomizeCode(): Int{
-        return (0..3).random(Random(System.currentTimeMillis()))
+
+    private fun randomizeCode(): Long{
+        return (10.toDouble().pow(lengthAtTheBeginning -1).toLong() .. 10.toDouble().pow(lengthAtTheBeginning).toLong()).random(Random(System.currentTimeMillis()))
     }
 
     private fun startTimer(){
