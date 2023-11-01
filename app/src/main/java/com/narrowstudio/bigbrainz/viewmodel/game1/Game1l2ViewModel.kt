@@ -24,6 +24,7 @@ class Game1l2ViewModel @Inject constructor(
      *      2 - displaying intercolor
      *      3 - reading the input
      *      4 - displaying wrong
+     *      5 - displaying next level
      */
     val gameState: MutableLiveData<Int> = MutableLiveData()
 
@@ -50,13 +51,11 @@ class Game1l2ViewModel @Inject constructor(
     // time for intercolor in millis
     private val interColorTIme = 1000
 
-    // counting red screens after wrong click
-    private var wrongColorCounter = 0
-    private var wrongColorMaxCount = 3
+    // time of displaying wrong message
+    private val wrongTime = 2000
 
-    // time of displaying red after wrong click
-    private val wrongColorRedTime = 300
-    private val wrongColorGreyTime = 150
+    // time of displaying correct message
+    private val correctTime = 2000
 
     val saves = g1Dao.getEntries().asLiveData()
 
@@ -70,32 +69,23 @@ class Game1l2ViewModel @Inject constructor(
             when (gameState.value){
                 1 -> {
                     if (System.currentTimeMillis() >= startTime + displayTime){
-                        if (counter < lengthToBeShown) {
-                            colorToInter()
-                        } else {
-                            colorToInput()
-                        }
+                        codeToInter()
                     }
                 }
                 2 -> {
                     if (System.currentTimeMillis() >= startTime + interColorTIme){
-                        interToColor()
+                        interToInput()
                     }
                 }
-                4 -> { // timer for displaying red flashed
-                    when (buttonColor){
-                        0 -> {
-                            if (System.currentTimeMillis() >= startTime + wrongColorRedTime){
-                                wrongRed()
-                            }
-                        }
-                        4 -> {
-                            if (System.currentTimeMillis() >= startTime + wrongColorGreyTime){
-                                wrongGrey()
-                            }
-                        }
-                    }
+                4 -> {
+                    if (System.currentTimeMillis() >= startTime + wrongTime){
 
+                    }
+                }
+                5 -> {
+                    if (System.currentTimeMillis() >= startTime + wrongTime){
+
+                    }
                 }
             }
 
@@ -109,7 +99,6 @@ class Game1l2ViewModel @Inject constructor(
     fun init(){
         stopTimer()
         openScore.postValue(false)
-        wrongColorCounter = 0
     }
 
     fun mainButtonPressed(){
@@ -161,31 +150,30 @@ class Game1l2ViewModel @Inject constructor(
     }
 
     // transition from state 1 to 2
-    private fun colorToInter(){
+    private fun codeToInter(){
         gameState.postValue(2)
         startTime = System.currentTimeMillis()
     }
 
     // transition from state 2 to 3
-    private fun colorToInput(){
+    private fun interToInput(){
         stopTimer()
         gameState.postValue(3)
     }
 
-    private fun wrongRed(){
-        if (++wrongColorCounter < wrongColorMaxCount){
-            startTime = System.currentTimeMillis()
-            gameState.postValue(4)
-        } else {
-            stopTimer()
-            init()
-        }
+    // transition from 3 to 4
+    private fun inputToWrong(){
+        gameState.postValue(4)
+        startTime = System.currentTimeMillis()
     }
 
-    private fun wrongGrey(){
+    // transition from 3 to 5
+    private fun inputToCorrect(){
+        gameState.postValue(5)
         startTime = System.currentTimeMillis()
-        gameState.postValue(4)
     }
+
+
 
     private fun randomizeCode(): Int{
         return (0..3).random(Random(System.currentTimeMillis()))
@@ -204,7 +192,7 @@ class Game1l2ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
         scope.launch {
-            g1Dao.insert(G1DBEntry(101, lengthToBeShown - 1))
+            g1Dao.insert(G1DBEntry(102, lengthToBeShown - 1))
         }
     }
 
