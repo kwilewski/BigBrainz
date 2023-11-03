@@ -109,18 +109,17 @@ class Game1l2ViewModel @Inject constructor(
             0 -> {
                 startGame()
             }
-            1 -> {
+            else -> {
                 // do nothing
             }
-            2 -> {
-                // do nothing
-            }
-            3 -> {
-                // do nothing
-            }
-            4 -> {
-                // do nothing
-            }
+        }
+    }
+
+    fun codeEntered(codeEntered: Long){
+        if (codeEntered == code.value){
+            inputToCorrect()
+        } else {
+            inputToWrong()
         }
     }
 
@@ -157,6 +156,7 @@ class Game1l2ViewModel @Inject constructor(
     private fun codeToInter(){
         gameState.postValue(2)
         startTime = System.currentTimeMillis()
+        startTimer()
     }
 
     // transition from state 2 to 3
@@ -167,14 +167,14 @@ class Game1l2ViewModel @Inject constructor(
 
     // transition from 3 to 4
     private fun inputToWrong(){
-        gameState.postValue(4)
-        startTime = System.currentTimeMillis()
+        restartGame()
     }
 
     // transition from 3 to 5
     private fun inputToCorrect(){
         gameState.postValue(5)
         startTime = System.currentTimeMillis()
+        startTimer()
     }
 
     // transition from 4 to 0
