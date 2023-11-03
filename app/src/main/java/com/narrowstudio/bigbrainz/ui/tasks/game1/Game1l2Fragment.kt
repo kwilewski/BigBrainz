@@ -60,12 +60,10 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
             buttonIconHandler()
             layoutVisibilityHandler()
             topTextHandler()
+            middleTextHandler()
             bottomTextHandler()
         })
 
-        g1l2ViewModel.colorPressedLD.observe(viewLifecycleOwner, Observer {
-            topTextHandler()
-        })
 
         //opening score fragment
         openScore = g1l2ViewModel.openScore
@@ -74,7 +72,7 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
         })
 
         binding.g1l2SequenceButton.setOnClickListener(View.OnClickListener {v ->
-            g1l2ViewModel.colorButtonPressed(0)
+            // TODO
         })
 
 
@@ -84,36 +82,56 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
 
     private fun topTextHandler(){
         when (g1l2ViewModel.gameState.value){
-            0, 2 -> {
-                binding.g1l1TopTextView.text = getString(R.string.g1l1_remaining,
-                    g1l2ViewModel.lengthToBeShown - g1l2ViewModel.counter)
+            0, 1, 2 -> {
+                binding.g1l2TopTextView.text = getString(R.string.g1l2_code_length,
+                    g1l2ViewModel.lengthToBeShown)
             }
             3 -> {
-                binding.g1l1TopTextView.text = getString(R.string.g1l1_remaining,
-                    g1l2ViewModel.lengthToBeShown - g1l2ViewModel.inputArray.size)
+                binding.g1l2TopTextView.text = getString(R.string.g1l2_code_length,
+                    g1l2ViewModel.lengthToBeShown)
+            }
+            else -> {
+                binding.g1l2TopTextView.text = ""
+            }
+        }
+    }
+
+    private fun middleTextHandler(){
+        when (g1l2ViewModel.gameState.value){
+            1 -> {
+                binding.g1l2SequenceText.text = g1l2ViewModel.code.value.toString()
+            }
+            2 -> {
+                binding.g1l2SequenceText.text = ""
             }
             4 -> {
-                binding.g1l1TopTextView.text = ""
+                binding.g1l2SequenceText.text = getString(R.string.g1l2_incorrect)
             }
+            5 -> {
+                binding.g1l2SequenceText.text = getString(R.string.g1l2_correct)
+            }
+            else -> {
+                binding.g1l2SequenceText.text = ""
+            }
+
         }
     }
 
     private fun bottomTextHandler(){
         when (g1l2ViewModel.gameState.value){
-            0, 1, 2, 3 -> {
-                // TODO
-                binding.g1l2BottomTextView.text = getString(R.string.g1l1_info,
-                    g1l2ViewModel.lengthToBeShown)
+            0, 1, 2, 3, 4, 5 -> {
+                binding.g1l2BottomTextView.text = getString(R.string.g1l2_info)
             }
-            4 -> {
-                binding.g1l2BottomTextView.text = getString(R.string.wrong)
+            else -> {
+                binding.g1l2BottomTextView.text = ""
             }
         }
     }
 
 
 
-    private fun buttonIconHandler(){
+
+            private fun buttonIconHandler(){
         when (g1l2ViewModel.gameState.value){
             0 -> {
                 binding.g1l2StartButton.setImageResource(R.drawable.ic_baseline_touch)
@@ -123,6 +141,7 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
             }
         }
     }
+
 
     private fun layoutVisibilityHandler(){
         when (g1l2ViewModel.gameState.value){
