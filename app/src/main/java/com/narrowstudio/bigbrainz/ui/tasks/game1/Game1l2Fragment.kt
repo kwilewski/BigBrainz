@@ -1,9 +1,13 @@
 package com.narrowstudio.bigbrainz.ui.tasks.game1
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
@@ -56,6 +60,7 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
             true
         })
 
+
         g1l2ViewModel.gameState.observe(viewLifecycleOwner, Observer{
             buttonIconHandler()
             layoutVisibilityHandler()
@@ -72,12 +77,26 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
         })
 
         binding.g1l2SequenceButton.setOnClickListener(View.OnClickListener {v ->
-            // TODO
+            sequenceButtonClicked()
         })
 
 
 
         return view
+    }
+
+    private fun sequenceButtonClicked(){
+        // readind the code from the EditText
+        val code: Long? = binding.g1l2SequenceInput.text.toString().toLongOrNull()
+        if (code != null) {
+            g1l2ViewModel.codeEntered(code)
+        }
+        // removing the code from ET after the click
+        binding.g1l2SequenceInput.setText("")
+
+        // hiding the keyboard after the click
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     private fun topTextHandler(){
@@ -166,8 +185,13 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
                 binding.g1l2InputLayout.visibility = View.VISIBLE
             }
             4 -> {
-                binding.g1l2StartLayout.visibility = View.VISIBLE
-                binding.g1l2SequenceLayout.visibility = View.INVISIBLE
+                binding.g1l2StartLayout.visibility = View.INVISIBLE
+                binding.g1l2SequenceLayout.visibility = View.VISIBLE
+                binding.g1l2InputLayout.visibility = View.INVISIBLE
+            }
+            5 -> {
+                binding.g1l2StartLayout.visibility = View.INVISIBLE
+                binding.g1l2SequenceLayout.visibility = View.VISIBLE
                 binding.g1l2InputLayout.visibility = View.INVISIBLE
             }
         }
@@ -175,7 +199,7 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
 
     private fun openScoreFragment(){
         if (openScore.value == true) {
-            navController!!.navigate(R.id.action_game1l1Fragment_to_game1l1ScoreFragment)
+            navController!!.navigate(R.id.action_game1l2Fragment_to_game1l2ScoreFragment)
         }
     }
 

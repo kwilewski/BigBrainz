@@ -40,7 +40,7 @@ class Game1l2ViewModel @Inject constructor(
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
 
     // length of the first challenge
-    private val lengthAtTheBeginning = 5
+    private val lengthAtTheBeginning = 3
     // length of level
     var lengthToBeShown = lengthAtTheBeginning
     // increment of length at each level
@@ -50,7 +50,7 @@ class Game1l2ViewModel @Inject constructor(
     private val displayTime = 2000
 
     // time for intercolor in millis
-    private val interColorTIme = 1000
+    private val interColorTIme = 1500
 
     // time of displaying wrong message
     private val wrongTime = 2000
@@ -84,7 +84,7 @@ class Game1l2ViewModel @Inject constructor(
                     }
                 }
                 5 -> {
-                    if (System.currentTimeMillis() >= startTime + wrongTime){
+                    if (System.currentTimeMillis() >= startTime + correctTime){
                         correctToStart()
                     }
                 }
@@ -126,7 +126,7 @@ class Game1l2ViewModel @Inject constructor(
 
     private fun startGame(){
         Log.d("Game status", "Game started")
-        randomizeCode()
+        code.postValue(randomizeCode())
         gameState.postValue(1)
         startTime = System.currentTimeMillis()
         startTimer()
@@ -149,7 +149,9 @@ class Game1l2ViewModel @Inject constructor(
     private fun nextLevel(){
         lengthToBeShown += levelUp
         Log.d("Game status", "Level up. Current level: $lengthToBeShown")
-        init()
+        gameState.postValue(5)
+        startTime = System.currentTimeMillis()
+        startTimer()
     }
 
     // transition from state 1 to 2
@@ -172,9 +174,7 @@ class Game1l2ViewModel @Inject constructor(
 
     // transition from 3 to 5
     private fun inputToCorrect(){
-        gameState.postValue(5)
-        startTime = System.currentTimeMillis()
-        startTimer()
+        nextLevel()
     }
 
     // transition from 4 to 0
@@ -185,15 +185,13 @@ class Game1l2ViewModel @Inject constructor(
     // transition from 5 to 0
     private fun correctToStart(){
         stopTimer()
-        // increasing code by level up value
-        lengthToBeShown += levelUp
         gameState.postValue(0)
     }
 
 
 
     private fun randomizeCode(): Long{
-        return (10.toDouble().pow(lengthAtTheBeginning -1).toLong() .. 10.toDouble().pow(lengthAtTheBeginning).toLong()).random(Random(System.currentTimeMillis()))
+        return (10.toDouble().pow(lengthToBeShown -1).toLong() .. 10.toDouble().pow(lengthToBeShown).toLong()).random(Random(System.currentTimeMillis()))
     }
 
     private fun startTimer(){
