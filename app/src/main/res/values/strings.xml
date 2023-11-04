@@ -21,6 +21,8 @@
 
     <string name="g1l1_remaining">Remaining: %1$d</string>
     <string name="g1l1_info">Replay the sequence of colors. The sequence will be longer with your progress.\nSequence length: %1$d</string>
+    <string name="g1l1_correct">Correct!</string>
+    <string name="g1l1_incorrect">Incorrect</string>
 
     <string name="g1l2_code_length">Code length: %1$d</string>
     <string name="g1l2_info">Enter displayed code. The code will be longer with your progress.</string>

@@ -25,6 +25,7 @@ class Game1l1ViewModel @Inject constructor(
      *      2 - displaying intercolor
      *      3 - reading the input
      *      4 - displaying wrong
+     *      5 - displaying correct
      */
     val gameState: MutableLiveData<Int> = MutableLiveData()
 
@@ -68,13 +69,12 @@ class Game1l1ViewModel @Inject constructor(
     // time for intercolor in millis
     private val interColorTIme = 250
 
-    // counting red screens after wrong click
-    private var wrongColorCounter = 0
-    private var wrongColorMaxCount = 3
+    // time of displaying wrong message
+    private val wrongTime = 2000
 
-    // time of displaying red after wrong click
-    private val wrongColorRedTime = 300
-    private val wrongColorGreyTime = 150
+    // time of displaying correct message
+    private val correctTime = 2000
+
 
     val saves = g1Dao.getEntries().asLiveData()
 
@@ -100,20 +100,15 @@ class Game1l1ViewModel @Inject constructor(
                         interToColor()
                     }
                 }
-                4 -> { // timer for displaying red flashed
-                    when (buttonColor){
-                        0 -> {
-                            if (System.currentTimeMillis() >= startTime + wrongColorRedTime){
-                                wrongRed()
-                            }
-                        }
-                        4 -> {
-                            if (System.currentTimeMillis() >= startTime + wrongColorGreyTime){
-                                wrongGrey()
-                            }
-                        }
+                4 -> {
+                    if (System.currentTimeMillis() >= startTime + wrongTime){
+                        wrongToStart()
                     }
-
+                }
+                5 -> {
+                    if (System.currentTimeMillis() >= startTime + correctTime){
+                        correctToStart()
+                    }
                 }
             }
 
@@ -126,12 +121,11 @@ class Game1l1ViewModel @Inject constructor(
 
     fun init(){
         stopTimer()
-        buttonColor = 4
         colorArray.clear()
         inputArray.clear()
         openScore.postValue(false)
         counter = 0
-        wrongColorCounter = 0
+        buttonColor = 4
     }
 
     fun mainButtonPressed(){
@@ -192,7 +186,9 @@ class Game1l1ViewModel @Inject constructor(
     private fun nextLevel(){
         colorsToBeShown += levelUp
         Log.d("Game status", "Level up. Current level: $colorsToBeShown")
-        init()
+        gameState.postValue(5)
+        startTime = System.currentTimeMillis()
+        startTimer()
     }
 
     // transition from state 1 to 2
@@ -217,22 +213,18 @@ class Game1l1ViewModel @Inject constructor(
         startTime = System.currentTimeMillis()
     }
 
-    private fun wrongRed(){
-        if (++wrongColorCounter < wrongColorMaxCount){
-            buttonColor = 4
-            startTime = System.currentTimeMillis()
-            gameState.postValue(4)
-        } else {
-            stopTimer()
-            init()
-        }
+
+    // transition from 4 to 0
+    private fun wrongToStart(){
+        init()
     }
 
-    private fun wrongGrey(){
-        startTime = System.currentTimeMillis()
-        buttonColor = 0
-        gameState.postValue(4)
+    // transition from 5 to 0
+    private fun correctToStart(){
+        init()
+        gameState.postValue(0)
     }
+
 
     private fun randomizeColor(): Int{
         return (0..3).random(Random(System.currentTimeMillis()))

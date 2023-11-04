@@ -148,9 +148,7 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
     }
 
 
-
-
-            private fun buttonIconHandler(){
+    private fun buttonIconHandler(){
         when (g1l2ViewModel.gameState.value){
             0 -> {
                 binding.g1l2StartButton.setImageResource(R.drawable.ic_baseline_touch)

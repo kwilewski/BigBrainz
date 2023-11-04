@@ -63,6 +63,7 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
             buttonIconHandler()
             buttonVisibilityHandler()
             topTextHandler()
+            middleTextHandler()
             bottomTextHandler()
         })
 
@@ -106,12 +107,30 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
             4 -> {
                 binding.g1l1TopTextView.text = ""
             }
+            5 -> {
+                binding.g1l1TopTextView.text = ""
+            }
+        }
+    }
+
+    private fun middleTextHandler(){
+        when (g1l1ViewModel.gameState.value){
+            4 -> {
+                binding.g1l1MiddleText.text = getString(R.string.g1l2_incorrect)
+            }
+            5 -> {
+                binding.g1l1MiddleText.text = getString(R.string.g1l1_correct)
+            }
+            else -> {
+                binding.g1l1MiddleText.text = ""
+            }
+
         }
     }
 
     private fun bottomTextHandler(){
         when (g1l1ViewModel.gameState.value){
-            0, 1, 2, 3 -> {
+            0, 1, 2, 3, 4, 5 -> {
                 binding.g1Textview.text = getString(R.string.g1l1_info,
                     g1l1ViewModel.colorsToBeShown)
             }
@@ -159,13 +178,25 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
 
     private fun buttonVisibilityHandler(){
         when (g1l1ViewModel.gameState.value){
-            0, 1, 2, 4 -> {
+            0, 1 -> {
                 binding.g1ColorDisplay.visibility = View.VISIBLE
                 binding.g1ButtonsGrid.visibility = View.INVISIBLE
+                binding.g1l1TextLayout.visibility = View.INVISIBLE
+            }
+            2 -> {
+                binding.g1ColorDisplay.visibility = View.INVISIBLE
+                binding.g1ButtonsGrid.visibility = View.INVISIBLE
+                binding.g1l1TextLayout.visibility = View.VISIBLE
             }
             3 -> {
                 binding.g1ColorDisplay.visibility = View.INVISIBLE
                 binding.g1ButtonsGrid.visibility = View.VISIBLE
+                binding.g1l1TextLayout.visibility = View.INVISIBLE
+            }
+            4, 5 -> {
+                binding.g1ColorDisplay.visibility = View.INVISIBLE
+                binding.g1ButtonsGrid.visibility = View.INVISIBLE
+                binding.g1l1TextLayout.visibility = View.VISIBLE
             }
         }
     }

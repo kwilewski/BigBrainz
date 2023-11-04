@@ -25,7 +25,7 @@ class Game1l2ViewModel @Inject constructor(
      *      2 - displaying intercolor
      *      3 - reading the input
      *      4 - displaying wrong
-     *      5 - displaying next level
+     *      5 - displaying correct
      */
     val gameState: MutableLiveData<Int> = MutableLiveData()
 
