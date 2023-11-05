@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.narrowstudio.bigbrainz.data.G1DBEntry
 import com.narrowstudio.bigbrainz.data.G1Dao
-import com.narrowstudio.bigbrainz.data.G2DBEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 @HiltViewModel
@@ -23,6 +23,7 @@ class Game1l1ViewModel @Inject constructor(
      *      0 - not running
      *      1 - displaying the color
      *      2 - displaying intercolor
+     *      20 - displaying between final color and reading
      *      3 - reading the input
      *      4 - displaying wrong
      *      5 - displaying correct
@@ -52,6 +53,9 @@ class Game1l1ViewModel @Inject constructor(
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
 
+    // progress bar filler
+    val progressBar: MutableLiveData<Int> = MutableLiveData()
+
     var buttonColor: Int = 4
 
     // length of the first challenge
@@ -68,6 +72,9 @@ class Game1l1ViewModel @Inject constructor(
 
     // time for intercolor in millis
     private val interColorTIme = 250
+
+    // time for progress in millis
+    private val progressTIme = 1500
 
     // time of displaying wrong message
     private val wrongTime = 2000
@@ -91,13 +98,20 @@ class Game1l1ViewModel @Inject constructor(
                         if (counter < colorsToBeShown) {
                             colorToInter()
                         } else {
-                            colorToInput()
+                            colorToProgress()
                         }
                     }
                 }
                 2 -> {
                     if (System.currentTimeMillis() >= startTime + interColorTIme){
                         interToColor()
+                    }
+                }
+                20 -> {
+                    if (System.currentTimeMillis() >= startTime + progressTIme){
+                        progressToInput()
+                    } else {
+                        progressBar.postValue(progressBarCalc(System.currentTimeMillis() - startTime))
                     }
                 }
                 4 -> {
@@ -124,6 +138,7 @@ class Game1l1ViewModel @Inject constructor(
         colorArray.clear()
         inputArray.clear()
         openScore.postValue(false)
+        progressBar.postValue(0)
         counter = 0
         buttonColor = 4
     }
@@ -198,8 +213,14 @@ class Game1l1ViewModel @Inject constructor(
         startTime = System.currentTimeMillis()
     }
 
-    // transition from state 1 to 3
-    private fun colorToInput(){
+    // transition from state 1 to 20
+    private fun colorToProgress(){
+        gameState.postValue(20)
+        startTime = System.currentTimeMillis()
+    }
+
+    // transition from state 20 to 3
+    private fun progressToInput(){
         stopTimer()
         gameState.postValue(3)
     }
@@ -228,6 +249,11 @@ class Game1l1ViewModel @Inject constructor(
 
     private fun randomizeColor(): Int{
         return (0..3).random(Random(System.currentTimeMillis()))
+    }
+
+    // returning percentage for progressBar
+    private fun progressBarCalc(delta: Long): Int {
+        return ((delta.toFloat() / progressTIme.toFloat())*100).roundToInt()
     }
 
     private fun startTimer(){

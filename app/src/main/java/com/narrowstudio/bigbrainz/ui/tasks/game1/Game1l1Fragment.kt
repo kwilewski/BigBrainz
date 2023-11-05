@@ -77,6 +77,11 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
             openScoreFragment()
         })
 
+        // swtting progress bar
+        g1l1ViewModel.progressBar.observe(viewLifecycleOwner, Observer {
+            progressBarHandler()
+        })
+
         binding.g1Color1Button.setOnClickListener(View.OnClickListener {v ->
             g1l1ViewModel.colorButtonPressed(0)
         })
@@ -181,24 +186,38 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
             0, 1 -> {
                 binding.g1ColorDisplay.visibility = View.VISIBLE
                 binding.g1ButtonsGrid.visibility = View.INVISIBLE
+                binding.g1l1ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l1TextLayout.visibility = View.INVISIBLE
             }
             2 -> {
                 binding.g1ColorDisplay.visibility = View.INVISIBLE
                 binding.g1ButtonsGrid.visibility = View.INVISIBLE
+                binding.g1l1ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l1TextLayout.visibility = View.VISIBLE
+            }
+            20 -> {
+                binding.g1ColorDisplay.visibility = View.INVISIBLE
+                binding.g1ButtonsGrid.visibility = View.INVISIBLE
+                binding.g1l1ProgressLayout.visibility = View.VISIBLE
+                binding.g1l1TextLayout.visibility = View.INVISIBLE
             }
             3 -> {
                 binding.g1ColorDisplay.visibility = View.INVISIBLE
                 binding.g1ButtonsGrid.visibility = View.VISIBLE
+                binding.g1l1ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l1TextLayout.visibility = View.INVISIBLE
             }
             4, 5 -> {
                 binding.g1ColorDisplay.visibility = View.INVISIBLE
                 binding.g1ButtonsGrid.visibility = View.INVISIBLE
+                binding.g1l1ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l1TextLayout.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun progressBarHandler(){
+        binding.g1l1ProgressBar.progress = g1l1ViewModel.progressBar.value!!
     }
 
     private fun openScoreFragment(){

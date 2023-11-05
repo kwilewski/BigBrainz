@@ -201,6 +201,7 @@ class Game1l2ViewModel @Inject constructor(
         return (10.toDouble().pow(lengthToBeShown -1).toLong() .. 10.toDouble().pow(lengthToBeShown).toLong()).random(Random(System.currentTimeMillis()))
     }
 
+    // returning percentage for progressBar
     private fun progressBarCalc(delta: Long): Int {
         return ((delta.toFloat() / interColorTIme.toFloat())*100).roundToInt()
     }
