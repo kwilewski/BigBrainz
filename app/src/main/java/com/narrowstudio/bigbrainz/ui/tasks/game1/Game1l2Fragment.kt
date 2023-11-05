@@ -124,7 +124,7 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
                 binding.g1l2SequenceText.text = ""
             }
             4 -> {
-                binding.g1l2SequenceText.text = getString(R.string.g1l2_incorrect)
+                binding.g1l2SequenceText.text = getString(R.string.g1l2_incorrect, g1l2ViewModel.code.value)
             }
             5 -> {
                 binding.g1l2SequenceText.text = getString(R.string.g1l2_correct)

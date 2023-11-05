@@ -116,7 +116,7 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
     private fun middleTextHandler(){
         when (g1l1ViewModel.gameState.value){
             4 -> {
-                binding.g1l1MiddleText.text = getString(R.string.g1l2_incorrect)
+                binding.g1l1MiddleText.text = getString(R.string.g1l1_incorrect)
             }
             5 -> {
                 binding.g1l1MiddleText.text = getString(R.string.g1l1_correct)
