@@ -76,6 +76,11 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
             openScoreFragment()
         })
 
+        // swtting progress bar
+        g1l2ViewModel.progressBar.observe(viewLifecycleOwner, Observer {
+            progressBarHandler()
+        })
+
         binding.g1l2SequenceButton.setOnClickListener(View.OnClickListener {v ->
             sequenceButtonClicked()
         })
@@ -159,37 +164,47 @@ class Game1l2Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
         }
     }
 
+    private fun progressBarHandler(){
+        binding.g1l2ProgressBar.progress = g1l2ViewModel.progressBar.value!!
+    }
+
 
     private fun layoutVisibilityHandler(){
         when (g1l2ViewModel.gameState.value){
             0 -> {
                 binding.g1l2StartLayout.visibility = View.VISIBLE
                 binding.g1l2SequenceLayout.visibility = View.INVISIBLE
+                binding.g1l2ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l2InputLayout.visibility = View.INVISIBLE
             }
             1 -> {
                 binding.g1l2StartLayout.visibility = View.INVISIBLE
                 binding.g1l2SequenceLayout.visibility = View.VISIBLE
+                binding.g1l2ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l2InputLayout.visibility = View.INVISIBLE
             }
             2 -> {
                 binding.g1l2StartLayout.visibility = View.INVISIBLE
                 binding.g1l2SequenceLayout.visibility = View.INVISIBLE
+                binding.g1l2ProgressLayout.visibility = View.VISIBLE
                 binding.g1l2InputLayout.visibility = View.INVISIBLE
             }
             3 -> {
                 binding.g1l2StartLayout.visibility = View.INVISIBLE
                 binding.g1l2SequenceLayout.visibility = View.INVISIBLE
+                binding.g1l2ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l2InputLayout.visibility = View.VISIBLE
             }
             4 -> {
                 binding.g1l2StartLayout.visibility = View.INVISIBLE
                 binding.g1l2SequenceLayout.visibility = View.VISIBLE
+                binding.g1l2ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l2InputLayout.visibility = View.INVISIBLE
             }
             5 -> {
                 binding.g1l2StartLayout.visibility = View.INVISIBLE
                 binding.g1l2SequenceLayout.visibility = View.VISIBLE
+                binding.g1l2ProgressLayout.visibility = View.INVISIBLE
                 binding.g1l2InputLayout.visibility = View.INVISIBLE
             }
         }

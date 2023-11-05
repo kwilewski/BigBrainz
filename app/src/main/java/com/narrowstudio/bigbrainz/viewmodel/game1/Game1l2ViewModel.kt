@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 @HiltViewModel
@@ -38,6 +39,9 @@ class Game1l2ViewModel @Inject constructor(
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
+
+    // progress bar filler
+    val progressBar: MutableLiveData<Int> = MutableLiveData()
 
     // length of the first challenge
     private val lengthAtTheBeginning = 3
@@ -76,6 +80,8 @@ class Game1l2ViewModel @Inject constructor(
                 2 -> {
                     if (System.currentTimeMillis() >= startTime + interColorTIme){
                         interToInput()
+                    } else {
+                        progressBar.postValue(progressBarCalc(System.currentTimeMillis() - startTime))
                     }
                 }
                 4 -> {
@@ -101,6 +107,7 @@ class Game1l2ViewModel @Inject constructor(
         stopTimer()
         lengthToBeShown = lengthAtTheBeginning
         openScore.postValue(false)
+        progressBar.postValue(0)
         gameState.postValue(0)
     }
 
@@ -192,6 +199,10 @@ class Game1l2ViewModel @Inject constructor(
 
     private fun randomizeCode(): Long{
         return (10.toDouble().pow(lengthToBeShown -1).toLong() .. 10.toDouble().pow(lengthToBeShown).toLong()).random(Random(System.currentTimeMillis()))
+    }
+
+    private fun progressBarCalc(delta: Long): Int {
+        return ((delta.toFloat() / interColorTIme.toFloat())*100).roundToInt()
     }
 
     private fun startTimer(){
