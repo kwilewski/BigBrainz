@@ -2,12 +2,10 @@ package com.narrowstudio.bigbrainz.ui.tasks.game1
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
@@ -18,12 +16,13 @@ import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame1L2Binding
 import com.narrowstudio.bigbrainz.viewmodel.game1.Game1l2ViewModel
+import com.narrowstudio.bigbrainz.viewmodel.game1.Game1l3ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
+class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_3), LifecycleOwner {
 
-    private val g1l2ViewModel: Game1l2ViewModel by viewModels()
+    private val g1l3ViewModel: Game1l3ViewModel by viewModels()
 
     // opening score
     private lateinit var openScore: LiveData<Boolean>
@@ -53,15 +52,15 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
 
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
-        g1l2ViewModel.init()
+        g1l3ViewModel.init()
 
         binding.g1l2StartButton.setOnTouchListener(View.OnTouchListener{v, event ->
-            g1l2ViewModel.mainButtonPressed()
+            g1l3ViewModel.mainButtonPressed()
             true
         })
 
 
-        g1l2ViewModel.gameState.observe(viewLifecycleOwner, Observer{
+        g1l3ViewModel.gameState.observe(viewLifecycleOwner, Observer{
             buttonIconHandler()
             layoutVisibilityHandler()
             topTextHandler()
@@ -71,13 +70,13 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
 
 
         //opening score fragment
-        openScore = g1l2ViewModel.openScore
+        openScore = g1l3ViewModel.openScore
         openScore.observe(viewLifecycleOwner, Observer{
             openScoreFragment()
         })
 
         // swtting progress bar
-        g1l2ViewModel.progressBar.observe(viewLifecycleOwner, Observer {
+        g1l3ViewModel.progressBar.observe(viewLifecycleOwner, Observer {
             progressBarHandler()
         })
 
@@ -94,7 +93,7 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
         // readind the code from the EditText
         val code: Long? = binding.g1l2SequenceInput.text.toString().toLongOrNull()
         if (code != null) {
-            g1l2ViewModel.codeEntered(code)
+            g1l3ViewModel.codeEntered(code)
         }
         // removing the code from ET after the click
         binding.g1l2SequenceInput.setText("")
@@ -105,14 +104,14 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
     }
 
     private fun topTextHandler(){
-        when (g1l2ViewModel.gameState.value){
+        when (g1l3ViewModel.gameState.value){
             0, 1, 2 -> {
                 binding.g1l2TopTextView.text = getString(R.string.g1l2_code_length,
-                    g1l2ViewModel.lengthToBeShown)
+                    g1l3ViewModel.lengthToBeShown)
             }
             3 -> {
                 binding.g1l2TopTextView.text = getString(R.string.g1l2_code_length,
-                    g1l2ViewModel.lengthToBeShown)
+                    g1l3ViewModel.lengthToBeShown)
             }
             else -> {
                 binding.g1l2TopTextView.text = ""
@@ -121,15 +120,15 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
     }
 
     private fun middleTextHandler(){
-        when (g1l2ViewModel.gameState.value){
+        when (g1l3ViewModel.gameState.value){
             1 -> {
-                binding.g1l2SequenceText.text = g1l2ViewModel.code.value.toString()
+                binding.g1l2SequenceText.text = g1l3ViewModel.code.value.toString()
             }
             2 -> {
                 binding.g1l2SequenceText.text = ""
             }
             4 -> {
-                binding.g1l2SequenceText.text = getString(R.string.g1l2_incorrect, g1l2ViewModel.code.value)
+                binding.g1l2SequenceText.text = getString(R.string.g1l2_incorrect, g1l3ViewModel.code.value)
             }
             5 -> {
                 binding.g1l2SequenceText.text = getString(R.string.g1l2_correct)
@@ -142,7 +141,7 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
     }
 
     private fun bottomTextHandler(){
-        when (g1l2ViewModel.gameState.value){
+        when (g1l3ViewModel.gameState.value){
             0, 1, 2, 3, 4, 5 -> {
                 binding.g1l2BottomTextView.text = getString(R.string.g1l2_info)
             }
@@ -154,7 +153,7 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
 
 
     private fun buttonIconHandler(){
-        when (g1l2ViewModel.gameState.value){
+        when (g1l3ViewModel.gameState.value){
             0 -> {
                 binding.g1l2StartButton.setImageResource(R.drawable.ic_baseline_touch)
             }
@@ -165,12 +164,12 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_2), LifecycleOwner {
     }
 
     private fun progressBarHandler(){
-        binding.g1l2ProgressBar.progress = g1l2ViewModel.progressBar.value!!
+        binding.g1l2ProgressBar.progress = g1l3ViewModel.progressBar.value!!
     }
 
 
     private fun layoutVisibilityHandler(){
-        when (g1l2ViewModel.gameState.value){
+        when (g1l3ViewModel.gameState.value){
             0 -> {
                 binding.g1l2StartLayout.visibility = View.VISIBLE
                 binding.g1l2SequenceLayout.visibility = View.INVISIBLE
