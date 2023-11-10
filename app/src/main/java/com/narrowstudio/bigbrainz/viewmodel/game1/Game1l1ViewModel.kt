@@ -44,7 +44,7 @@ class Game1l1ViewModel @Inject constructor(
     // array with indexes of generated colors
     private var colorArray: ArrayList<Int> = ArrayList()
 
-    private var inputArray: ArrayList<Int> = ArrayList()
+    var inputArray: ArrayList<Int> = ArrayList()
 
     val colorPressedLD:MutableLiveData<Boolean> = MutableLiveData()
 
