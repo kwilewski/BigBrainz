@@ -56,6 +56,84 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_3), LifecycleOwner {
             true
         })
 
+        binding.g1l3Button1.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(1)
+        })
+        binding.g1l3Button2.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(2)
+        })
+        binding.g1l3Button3.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(3)
+        })
+        binding.g1l3Button4.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(4)
+        })
+        binding.g1l3Button5.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(5)
+        })
+        binding.g1l3Button6.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(6)
+        })
+        binding.g1l3Button7.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(7)
+        })
+        binding.g1l3Button8.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(8)
+        })
+        binding.g1l3Button9.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(9)
+        })
+        binding.g1l3Button10.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(10)
+        })
+        binding.g1l3Button11.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(11)
+        })
+        binding.g1l3Button12.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(12)
+        })
+        binding.g1l3Button13.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(13)
+        })
+        binding.g1l3Button14.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(14)
+        })
+        binding.g1l3Button15.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(15)
+        })
+        binding.g1l3Button16.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(16)
+        })
+        binding.g1l3Button17.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(17)
+        })
+        binding.g1l3Button18.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(18)
+        })
+        binding.g1l3Button19.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(19)
+        })
+        binding.g1l3Button20.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(20)
+        })
+        binding.g1l3Button21.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(21)
+        })
+        binding.g1l3Button22.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(22)
+        })
+        binding.g1l3Button23.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(23)
+        })
+        binding.g1l3Button24.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(24)
+        })
+        binding.g1l3Button25.setOnClickListener(View.OnClickListener {v ->
+            buttonClicked(25)
+        })
+
+
+
 
         g1l3ViewModel.gameState.observe(viewLifecycleOwner, Observer{
             buttonIconHandler()
@@ -87,6 +165,10 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_3), LifecycleOwner {
 
 
         return view
+    }
+
+    private fun buttonClicked(id: Int){
+        g1l3ViewModel.tileButtonPressed(id)
     }
 
 
