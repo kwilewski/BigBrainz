@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame1L2Binding
-import com.narrowstudio.bigbrainz.viewmodel.game1.Game1l2ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.game1.Game1l3ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -107,11 +106,11 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_3), LifecycleOwner {
         when (g1l3ViewModel.gameState.value){
             0, 1, 2 -> {
                 binding.g1l2TopTextView.text = getString(R.string.g1l2_code_length,
-                    g1l3ViewModel.lengthToBeShown)
+                    g1l3ViewModel.levelToBeShown)
             }
             3 -> {
                 binding.g1l2TopTextView.text = getString(R.string.g1l2_code_length,
-                    g1l3ViewModel.lengthToBeShown)
+                    g1l3ViewModel.levelToBeShown)
             }
             else -> {
                 binding.g1l2TopTextView.text = ""

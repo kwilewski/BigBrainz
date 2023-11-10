@@ -22,7 +22,7 @@ class Game1l3ViewModel @Inject constructor(
 
     /**    ---------------------- gameState ----------------------------------
      *      0 - not running
-     *      1 - displaying the code
+     *      1 - displaying the numbers
      *      2 - displaying intercolor
      *      3 - reading the input
      *      4 - displaying wrong
@@ -30,12 +30,14 @@ class Game1l3ViewModel @Inject constructor(
      */
     val gameState: MutableLiveData<Int> = MutableLiveData()
 
+    // list of indexes of buttons
+    var indexList: List<Int> = ArrayList()
+
+    // list of correctly pressed tiles to be displayed
+    val correctTiles: MutableLiveData<Int> = MutableLiveData()
+
     // time of starting the timer in millis
     private var startTime: Long = 0
-
-    // random code shown
-    val code: MutableLiveData<Long> = MutableLiveData()
-
 
     // sends info to fragment to open score fragment
     var openScore: MutableLiveData<Boolean> = MutableLiveData()
@@ -44,13 +46,15 @@ class Game1l3ViewModel @Inject constructor(
     val progressBar: MutableLiveData<Int> = MutableLiveData()
 
     // length of the first challenge
-    private val lengthAtTheBeginning = 3
+    private val levelAtTheBeginning = 3
+
     // length of level
-    var lengthToBeShown = lengthAtTheBeginning
+    var levelToBeShown = levelAtTheBeginning
+
     // increment of length at each level
     private val levelUp = 1
 
-    // time for the code in millis
+    // time for the table in millis
     private val displayTime = 2000
 
     // time for intercolor in millis
@@ -105,8 +109,9 @@ class Game1l3ViewModel @Inject constructor(
 
     fun init(){
         stopTimer()
-        lengthToBeShown = lengthAtTheBeginning
+        levelToBeShown = levelAtTheBeginning
         openScore.postValue(false)
+        correctTiles.postValue(0)
         progressBar.postValue(0)
         gameState.postValue(0)
     }
@@ -122,18 +127,27 @@ class Game1l3ViewModel @Inject constructor(
         }
     }
 
-    fun codeEntered(codeEntered: Long){
-        if (codeEntered == code.value){
-            inputToCorrect()
+    fun tileButtonPressed(id: Int){
+        val current: Int? = correctTiles.value
+        if (current?.let { indexList.get(it) } == id){
+            correctTiles.postValue(current + 1)
         } else {
             inputToWrong()
         }
+        // if new current is equal to level, go to next level
+        if (current != null) {
+            if (current + 2 == levelToBeShown){
+                inputToCorrect()
+            }
+        }
+
     }
+
 
 
     private fun startGame(){
         Log.d("Game status", "Game started")
-        code.postValue(randomizeCode())
+        randomizeIndexes()
         gameState.postValue(1)
         startTime = System.currentTimeMillis()
         startTimer()
@@ -141,9 +155,9 @@ class Game1l3ViewModel @Inject constructor(
 
     private fun restartGame(){
         // if any successful pattern, save
-        if (lengthToBeShown == lengthAtTheBeginning) {
+        if (levelToBeShown == levelAtTheBeginning) {
             gameState.postValue(4)
-            lengthToBeShown = lengthAtTheBeginning
+            levelToBeShown = levelAtTheBeginning
             startTime = System.currentTimeMillis()
             startTimer()
         } else {
@@ -154,8 +168,8 @@ class Game1l3ViewModel @Inject constructor(
     }
 
     private fun nextLevel(){
-        lengthToBeShown += levelUp
-        Log.d("Game status", "Level up. Current level: $lengthToBeShown")
+        levelToBeShown += levelUp
+        Log.d("Game status", "Level up. Current level: $levelToBeShown")
         gameState.postValue(5)
         startTime = System.currentTimeMillis()
         startTimer()
@@ -195,10 +209,8 @@ class Game1l3ViewModel @Inject constructor(
         gameState.postValue(0)
     }
 
-
-
-    private fun randomizeCode(): Long{
-        return (10.toDouble().pow(lengthToBeShown -1).toLong() .. 10.toDouble().pow(lengthToBeShown).toLong()).random(Random(System.currentTimeMillis()))
+    private fun randomizeIndexes(){
+        indexList = (1 .. 25).shuffled().take(levelToBeShown)
     }
 
     // returning percentage for progressBar
@@ -213,13 +225,12 @@ class Game1l3ViewModel @Inject constructor(
 
     private fun stopTimer(){
         handler.removeCallbacks(runnable)
-        gameState.postValue(0)
     }
 
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
         scope.launch {
-            g1Dao.insert(G1DBEntry(102, lengthToBeShown - 1))
+            g1Dao.insert(G1DBEntry(103, levelToBeShown - 1))
         }
     }
 

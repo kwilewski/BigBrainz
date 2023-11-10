@@ -40,13 +40,11 @@ class Game1l1ViewModel @Inject constructor(
      *      3 - Yellow
      *      4 - Grey
      */
-    // list of colors received from fragment
-    val colorList: ArrayList<Int> = ArrayList()
 
     // array with indexes of generated colors
     private var colorArray: ArrayList<Int> = ArrayList()
 
-    var inputArray: ArrayList<Int> = ArrayList()
+    private var inputArray: ArrayList<Int> = ArrayList()
 
     val colorPressedLD:MutableLiveData<Boolean> = MutableLiveData()
 
