@@ -129,14 +129,15 @@ class Game1l3ViewModel @Inject constructor(
 
     fun tileButtonPressed(id: Int){
         val current: Int? = correctTiles.value
-        if (current?.let { indexList.get(it) } == id){
+        // if the value is equal to the one from array, add +1 to counter
+        if (current?.let { indexList[it] } == id){
             correctTiles.postValue(current + 1)
         } else {
             inputToWrong()
         }
         // if new current is equal to level, go to next level
         if (current != null) {
-            if (current + 2 == levelToBeShown){
+            if (current + 1 == levelToBeShown){
                 inputToCorrect()
             }
         }
@@ -171,6 +172,7 @@ class Game1l3ViewModel @Inject constructor(
         levelToBeShown += levelUp
         Log.d("Game status", "Level up. Current level: $levelToBeShown")
         gameState.postValue(5)
+        correctTiles.postValue(0)
         startTime = System.currentTimeMillis()
         startTimer()
     }

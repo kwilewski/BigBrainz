@@ -236,7 +236,7 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_3), LifecycleOwner {
         if (g1l3ViewModel.gameState.value != 3) return
         if (g1l3ViewModel.correctTiles.value == null) return
         for (i in 1 ..g1l3ViewModel.correctTiles.value!!){
-            setButtonText(g1l3ViewModel.indexList.get(i), i)
+            setButtonText(g1l3ViewModel.indexList[i - 1], i)
         }
     }
 
