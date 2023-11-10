@@ -360,7 +360,7 @@ class Game1l3Fragment : Fragment(R.layout.fragment_game_1_l_3), LifecycleOwner {
 
     private fun openScoreFragment(){
         if (openScore.value == true) {
-            navController!!.navigate(R.id.action_game1l2Fragment_to_game1l2ScoreFragment)
+            navController!!.navigate(R.id.action_game1l3Fragment_to_game1l3ScoreFragment)
         }
     }
 

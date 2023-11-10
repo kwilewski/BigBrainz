@@ -55,7 +55,7 @@ class Game1l3ViewModel @Inject constructor(
     private val levelUp = 1
 
     // time for the table in millis
-    private val displayTime = 2000
+    private val displayTime = 3000
 
     // time for intercolor in millis
     private val interColorTIme = 1500
@@ -171,6 +171,10 @@ class Game1l3ViewModel @Inject constructor(
     private fun nextLevel(){
         levelToBeShown += levelUp
         Log.d("Game status", "Level up. Current level: $levelToBeShown")
+        if (levelToBeShown > 25) {
+            insertNewEntry()
+            openScore.postValue(true)
+        }
         gameState.postValue(5)
         correctTiles.postValue(0)
         startTime = System.currentTimeMillis()

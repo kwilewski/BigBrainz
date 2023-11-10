@@ -75,6 +75,25 @@
             app:destination="@id/Game1SelectionFragment"
             app:popUpTo="@+id/Game1SelectionFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_game1l3Fragment_to_game1l3ScoreFragment"
+            app:destination="@id/game1l3ScoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game1l3ScoreFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game1.Game1l3ScoreFragment"
+        android:label="fragment_game_1_l_3_score"
+        tools:layout="@layout/fragment_game_1_l_3_score" >
+        <action
+            android:id="@+id/action_game1l3ScoreFragment_to_game1l3Fragment"
+            app:destination="@id/game1l3Fragment"
+            app:popUpTo="@+id/game1l3Fragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_game1l3ScoreFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@+id/mainScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
