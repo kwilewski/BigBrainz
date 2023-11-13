@@ -5,5 +5,9 @@
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/progress_circle</item>
     </style>
+
+    <style name="ButtonStandard" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@drawable/button_empty</item>
+    </style>
     
 </resources>
