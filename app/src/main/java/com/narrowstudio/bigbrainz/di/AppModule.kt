@@ -32,6 +32,9 @@ object AppModule {
     @Provides
     fun provideG1Dao(db: GameDatabase) = db.g1Dao()
 
+    @Provides
+    fun provideG3Dao(db: GameDatabase) = db.g3Dao()
+
     @ApplicationScope
     @Provides
     @Singleton
