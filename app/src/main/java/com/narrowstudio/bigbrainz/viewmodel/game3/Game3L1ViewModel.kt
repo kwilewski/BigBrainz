@@ -45,6 +45,9 @@ class Game3L1ViewModel @Inject constructor(
     // time of displaying wrong message
     private val wrongTime = 2000
 
+    // position of the target
+    val targetPosition: MutableLiveData<ArrayList<Int>> = MutableLiveData()
+
     val saves = g3Dao.getEntries().asLiveData()
 
     private var handler = Handler(Looper.getMainLooper())
@@ -70,10 +73,15 @@ class Game3L1ViewModel @Inject constructor(
 
 
     fun init(){
-
+        stopTimer()
+        openScore.postValue(false)
     }
 
 
+    fun startGame(){
+        counter = 0
+
+    }
 
 
     private fun restartGame(){
