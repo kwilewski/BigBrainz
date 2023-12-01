@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 class Game3L1ViewModel @Inject constructor(
     private val g3Dao: G3Dao
@@ -19,7 +20,8 @@ class Game3L1ViewModel @Inject constructor(
 
     /**    ---------------------- gameState ----------------------------------
      *      0 - not running
-     *      1 - displaying the game
+     *      1 - displaying the target
+     *      10 - displaying blank screen
      *      2 - displaying wrong
      */
     val gameState: MutableLiveData<Int> = MutableLiveData()
@@ -37,16 +39,22 @@ class Game3L1ViewModel @Inject constructor(
     var counter = 0
 
     // min time of waiting for a target in millis
-    private val minWaitTime = 200
+    private val minWaitTime: Long = 200
 
     // max time of waiting for a target in millis
-    private val maxWaitTime = 1500
+    private val maxWaitTime: Long = 1500
+
+    // random wait time for the target to appear
+    private var waitTime = 0
 
     // time of displaying wrong message
     private val wrongTime = 2000
 
     // position of the target
     val targetPosition: MutableLiveData<ArrayList<Int>> = MutableLiveData()
+
+    // storing time results of the test
+    private var resultArray: ArrayList<Long> = ArrayList()
 
     val saves = g3Dao.getEntries().asLiveData()
 
@@ -60,6 +68,11 @@ class Game3L1ViewModel @Inject constructor(
                 1 -> {
                     // TODO game running
                 }
+                10 -> {
+                    if (System.currentTimeMillis() >= startTime + waitTime){
+                        showTarget()
+                    }
+            }
                 2 -> {
                     if (System.currentTimeMillis() >= startTime + wrongTime){
                         wrongToStart()
@@ -79,7 +92,7 @@ class Game3L1ViewModel @Inject constructor(
 
 
     fun startGame(){
-        counter = 0
+        resultArray.clear()
 
     }
 
@@ -88,6 +101,27 @@ class Game3L1ViewModel @Inject constructor(
         gameState.postValue(4)
         startTime = System.currentTimeMillis()
         startTimer()
+    }
+
+    private fun showTarget(){
+
+    }
+
+    fun targetClicked(){
+        val time = System.currentTimeMillis() - startTime
+        stopTimer()
+        resultArray.add(time)
+        if (resultArray.size >= repeats){
+
+        }
+    }
+
+    private fun displayBlank(){
+
+    }
+
+    private fun randomizeWaitTime(): Long{
+        return (minWaitTime .. maxWaitTime).random(Random(System.currentTimeMillis()))
     }
 
 
@@ -101,6 +135,9 @@ class Game3L1ViewModel @Inject constructor(
         init()
     }
 
+    private fun saveAndOpenScore(){
+        
+    }
 
     private fun startTimer(){
         handler.removeCallbacks(runnable)
@@ -110,6 +147,7 @@ class Game3L1ViewModel @Inject constructor(
     private fun stopTimer(){
         handler.removeCallbacks(runnable)
     }
+
 
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
