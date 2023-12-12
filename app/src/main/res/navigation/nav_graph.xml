@@ -106,6 +106,9 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_game2SelectionFragment"
             app:destination="@id/game2SelectionFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_game3SelectionFragment"
+            app:destination="@id/game3SelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/Game1SelectionFragment"
@@ -136,6 +139,15 @@
         <action
             android:id="@+id/action_game2SelectionFragment_to_game2l3Fragment"
             app:destination="@id/game2l3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game3SelectionFragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.Game3SelectionFragment"
+        android:label="fragment_game_3_selection"
+        tools:layout="@layout/fragment_game_3_selection" >
+        <action
+            android:id="@+id/action_game3SelectionFragment_to_game3L1Fragment"
+            app:destination="@id/game3l1Fragment" />
     </fragment>
     <fragment
         android:id="@+id/game2Fragment"
@@ -225,6 +237,17 @@
             android:id="@+id/action_game2l3ScoreFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment"
             app:popUpTo="@+id/mainScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/game3l1Fragment"
+        android:name="com.narrowstudio.bigbrainz.ui.tasks.game3.Game3L1Fragment"
+        android:label="fragment_game_3_l_1"
+        tools:layout="@layout/fragment_game_3_l_1" >
+        <action
+            android:id="@+id/action_game3L1Fragment_to_game3SelectionFragment"
+            app:destination="@id/game3SelectionFragment"
+            app:popUpTo="@+id/game3SelectionFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
