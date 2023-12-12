@@ -27,6 +27,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main), View.OnClickListene
         when(v!!.id){
             R.id.game_1_main_button -> navController!!.navigate(R.id.action_mainScreenFragment_to_game1Selection)
             R.id.game_2_main_button -> navController!!.navigate(R.id.action_mainScreenFragment_to_game2SelectionFragment)
+            R.id.game_3_main_button -> navController!!.navigate(R.id.action_mainScreenFragment_to_game3SelectionFragment)
         }
     }
 
