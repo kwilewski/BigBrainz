@@ -5,15 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame3L1Binding
+import com.narrowstudio.bigbrainz.viewmodel.game3.Game3L1ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
+
+    private val g3L1ViewModel: Game3L1ViewModel by viewModels()
 
     var navController : NavController? = null
 
@@ -39,12 +44,39 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
 
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
+        g3L1ViewModel.init()
+
+        g3L1ViewModel.gameState.observe(viewLifecycleOwner, Observer {
+
+        })
+
 
 
 
 
 
         return view
+    }
+
+    private fun layoutVisibilityHandler(){
+        when (g3L1ViewModel.gameState.value){
+            0 -> {
+                binding.startLayout.visibility = View.VISIBLE
+                binding.gameLayout.visibility = View.INVISIBLE
+            }
+            1 -> {
+                binding.startLayout.visibility = View.INVISIBLE
+                binding.gameLayout.visibility = View.VISIBLE
+            }
+            10 -> {
+                binding.startLayout.visibility = View.INVISIBLE
+                binding.gameLayout.visibility = View.INVISIBLE
+            }
+            2 -> {
+                binding.startLayout.visibility = View.INVISIBLE
+                binding.gameLayout.visibility = View.INVISIBLE
+            }
+        }
     }
 
 
