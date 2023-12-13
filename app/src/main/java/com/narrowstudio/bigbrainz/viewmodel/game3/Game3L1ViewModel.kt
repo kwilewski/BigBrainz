@@ -50,6 +50,9 @@ class Game3L1ViewModel @Inject constructor(
     // time of displaying wrong message
     private val wrongTime = 2000
 
+    // border where the target can't be placed in percent
+    private val border = 5
+
     // position of the target
     val targetPosition: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
@@ -65,9 +68,6 @@ class Game3L1ViewModel @Inject constructor(
     private var runnable: java.lang.Runnable = object: java.lang.Runnable {
         override fun run(){
             when (gameState.value){
-                1 -> {
-                    // TODO game running
-                }
                 10 -> {
                     if (System.currentTimeMillis() >= startTime + waitTime){
                         showTarget()
@@ -88,12 +88,16 @@ class Game3L1ViewModel @Inject constructor(
     fun init(){
         stopTimer()
         openScore.postValue(false)
+        gameState.postValue(0)
     }
 
 
-    fun startGame(){
+    private fun startGame(){
         resultArray.clear()
-
+        startTime = System.currentTimeMillis()
+        waitTime = randomizeWaitTime()
+        gameState.postValue(10)
+        startTimer()
     }
 
 
@@ -104,7 +108,14 @@ class Game3L1ViewModel @Inject constructor(
     }
 
     private fun showTarget(){
+        gameState.postValue(1)
 
+
+        startTime = System.currentTimeMillis()
+    }
+
+    fun startButtonClicked(){
+        startGame()
     }
 
     fun targetClicked(){
@@ -120,8 +131,13 @@ class Game3L1ViewModel @Inject constructor(
 
     }
 
-    private fun randomizeWaitTime(): Long{
-        return (minWaitTime .. maxWaitTime).random(Random(System.currentTimeMillis()))
+    private fun randomizeWaitTime(): Int{
+        return (minWaitTime .. maxWaitTime).random(Random(System.currentTimeMillis())).toInt()
+    }
+
+    private fun randomizeCoordinate(): Int{
+        // returning a Int - percentage of the layout
+        return (border .. 100 - border).random(Random(System.currentTimeMillis()))
     }
 
 
