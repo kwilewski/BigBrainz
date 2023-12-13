@@ -54,7 +54,7 @@ class Game3L1ViewModel @Inject constructor(
     private val border = 5
 
     // position of the target
-    val targetPosition: MutableLiveData<ArrayList<Int>> = MutableLiveData()
+    val targetPosition: ArrayList<Float> = ArrayList()
 
     // storing time results of the test
     private var resultArray: ArrayList<Long> = ArrayList()
@@ -94,6 +94,7 @@ class Game3L1ViewModel @Inject constructor(
 
     private fun startGame(){
         resultArray.clear()
+        targetPosition.clear()
         startTime = System.currentTimeMillis()
         waitTime = randomizeWaitTime()
         gameState.postValue(10)
@@ -108,9 +109,10 @@ class Game3L1ViewModel @Inject constructor(
     }
 
     private fun showTarget(){
+        targetPosition.clear()
+        targetPosition.add(randomizeCoordinate())
+        targetPosition.add(randomizeCoordinate())
         gameState.postValue(1)
-
-
         startTime = System.currentTimeMillis()
     }
 
@@ -135,9 +137,9 @@ class Game3L1ViewModel @Inject constructor(
         return (minWaitTime .. maxWaitTime).random(Random(System.currentTimeMillis())).toInt()
     }
 
-    private fun randomizeCoordinate(): Int{
-        // returning a Int - percentage of the layout
-        return (border .. 100 - border).random(Random(System.currentTimeMillis()))
+    private fun randomizeCoordinate(): Float{
+        // returning a Float from 0 to 1 - position on the layout
+        return (border .. 100 - border).random(Random(System.currentTimeMillis())).toFloat() * 0.01F
     }
 
 
