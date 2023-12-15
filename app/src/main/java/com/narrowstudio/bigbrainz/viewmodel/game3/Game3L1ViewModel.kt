@@ -1,19 +1,23 @@
 package com.narrowstudio.bigbrainz.viewmodel.game3
 
+import android.os.Debug
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.narrowstudio.bigbrainz.data.G1DBEntry
 import com.narrowstudio.bigbrainz.data.G3DBEntry
 import com.narrowstudio.bigbrainz.data.G3Dao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
 
+@HiltViewModel
 class Game3L1ViewModel @Inject constructor(
     private val g3Dao: G3Dao
 ) : ViewModel(){
@@ -112,6 +116,8 @@ class Game3L1ViewModel @Inject constructor(
         targetPosition.clear()
         targetPosition.add(randomizeCoordinate())
         targetPosition.add(randomizeCoordinate())
+        val mess = "x: " + targetPosition[0] + " y: " +  targetPosition[1]
+        Log.d("Game 3 position", mess)
         gameState.postValue(1)
         startTime = System.currentTimeMillis()
     }
@@ -139,7 +145,7 @@ class Game3L1ViewModel @Inject constructor(
 
     private fun randomizeCoordinate(): Float{
         // returning a Float from 0 to 1 - position on the layout
-        return (border .. 100 - border).random(Random(System.currentTimeMillis())).toFloat() * 0.01F
+        return (border .. 100 - border).random(Random(System.nanoTime())).toFloat() * 0.01F
     }
 
 
@@ -170,7 +176,7 @@ class Game3L1ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry() {
         scope.launch {
-            g3Dao.insert(G3DBEntry(301, 2137))
+            g3Dao.insert(G3DBEntry(301, 2137, 420, 2137))
         }
     }
 
