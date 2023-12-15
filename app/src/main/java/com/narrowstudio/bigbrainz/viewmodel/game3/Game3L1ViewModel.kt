@@ -39,8 +39,8 @@ class Game3L1ViewModel @Inject constructor(
     // amount of repeats
     val repeats = 20
 
-    // counter of already pressed
-    var counter = 0
+    // counter of totalClicks
+    var clicksTotal = 0
 
     // min time of waiting for a target in millis
     private val minWaitTime: Long = 200
@@ -98,6 +98,7 @@ class Game3L1ViewModel @Inject constructor(
 
     private fun startGame(){
         resultArray.clear()
+        clicksTotal = 0
         targetPosition.clear()
         actionToInter()
     }
@@ -126,10 +127,14 @@ class Game3L1ViewModel @Inject constructor(
         stopTimer()
         resultArray.add(time)
         if (resultArray.size >= repeats){
-            // TODO
+            saveAndOpenScore()
         } else {
             actionToInter()
         }
+    }
+
+    fun gameLayoutClicked(){
+        clicksTotal++
     }
 
     private fun displayBlank(){
@@ -170,8 +175,22 @@ class Game3L1ViewModel @Inject constructor(
         init()
     }
 
-    private fun saveAndOpenScore(){
+    private fun calculateAverageTime(): Int{
+        var average: Long = 0
+        // counting average time
+        for (i in 0 until repeats){
+            average += resultArray[i]
+            if (i == repeats-1){ //if last step, divide the sum by repeats
+                average /= repeats
+            }
+        }
+        return average.toInt()
+    }
 
+    private fun saveAndOpenScore(){
+        insertNewEntry(calculateAverageTime())
+        gameState.postValue(0)
+        openScore.postValue(true)
     }
 
     private fun startTimer(){
@@ -185,9 +204,9 @@ class Game3L1ViewModel @Inject constructor(
 
 
     //-------------------------------------------------- DB
-    private fun insertNewEntry() {
+    private fun insertNewEntry(time: Int) {
         scope.launch {
-            g3Dao.insert(G3DBEntry(301, 2137, 420, 2137))
+            g3Dao.insert(G3DBEntry(301, time, repeats, clicksTotal))
         }
     }
 

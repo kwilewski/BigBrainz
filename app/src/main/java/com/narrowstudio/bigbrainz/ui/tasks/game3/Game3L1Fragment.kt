@@ -1,5 +1,6 @@
 package com.narrowstudio.bigbrainz.ui.tasks.game3
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.narrowstudio.bigbrainz.databinding.FragmentGame3L1Binding
 import com.narrowstudio.bigbrainz.viewmodel.game3.Game3L1ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+// suppressing performClick warning
+@SuppressLint("ClickableViewAccessibility")
 @AndroidEntryPoint
 class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
 
@@ -62,6 +65,10 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
             true
         })
 
+        binding.gameLayout.setOnTouchListener(View.OnTouchListener{v, event ->
+            gameLayoutClicked()
+            true
+        })
 
 
         return view
@@ -73,6 +80,10 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
 
     private fun targetClicked(){
         g3L1ViewModel.targetClicked()
+    }
+
+    private fun gameLayoutClicked(){
+        g3L1ViewModel.gameLayoutClicked()
     }
 
 
