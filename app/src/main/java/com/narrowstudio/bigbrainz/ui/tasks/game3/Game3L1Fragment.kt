@@ -47,10 +47,15 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
         g3L1ViewModel.init()
 
         g3L1ViewModel.gameState.observe(viewLifecycleOwner, Observer {
-
+            layoutVisibilityHandler()
+            targetPositioning()
+            targetVisibilityHandler()
         })
 
 
+        binding.startButton.setOnClickListener(View.OnClickListener {
+            startButtonClicked()
+        })
 
 
 
@@ -58,23 +63,52 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
         return view
     }
 
+    private fun startButtonClicked(){
+        g3L1ViewModel.startButtonClicked()
+    }
+
+
+    private fun targetVisibilityHandler(){
+        when (g3L1ViewModel.gameState.value){
+            1 -> {
+                binding.gameTarget.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.gameTarget.visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    private fun targetPositioning(){
+        when (g3L1ViewModel.gameState.value){
+            1 -> {
+                binding.targetGlHorizontal.setGuidelinePercent(g3L1ViewModel.targetPosition[0])
+                binding.targetGlVertical.setGuidelinePercent(g3L1ViewModel.targetPosition[1])
+            }
+        }
+    }
+
     private fun layoutVisibilityHandler(){
         when (g3L1ViewModel.gameState.value){
             0 -> {
                 binding.startLayout.visibility = View.VISIBLE
                 binding.gameLayout.visibility = View.INVISIBLE
+                binding.middleTextLayout.visibility = View.INVISIBLE
             }
             1 -> {
                 binding.startLayout.visibility = View.INVISIBLE
                 binding.gameLayout.visibility = View.VISIBLE
+                binding.middleTextLayout.visibility = View.INVISIBLE
             }
             10 -> {
                 binding.startLayout.visibility = View.INVISIBLE
                 binding.gameLayout.visibility = View.INVISIBLE
+                binding.middleTextLayout.visibility = View.INVISIBLE
             }
             2 -> {
                 binding.startLayout.visibility = View.INVISIBLE
                 binding.gameLayout.visibility = View.INVISIBLE
+                binding.middleTextLayout.visibility = View.VISIBLE
             }
         }
     }
