@@ -57,6 +57,10 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
             startButtonClicked()
         })
 
+        binding.gameTarget.setOnTouchListener(View.OnTouchListener{v, event ->
+            targetClicked()
+            true
+        })
 
 
 
@@ -65,6 +69,10 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
 
     private fun startButtonClicked(){
         g3L1ViewModel.startButtonClicked()
+    }
+
+    private fun targetClicked(){
+        g3L1ViewModel.targetClicked()
     }
 
 

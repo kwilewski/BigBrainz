@@ -37,7 +37,7 @@ class Game3L1ViewModel @Inject constructor(
     val openScore: MutableLiveData<Boolean> = MutableLiveData()
 
     // amount of repeats
-    val repeats = 10
+    val repeats = 20
 
     // counter of already pressed
     var counter = 0
@@ -74,7 +74,7 @@ class Game3L1ViewModel @Inject constructor(
             when (gameState.value){
                 10 -> {
                     if (System.currentTimeMillis() >= startTime + waitTime){
-                        showTarget()
+                        interToInput()
                     }
             }
                 2 -> {
@@ -99,10 +99,7 @@ class Game3L1ViewModel @Inject constructor(
     private fun startGame(){
         resultArray.clear()
         targetPosition.clear()
-        startTime = System.currentTimeMillis()
-        waitTime = randomizeWaitTime()
-        gameState.postValue(10)
-        startTimer()
+        actionToInter()
     }
 
 
@@ -118,8 +115,6 @@ class Game3L1ViewModel @Inject constructor(
         targetPosition.add(randomizeCoordinate())
         val mess = "x: " + targetPosition[0] + " y: " +  targetPosition[1]
         Log.d("Game 3 position", mess)
-        gameState.postValue(1)
-        startTime = System.currentTimeMillis()
     }
 
     fun startButtonClicked(){
@@ -131,7 +126,9 @@ class Game3L1ViewModel @Inject constructor(
         stopTimer()
         resultArray.add(time)
         if (resultArray.size >= repeats){
-
+            // TODO
+        } else {
+            actionToInter()
         }
     }
 
@@ -148,6 +145,20 @@ class Game3L1ViewModel @Inject constructor(
         return (border .. 100 - border).random(Random(System.nanoTime())).toFloat() * 0.01F
     }
 
+    // transition from 10 to 1
+    private fun interToInput(){
+        showTarget()
+        gameState.postValue(1)
+        startTime = System.currentTimeMillis()
+    }
+
+    // transition from 0 or 1 to 10
+    private fun actionToInter(){
+        startTime = System.currentTimeMillis()
+        waitTime = randomizeWaitTime()
+        gameState.postValue(10)
+        startTimer()
+    }
 
     // transition from 3 to 4
     private fun inputToWrong(){
