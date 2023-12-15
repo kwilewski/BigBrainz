@@ -10,7 +10,11 @@ import java.text.DateFormat
 @Parcelize
 data class G3DBEntry(
     val gameID: Int,
-    val score: Int,
+    val time: Int,
+    // stores the length of test sample
+    val testSample: Int,
+    // stores the amount of all clicks (accurate and not)
+    val taps: Int,
     val saveDate: Long = System.currentTimeMillis(),
     @PrimaryKey(autoGenerate = true) val id: Int = 0
     ): Parcelable{
