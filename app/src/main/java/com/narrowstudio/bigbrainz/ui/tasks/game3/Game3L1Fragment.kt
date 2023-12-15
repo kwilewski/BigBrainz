@@ -3,6 +3,7 @@ package com.narrowstudio.bigbrainz.ui.tasks.game3
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -61,12 +62,20 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
         })
 
         binding.gameTarget.setOnTouchListener(View.OnTouchListener{v, event ->
-            targetClicked()
+            when(event.action){
+                MotionEvent.ACTION_DOWN -> {
+                    targetClicked()
+                }
+            }
             true
         })
 
         binding.gameLayout.setOnTouchListener(View.OnTouchListener{v, event ->
-            gameLayoutClicked()
+            when(event.action){
+            MotionEvent.ACTION_DOWN -> {
+                gameLayoutClicked()
+            }
+        }
             true
         })
 
@@ -121,7 +130,7 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
             }
             10 -> {
                 binding.startLayout.visibility = View.INVISIBLE
-                binding.gameLayout.visibility = View.INVISIBLE
+                binding.gameLayout.visibility = View.VISIBLE
                 binding.middleTextLayout.visibility = View.INVISIBLE
             }
             2 -> {

@@ -125,9 +125,11 @@ class Game3L1ViewModel @Inject constructor(
     fun targetClicked(){
         val time = System.currentTimeMillis() - startTime
         stopTimer()
+        Log.d("Game 3 target click", time.toString())
         resultArray.add(time)
         if (resultArray.size >= repeats){
             saveAndOpenScore()
+            return
         } else {
             actionToInter()
         }
@@ -135,6 +137,7 @@ class Game3L1ViewModel @Inject constructor(
 
     fun gameLayoutClicked(){
         clicksTotal++
+        Log.d("Game 3 box click", clicksTotal.toString())
     }
 
     private fun displayBlank(){
