@@ -56,6 +56,10 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
             targetVisibilityHandler()
         })
 
+        g3L1ViewModel.openScore.observe(viewLifecycleOwner, Observer {
+            openScoreFragment()
+        })
+
 
         binding.startButton.setOnClickListener(View.OnClickListener {
             startButtonClicked()
@@ -138,6 +142,12 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
                 binding.gameLayout.visibility = View.INVISIBLE
                 binding.middleTextLayout.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun openScoreFragment(){
+        if (g3L1ViewModel.openScore.value == true) {
+            navController!!.navigate(R.id.action_game3L1Fragment_to_game3L1ScoreFragment)
         }
     }
 
