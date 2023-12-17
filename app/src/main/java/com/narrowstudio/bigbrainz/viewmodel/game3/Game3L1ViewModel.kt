@@ -209,7 +209,7 @@ class Game3L1ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry(time: Int) {
         scope.launch {
-            g3Dao.insert(G3DBEntry(301, time, repeats, clicksTotal))
+            g3Dao.insert(G3DBEntry(301, time, repeats, clicksTotal + repeats))
         }
     }
 
