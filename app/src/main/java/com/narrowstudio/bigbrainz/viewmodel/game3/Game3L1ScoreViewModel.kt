@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.narrowstudio.bigbrainz.data.G2DBEntry
 import com.narrowstudio.bigbrainz.data.G2Dao
+import com.narrowstudio.bigbrainz.data.G3DBEntry
+import com.narrowstudio.bigbrainz.data.G3Dao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +14,7 @@ import javax.inject.Inject
 //for Dagger 2.31+
 @HiltViewModel
 class Game3L1ScoreViewModel @Inject constructor(
-    private val g2Dao: G2Dao
+    private val g3Dao: G3Dao
 ): ViewModel() {
 
     var lastTime: Float = 0f
@@ -22,10 +24,10 @@ class Game3L1ScoreViewModel @Inject constructor(
     var lastTimeString: String = ""
     var bestTimeString: String = ""
     var averageTimeString: String = ""
-    val gameID: Int = 203
+    val gameID: Int = 301
 
-    val saves = g2Dao.getEntries().asLiveData()
-    private var savesList: MutableList<G2DBEntry> = mutableListOf()
+    val saves = g3Dao.getEntries().asLiveData()
+    private var savesList: MutableList<G3DBEntry> = mutableListOf()
 
 
     private val scope = CoroutineScope(Dispatchers.Main)
@@ -57,17 +59,17 @@ class Game3L1ScoreViewModel @Inject constructor(
 
     fun getLastTimeFromDB(){
         val entries: Int = savesList.size
-        if (entries != 0) lastTime = (savesList[entries - 1].averageTime.toFloat()) / 1000f
+        if (entries != 0) lastTime = (savesList[entries - 1].time.toFloat()) / 1000f
         formatLastTime()
     }
 
     private fun getBestTimeFromDB(){
         val entries: Int = savesList.size
-        var best: Long = 0
+        var best: Int = 0
         if (entries != 0){
-            best = savesList[0].averageTime
+            best = savesList[0].time
             for (i in 0 until entries){
-                if (savesList[i].averageTime < best) best = savesList[i].averageTime
+                if (savesList[i].time < best) best = savesList[i].time
             }
             bestTime = best.toFloat() / 1000f
         }
@@ -80,7 +82,7 @@ class Game3L1ScoreViewModel @Inject constructor(
             var sum: Long = 0
             //summing total average time of saved entries
             for (i in 0 until entries) {
-                sum += savesList[i].averageTime
+                sum += savesList[i].time
             }
             averageTime = (sum.toFloat()) / (entries * 1000).toFloat()
 
