@@ -1,13 +1,11 @@
 package com.narrowstudio.bigbrainz.viewmodel.game3
 
-import android.os.Debug
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.narrowstudio.bigbrainz.data.G1DBEntry
 import com.narrowstudio.bigbrainz.data.G3DBEntry
 import com.narrowstudio.bigbrainz.data.G3Dao
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,10 +35,13 @@ class Game3L1ViewModel @Inject constructor(
     val openScore: MutableLiveData<Boolean> = MutableLiveData()
 
     // amount of repeats
-    val repeats = 20
+    private val repeats = 20
 
-    // counter of totalClicks
-    var clicksTotal = 0
+    // counter of clicks NOT on target
+    var clicksOffTarget = 0
+
+    // remaining targets to be clicked
+    var remaining = repeats
 
     // min time of waiting for a target in millis
     private val minWaitTime: Long = 200
@@ -55,7 +56,7 @@ class Game3L1ViewModel @Inject constructor(
     private val wrongTime = 2000
 
     // border where the target can't be placed in percent
-    private val border = 5
+    private val border = 7
 
     // position of the target
     val targetPosition: ArrayList<Float> = ArrayList()
@@ -98,7 +99,8 @@ class Game3L1ViewModel @Inject constructor(
 
     private fun startGame(){
         resultArray.clear()
-        clicksTotal = 0
+        clicksOffTarget = 0
+        remaining = repeats
         targetPosition.clear()
         actionToInter()
     }
@@ -126,6 +128,7 @@ class Game3L1ViewModel @Inject constructor(
         val time = System.currentTimeMillis() - startTime
         stopTimer()
         Log.d("Game 3 target click", time.toString())
+        remaining--
         resultArray.add(time)
         if (resultArray.size >= repeats){
             saveAndOpenScore()
@@ -136,8 +139,8 @@ class Game3L1ViewModel @Inject constructor(
     }
 
     fun gameLayoutClicked(){
-        clicksTotal++
-        Log.d("Game 3 box click", clicksTotal.toString())
+        clicksOffTarget++
+        Log.d("Game 3 box click", clicksOffTarget.toString())
     }
 
     private fun displayBlank(){
@@ -209,7 +212,7 @@ class Game3L1ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry(time: Int) {
         scope.launch {
-            g3Dao.insert(G3DBEntry(301, time, repeats, clicksTotal + repeats))
+            g3Dao.insert(G3DBEntry(301, time, repeats, clicksOffTarget + repeats))
         }
     }
 

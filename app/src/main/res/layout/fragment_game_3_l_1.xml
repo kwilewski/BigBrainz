@@ -75,8 +75,8 @@
 
         <ImageView
             android:id="@+id/game_target"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/ic_target"
             app:layout_constraintBottom_toTopOf="@+id/target_gl_horizontal"
             app:layout_constraintEnd_toStartOf="@+id/target_gl_vertical"
@@ -142,14 +142,14 @@
         app:layout_constraintGuide_percent="0.90" />
 
     <TextView
-        android:id="@+id/g2_textview"
+        android:id="@+id/bottom_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textSize="14sp"
-        tools:text="info"
+        android:text="@string/g3l1_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gl_h_4"

@@ -54,6 +54,7 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
             layoutVisibilityHandler()
             targetPositioning()
             targetVisibilityHandler()
+            bottomTextHandler()
         })
 
         g3L1ViewModel.openScore.observe(viewLifecycleOwner, Observer {
@@ -143,6 +144,11 @@ class Game3L1Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
                 binding.middleTextLayout.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun bottomTextHandler(){
+        binding.topTextView.text = getString(R.string.g3l1_remaining,
+            g3L1ViewModel.remaining)
     }
 
     private fun openScoreFragment(){
