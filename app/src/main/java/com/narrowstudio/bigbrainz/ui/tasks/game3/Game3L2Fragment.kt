@@ -14,20 +14,22 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame3L1Binding
+import com.narrowstudio.bigbrainz.databinding.FragmentGame3L2Binding
 import com.narrowstudio.bigbrainz.viewmodel.game3.Game3L1ViewModel
+import com.narrowstudio.bigbrainz.viewmodel.game3.Game3L2ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 // suppressing performClick warning
 @SuppressLint("ClickableViewAccessibility")
 @AndroidEntryPoint
-class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
+class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
 
-    private val g3L1ViewModel: Game3L1ViewModel by viewModels()
+    private val g3L2ViewModel: Game3L2ViewModel by viewModels()
 
     var navController : NavController? = null
 
     // View Binding
-    private var _binding: FragmentGame3L1Binding? = null
+    private var _binding: FragmentGame3L2Binding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -41,23 +43,23 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        _binding = FragmentGame3L1Binding.inflate(inflater, container,false)
+        _binding = FragmentGame3L2Binding.inflate(inflater, container,false)
         val view = binding.root
 
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
-        g3L1ViewModel.init()
+        g3L2ViewModel.init()
 
-        g3L1ViewModel.gameState.observe(viewLifecycleOwner, Observer {
+        g3L2ViewModel.gameState.observe(viewLifecycleOwner, Observer {
             layoutVisibilityHandler()
             targetPositioning()
             targetVisibilityHandler()
             bottomTextHandler()
         })
 
-        g3L1ViewModel.openScore.observe(viewLifecycleOwner, Observer {
+        g3L2ViewModel.openScore.observe(viewLifecycleOwner, Observer {
             openScoreFragment()
         })
 
@@ -89,20 +91,20 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
     }
 
     private fun startButtonClicked(){
-        g3L1ViewModel.startButtonClicked()
+        g3L2ViewModel.startButtonClicked()
     }
 
     private fun targetClicked(){
-        g3L1ViewModel.targetClicked()
+        g3L2ViewModel.targetClicked()
     }
 
     private fun gameLayoutClicked(){
-        g3L1ViewModel.gameLayoutClicked()
+        g3L2ViewModel.gameLayoutClicked()
     }
 
 
     private fun targetVisibilityHandler(){
-        when (g3L1ViewModel.gameState.value){
+        when (g3L2ViewModel.gameState.value){
             1 -> {
                 binding.gameTarget.visibility = View.VISIBLE
             }
@@ -113,16 +115,16 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
     }
 
     private fun targetPositioning(){
-        when (g3L1ViewModel.gameState.value){
+        when (g3L2ViewModel.gameState.value){
             1 -> {
-                binding.targetGlHorizontal.setGuidelinePercent(g3L1ViewModel.targetPosition[0])
-                binding.targetGlVertical.setGuidelinePercent(g3L1ViewModel.targetPosition[1])
+                binding.targetGlHorizontal.setGuidelinePercent(g3L2ViewModel.targetPosition[0])
+                binding.targetGlVertical.setGuidelinePercent(g3L2ViewModel.targetPosition[1])
             }
         }
     }
 
     private fun layoutVisibilityHandler(){
-        when (g3L1ViewModel.gameState.value){
+        when (g3L2ViewModel.gameState.value){
             0 -> {
                 binding.startLayout.visibility = View.VISIBLE
                 binding.gameLayout.visibility = View.INVISIBLE
@@ -148,11 +150,11 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_1), LifecycleOwner{
 
     private fun bottomTextHandler(){
         binding.topTextView.text = getString(R.string.g3l1_remaining,
-            g3L1ViewModel.remaining)
+            g3L2ViewModel.remaining)
     }
 
     private fun openScoreFragment(){
-        if (g3L1ViewModel.openScore.value == true) {
+        if (g3L2ViewModel.openScore.value == true) {
             navController!!.navigate(R.id.action_game3L1Fragment_to_game3L1ScoreFragment)
         }
     }
