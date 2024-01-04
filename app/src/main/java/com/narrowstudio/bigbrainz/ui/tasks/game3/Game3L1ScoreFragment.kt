@@ -36,7 +36,7 @@ class Game3L1ScoreFragment : Fragment(R.layout.fragment_game_3_l_1_score), Lifec
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentGame3L1ScoreBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -56,12 +56,12 @@ class Game3L1ScoreFragment : Fragment(R.layout.fragment_game_3_l_1_score), Lifec
         setScores()
 
         // home button
-        binding.buttonHome.setOnClickListener(View.OnClickListener { view ->
+        binding.buttonHome.setOnClickListener(View.OnClickListener { v ->
             navController!!.navigate(R.id.action_game3L1ScoreFragment_to_mainScreenFragment)
         })
 
         // repeat button
-        binding.buttonRepeat.setOnClickListener(View.OnClickListener { view ->
+        binding.buttonRepeat.setOnClickListener(View.OnClickListener { v ->
             navController!!.navigate(R.id.action_game3L1ScoreFragment_to_game3L1Fragment)
         })
 
