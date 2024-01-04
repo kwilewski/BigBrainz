@@ -24,6 +24,7 @@ class Game3L2ViewModel @Inject constructor(
      *      0 - not running
      *      1 - displaying the target
      *      10 - displaying blank screen
+     *      11 - displaying fake target
      *      2 - displaying wrong
      */
     val gameState: MutableLiveData<Int> = MutableLiveData()
@@ -48,6 +49,9 @@ class Game3L2ViewModel @Inject constructor(
 
     // max time of waiting for a target in millis
     private val maxWaitTime: Long = 1500
+
+    // time of displaying fake target in millis
+    private val fakeTime: Long = 1500
 
     // random wait time for the target to appear
     private var waitTime = 0
@@ -77,7 +81,12 @@ class Game3L2ViewModel @Inject constructor(
                     if (System.currentTimeMillis() >= startTime + waitTime){
                         interToInput()
                     }
-            }
+                }
+                11 -> {
+                    if (System.currentTimeMillis() >= startTime + fakeTime){
+                        fakeToInter()
+                    }
+                }
                 2 -> {
                     if (System.currentTimeMillis() >= startTime + wrongTime){
                         wrongToStart()
@@ -169,6 +178,11 @@ class Game3L2ViewModel @Inject constructor(
         waitTime = randomizeWaitTime()
         gameState.postValue(10)
         startTimer()
+    }
+
+    // transition from 11 to 10
+    private fun fakeToInter(){
+        // TODO
     }
 
     // transition from 3 to 4
