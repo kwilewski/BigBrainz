@@ -57,6 +57,7 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
             targetPositioning()
             targetVisibilityHandler()
             middleTextHandler()
+            topTextHandler()
             bottomTextHandler()
         })
 
@@ -175,9 +176,13 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
         }
     }
 
-    private fun bottomTextHandler(){
-        binding.topTextView.text = getString(R.string.g3l1_remaining,
+    private fun topTextHandler(){
+        binding.topTextView.text = getString(R.string.g3l2_remaining,
             g3L2ViewModel.remaining)
+    }
+
+    private fun bottomTextHandler(){
+        binding.bottomTextView.text = getString(R.string.g3l2_info)
     }
 
     private fun openScoreFragment(){

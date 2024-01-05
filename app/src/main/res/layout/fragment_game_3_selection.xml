@@ -41,14 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:padding="5dp"
-                android:text="@string/mode_medium" />
-
-            <Button
-                android:id="@+id/level_3_button"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:padding="5dp"
                 android:text="@string/mode_hard" />
+
 
         </LinearLayout>
     </ScrollView>
