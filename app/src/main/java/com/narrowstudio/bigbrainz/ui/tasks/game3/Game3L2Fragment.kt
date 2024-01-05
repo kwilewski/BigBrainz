@@ -56,6 +56,7 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
             layoutVisibilityHandler()
             targetPositioning()
             targetVisibilityHandler()
+            middleTextHandler()
             bottomTextHandler()
         })
 
@@ -72,6 +73,15 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
                     targetClicked()
+                }
+            }
+            true
+        })
+
+        binding.gameFakeTarget.setOnTouchListener(View.OnTouchListener{v, event ->
+            when(event.action){
+                MotionEvent.ACTION_DOWN -> {
+                    fakeTargetClicked()
                 }
             }
             true
@@ -98,6 +108,10 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
         g3L2ViewModel.targetClicked()
     }
 
+    private fun fakeTargetClicked(){
+        g3L2ViewModel.fakeTargetClicked()
+    }
+
     private fun gameLayoutClicked(){
         g3L2ViewModel.gameLayoutClicked()
     }
@@ -107,16 +121,22 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
         when (g3L2ViewModel.gameState.value){
             1 -> {
                 binding.gameTarget.visibility = View.VISIBLE
+                binding.gameFakeTarget.visibility = View.INVISIBLE
+            }
+            11 -> {
+                binding.gameTarget.visibility = View.INVISIBLE
+                binding.gameFakeTarget.visibility = View.VISIBLE
             }
             else -> {
                 binding.gameTarget.visibility = View.INVISIBLE
+                binding.gameFakeTarget.visibility = View.INVISIBLE
             }
         }
     }
 
     private fun targetPositioning(){
         when (g3L2ViewModel.gameState.value){
-            1 -> {
+            1, 11 -> {
                 binding.targetGlHorizontal.setGuidelinePercent(g3L2ViewModel.targetPosition[0])
                 binding.targetGlVertical.setGuidelinePercent(g3L2ViewModel.targetPosition[1])
             }
@@ -130,7 +150,7 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
                 binding.gameLayout.visibility = View.INVISIBLE
                 binding.middleTextLayout.visibility = View.INVISIBLE
             }
-            1 -> {
+            1, 11 -> {
                 binding.startLayout.visibility = View.INVISIBLE
                 binding.gameLayout.visibility = View.VISIBLE
                 binding.middleTextLayout.visibility = View.INVISIBLE
@@ -149,7 +169,10 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
     }
 
     private fun middleTextHandler(){
-        binding.middleText.text = getString(R.string.g3l2_incorrect)
+        when (g3L2ViewModel.gameState.value ){
+            2 -> binding.middleText.text = getString(R.string.g3l2_incorrect)
+            else -> binding.middleText.text = ""
+        }
     }
 
     private fun bottomTextHandler(){
