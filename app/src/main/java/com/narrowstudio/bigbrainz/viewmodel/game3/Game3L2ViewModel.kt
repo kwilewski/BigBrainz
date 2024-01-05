@@ -105,6 +105,7 @@ class Game3L2ViewModel @Inject constructor(
     fun init(){
         stopTimer()
         openScore.postValue(false)
+        remaining = repeats
         gameState.postValue(0)
     }
 
@@ -261,7 +262,7 @@ class Game3L2ViewModel @Inject constructor(
     //-------------------------------------------------- DB
     private fun insertNewEntry(time: Int) {
         scope.launch {
-            g3Dao.insert(G3DBEntry(301, time, repeats, clicksOffTarget + repeats))
+            g3Dao.insert(G3DBEntry(302, time, repeats, clicksOffTarget + repeats))
         }
     }
 
