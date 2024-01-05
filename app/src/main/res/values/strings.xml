@@ -41,6 +41,10 @@
     <string name="g3l1_remaining">Remaining: %1$d</string>
     <string name="g3l1_info">Tap the target as fast as you can.</string>
 
+    <string name="g3l2_remaining">Remaining: %1$d</string>
+    <string name="g3l2_info">Tap the target as fast as you can. Don\'t tap the cross!</string>
+    <string name="g3l2_incorrect">Wrong target!</string>
+
     <array name="g2l3_color_names">
         <item>@string/green</item>
         <item>@string/red</item>

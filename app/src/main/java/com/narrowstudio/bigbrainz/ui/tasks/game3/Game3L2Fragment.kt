@@ -148,6 +148,10 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
         }
     }
 
+    private fun middleTextHandler(){
+        binding.middleText.text = getString(R.string.g3l2_incorrect)
+    }
+
     private fun bottomTextHandler(){
         binding.topTextView.text = getString(R.string.g3l1_remaining,
             g3L2ViewModel.remaining)
