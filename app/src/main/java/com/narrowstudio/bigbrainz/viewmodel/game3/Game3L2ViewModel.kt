@@ -53,6 +53,9 @@ class Game3L2ViewModel @Inject constructor(
     // time of displaying fake target in millis
     private val fakeTime: Long = 1500
 
+    // chances of showing fake target - total is 100
+    private val fakeChance: Int = 25
+
     // random wait time for the target to appear
     private var waitTime = 0
 
@@ -116,7 +119,7 @@ class Game3L2ViewModel @Inject constructor(
 
 
     private fun restartGame(){
-        gameState.postValue(4)
+        gameState.postValue(2)
         startTime = System.currentTimeMillis()
         startTimer()
     }
@@ -127,6 +130,18 @@ class Game3L2ViewModel @Inject constructor(
         targetPosition.add(randomizeCoordinate())
         val mess = "x: " + targetPosition[0] + " y: " +  targetPosition[1]
         Log.d("Game 3 position", mess)
+        gameState.postValue(1)
+        startTime = System.currentTimeMillis()
+    }
+
+    private fun showFakeTarget(){
+        targetPosition.clear()
+        targetPosition.add(randomizeCoordinate())
+        targetPosition.add(randomizeCoordinate())
+        val mess = "x: " + targetPosition[0] + " y: " +  targetPosition[1]
+        Log.d("Game 3L2 fake position", mess)
+        gameState.postValue(11)
+        startTime = System.currentTimeMillis()
     }
 
     fun startButtonClicked(){
@@ -147,6 +162,10 @@ class Game3L2ViewModel @Inject constructor(
         }
     }
 
+    fun fakeTargetClicked(){
+        inputToWrong()
+    }
+
     fun gameLayoutClicked(){
         clicksOffTarget++
         Log.d("Game 3 box click", clicksOffTarget.toString())
@@ -154,6 +173,14 @@ class Game3L2ViewModel @Inject constructor(
 
     private fun displayBlank(){
 
+    }
+
+    // returns true if the target is fake
+    private fun randomizeIfFake(): Boolean {
+        if ((0 .. 100).random(Random(System.currentTimeMillis())) <= fakeChance){
+            return true
+        }
+        return false
     }
 
     private fun randomizeWaitTime(): Int{
@@ -167,10 +194,14 @@ class Game3L2ViewModel @Inject constructor(
 
     // transition from 10 to 1
     private fun interToInput(){
-        showTarget()
-        gameState.postValue(1)
-        startTime = System.currentTimeMillis()
+        if (randomizeIfFake()){
+            showFakeTarget()
+        }
+        else{
+            showTarget()
+        }
     }
+
 
     // transition from 0 or 1 to 10
     private fun actionToInter(){
@@ -182,15 +213,19 @@ class Game3L2ViewModel @Inject constructor(
 
     // transition from 11 to 10
     private fun fakeToInter(){
-        // TODO
+        startTime = System.currentTimeMillis()
+        waitTime = randomizeWaitTime()
+        gameState.postValue(10)
+        startTimer()
     }
 
-    // transition from 3 to 4
+    // transition from 11 to 2
     private fun inputToWrong(){
+        Log.d("Game 3L2", "fake target clicked")
         restartGame()
     }
 
-    // transition from 4 to 0
+    // transition from 2 to 0
     private fun wrongToStart(){
         init()
     }
