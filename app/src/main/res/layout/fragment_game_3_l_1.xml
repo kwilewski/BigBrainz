@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="@+id/gl_h_1"
         app:layout_constraintBottom_toTopOf="@+id/gl_h_2"
-        android:src="@drawable/ic_baseline_reaction"
+        android:src="@drawable/ic_target"
         app:layout_constraintLeft_toRightOf="parent" />
 
     <TextView
@@ -81,7 +81,8 @@
             app:layout_constraintBottom_toTopOf="@+id/target_gl_horizontal"
             app:layout_constraintEnd_toStartOf="@+id/target_gl_vertical"
             app:layout_constraintStart_toStartOf="@+id/target_gl_vertical"
-            app:layout_constraintTop_toTopOf="@+id/target_gl_horizontal" />
+            app:layout_constraintTop_toTopOf="@+id/target_gl_horizontal"
+            android:visibility="invisible"/>
 
 
 
