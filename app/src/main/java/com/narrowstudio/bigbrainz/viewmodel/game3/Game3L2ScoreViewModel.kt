@@ -24,7 +24,7 @@ class Game3L2ScoreViewModel @Inject constructor(
     var lastTimeString: String = ""
     var bestTimeString: String = ""
     var averageTimeString: String = ""
-    val gameID: Int = 301
+    val gameID: Int = 302
 
     val saves = g3Dao.getEntries().asLiveData()
     private var savesList: MutableList<G3DBEntry> = mutableListOf()
