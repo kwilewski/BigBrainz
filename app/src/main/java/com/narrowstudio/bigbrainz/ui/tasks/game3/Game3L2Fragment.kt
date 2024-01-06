@@ -187,7 +187,7 @@ class Game3L2Fragment : Fragment(R.layout.fragment_game_3_l_2), LifecycleOwner{
 
     private fun openScoreFragment(){
         if (g3L2ViewModel.openScore.value == true) {
-            navController!!.navigate(R.id.action_game3L1Fragment_to_game3L1ScoreFragment)
+            navController!!.navigate(R.id.action_game3L1Fragment_to_game3L2ScoreFragment)
         }
     }
 

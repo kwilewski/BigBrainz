@@ -51,12 +51,12 @@ class Game3L2ScoreFragment : Fragment(R.layout.fragment_game_3_l_2_score), Lifec
 
         // home button
         binding.buttonHome.setOnClickListener(View.OnClickListener { v ->
-            navController!!.navigate(R.id.action_game3L1ScoreFragment_to_mainScreenFragment)
+            navController!!.navigate(R.id.action_game3L2ScoreFragment_to_mainScreenFragment)
         })
 
         // repeat button
         binding.buttonRepeat.setOnClickListener(View.OnClickListener { v ->
-            navController!!.navigate(R.id.action_game3L1ScoreFragment_to_game3L1Fragment)
+            navController!!.navigate(R.id.action_game3L2ScoreFragment_to_game3L2Fragment)
         })
 
 
