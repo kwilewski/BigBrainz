@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2Binding
+import com.narrowstudio.bigbrainz.databinding.FragmentGame2L2Binding
 import com.narrowstudio.bigbrainz.viewmodel.game2.Game2l2ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
     var navController : NavController? = null
 
     // View Binding
-    private var _binding: FragmentGame2Binding? = null
+    private var _binding: FragmentGame2L2Binding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -48,7 +49,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?{
-        _binding = FragmentGame2Binding.inflate(inflater, container, false)
+        _binding = FragmentGame2L2Binding.inflate(inflater, container, false)
         val view = binding.root
 
 
@@ -149,16 +150,12 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
                 binding.g2Button.setImageDrawable(null)
             }
         }
-        binding.g2Textview.text = getString(R.string.g2l1_info, g2l2ViewModel.remainingMeasurements)
+        binding.topTextView.text = getString(R.string.g2l1_remaining, g2l2ViewModel.remainingMeasurements)
+        binding.bottomTextView.text = getString(R.string.g2l2_info)
     }
 
 
     private fun restartGame(){
-        if(g2l2ViewModel.shouldGameBeRestarted.value == true) {
-            binding.g2Textview.text = getString(R.string.game_over)
-        } else {
-            binding.g2Textview.text = ""
-        }
     }
 
     private fun openScoreFragment(){

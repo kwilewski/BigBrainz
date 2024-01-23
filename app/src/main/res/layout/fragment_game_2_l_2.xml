@@ -16,6 +16,22 @@
         android:src="@drawable/ic_baseline_reaction"
         app:layout_constraintLeft_toRightOf="parent" />
 
+    <TextView
+        android:id="@+id/top_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="16sp"
+        tools:text="Remaining:1234567890"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl_g2_h_2"
+        app:layout_constraintBottom_toTopOf="@+id/gl_g2_h_3"
+        android:textAlignment="center"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:visibility="visible" />
+
     <ImageButton
         android:id="@+id/g2_button"
         android:layout_width="match_parent"
@@ -57,7 +73,7 @@
         app:layout_constraintGuide_percent="0.80" />
 
     <TextView
-        android:id="@+id/g2_textview"
+        android:id="@+id/bottom_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -65,7 +81,7 @@
         android:layout_marginRight="20dp"
         android:textSize="14sp"
         android:textColor="?attr/colorPrimaryVariant"
-        tools:text="@string/g1l1_info"
+        tools:text="@string/g2l2_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/g2_button" />
