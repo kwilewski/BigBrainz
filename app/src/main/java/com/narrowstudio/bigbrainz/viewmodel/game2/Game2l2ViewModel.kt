@@ -20,13 +20,13 @@ class Game2l2ViewModel @Inject constructor(
 
 
     var blankTime: Long = 0
-    var timeArray: ArrayList<Long> = ArrayList()
+    private var timeArray: ArrayList<Long> = ArrayList()
 
-    var startTime: Long = 0
+    private var startTime: Long = 0
     var millisecondTime: Long = 0
     var millisecondLD: MutableLiveData<Long> = MutableLiveData()
     var averageTime: MutableLiveData<Long> = MutableLiveData()
-    var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
+    private var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
     var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
 
     /**    ---------------------- gameState ----------------------------------
@@ -54,7 +54,7 @@ class Game2l2ViewModel @Inject constructor(
 
 
     val saves = g2Dao.getEntries().asLiveData()
-    var totalAverage: MutableLiveData<Float> = MutableLiveData()
+    private var totalAverage: MutableLiveData<Float> = MutableLiveData()
 
 
 
@@ -202,20 +202,6 @@ class Game2l2ViewModel @Inject constructor(
         return millisecondLD
     }
 
-    fun getTimeAsString(): String{
-        val time: Float = millisecondTime.toFloat()/1000
-        return time.toString() + "s"
-    }
-
-    fun getAverageTimeAsString(): String{
-        val at: Long? = averageTime.value
-        var time: Float = 0F
-        if (at != null) {
-            time = at!!.toFloat() / 1000
-        }
-        return time.toString() + "s"
-    }
-
     private fun randomizeTime(): Int {
         return (500..1500).random(Random(System.currentTimeMillis()))
     }
@@ -228,24 +214,11 @@ class Game2l2ViewModel @Inject constructor(
 
 
 
-    // function returns total average time as string
-    fun getTotalTimeAsString(): String{
-        if (totalAverage.value != null) {
-            val time: Float = totalAverage.value!!
-            // formatting the string to show 3 digits after dot
-            return String.format("%.3f", time)
-        }
-            //context.resources.getString(R.string.wda)
-        return " "
-    }
-
-
-
     private fun setBlankTime(time: Int) {
         blankTime = System.currentTimeMillis() + time.toLong()
     }
 
-    private suspend fun startTimer(){
+    private fun startTimer(){
         //if(gameState.value != 0){
             isButtonClickable.postValue(true)
             startTime = System.currentTimeMillis()

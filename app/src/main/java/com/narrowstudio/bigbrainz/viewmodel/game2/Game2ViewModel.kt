@@ -19,7 +19,6 @@ class Game2ViewModel @Inject constructor(
 
 
     private var blankTime:Long = 0
-    private lateinit var timeLD: LiveData<Long>
     private var timeArray: ArrayList<Long> = ArrayList()
 
     private var startTime: Long = 0
@@ -29,10 +28,12 @@ class Game2ViewModel @Inject constructor(
     private var isButtonClickable: MutableLiveData<Boolean> = MutableLiveData()
     private var shouldGameBeRestarted: MutableLiveData<Boolean> = MutableLiveData()
 
-//    ---------------------- gameState ----------------------------------
-//    0 - not running
-//    1 - running red
-//    2 - running green
+/**    ---------------------- gameState ----------------------------------
+ *    0 - not running
+ *    1 - running red
+ *    2 - running green
+ *    3 - displaying wrong
+**/
     private var gameState: MutableLiveData<Int> = MutableLiveData()
 
     // sends info to fragment to open score fragment
@@ -48,7 +49,7 @@ class Game2ViewModel @Inject constructor(
 
 
     val saves = g2Dao.getEntries().asLiveData()
-    var totalAverage: MutableLiveData<Float> = MutableLiveData()
+    private var totalAverage: MutableLiveData<Float> = MutableLiveData()
 
 
 
@@ -157,25 +158,10 @@ class Game2ViewModel @Inject constructor(
         return millisecondLD
     }
 
-    fun getTimeAsString(): String{
-        val time: Float = millisecondTime.toFloat()/1000
-        return time.toString() + "s"
-    }
-
-    fun getAverageTimeAsString(): String{
-        val at: Long? = averageTime.value
-        var time: Float = 0F
-        if (at != null) {
-            time = at!!.toFloat() / 1000
-        }
-        return time.toString() + "s"
-    }
 
     private fun randomizeTime(): Int {
         return (2000..6000).random(Random(System.currentTimeMillis()))
     }
-
-
 
 
 
@@ -188,13 +174,6 @@ class Game2ViewModel @Inject constructor(
         return millisecondLD
     }
 
-    fun getTimeAsLong(): Long{
-        return millisecondTime
-    }
-
-    fun getIsButtonClickable(): LiveData<Boolean> {
-        return isButtonClickable
-    }
 
     fun getAverageTime(): LiveData<Long> {
         return averageTime
@@ -208,16 +187,6 @@ class Game2ViewModel @Inject constructor(
         return shouldGameBeRestarted
     }
 
-    // function returns total average time as string
-    fun getTotalTimeAsString(): String{
-        if (totalAverage.value != null) {
-            val time: Float = totalAverage.value!!
-            // formatting the string to show 3 digits after dot
-            return String.format("%.3f", time)
-        }
-            //context.resources.getString(R.string.wda)
-        return " "
-    }
 
 
 
@@ -225,13 +194,11 @@ class Game2ViewModel @Inject constructor(
         blankTime = System.currentTimeMillis() + time.toLong()
     }
 
-    private suspend fun startTimer(){
-        //if(gameState.value != 0){
+    private fun startTimer(){
             isButtonClickable.postValue(true)
             startTime = System.currentTimeMillis()
             handler.removeCallbacks(runnable)
             handler.postDelayed(runnable, 1)
-        //}
     }
 
     private fun stopTimer(): Long{
