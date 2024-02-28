@@ -72,9 +72,9 @@ class Game2ViewModel @Inject constructor(
                     init()
                 }
             } else {
-                if (gameState.value != 1){
-                    gameState.postValue(1)
-                }
+//                if (gameState.value != 1){
+//                    gameState.postValue(1)
+//                }
             }
             handler.postDelayed(this, 1)
         }
@@ -84,11 +84,7 @@ class Game2ViewModel @Inject constructor(
 
     fun init(){
         millisecondLD.postValue(0)
-        isButtonClickable.postValue(false)
-        shouldGameBeRestarted.postValue(false)
-        openScore.postValue(false)
-        gameState.postValue(0)
-        resetTimeArray()
+        resetValues()
         calculateTotalAverage()
     }
 
@@ -229,7 +225,6 @@ class Game2ViewModel @Inject constructor(
         gameState.postValue(3)
         isButtonClickable.postValue(false)
         shouldGameBeRestarted.postValue(true)
-        resetValues()
     }
 
     private fun resetValues(){

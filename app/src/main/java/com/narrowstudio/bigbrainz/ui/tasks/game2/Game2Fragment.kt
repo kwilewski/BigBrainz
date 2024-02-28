@@ -80,6 +80,7 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         gameState = g2ViewModel.getGameState()
         gameState.observe(viewLifecycleOwner, Observer {
             updateButtonColor()
+            updateButtonText()
         })
 
         g2ViewModel.getAverageTime().observe(viewLifecycleOwner, Observer {
@@ -151,6 +152,17 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         }
         binding.topTextView.text = getString(R.string.g2l1_remaining, g2ViewModel.remainingMeasurements)
         binding.g2Textview.text = getString(R.string.g2l1_info)
+    }
+
+    private fun updateButtonText(){
+        when(gameState.value){
+            3 -> {
+                binding.middleText.text = getString(R.string.g2l1_incorrect)
+            }
+            else -> {
+                binding.middleText.text = ""
+            }
+        }
     }
 
 
