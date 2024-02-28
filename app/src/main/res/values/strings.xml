@@ -20,30 +20,38 @@
     <string name="yellow">Yellow</string>
     <string name="red">Red</string>
 
+    <string name="g1l1_name">Sequence memory</string>
     <string name="g1l1_remaining">Remaining: %1$d</string>
     <string name="g1l1_info">Replay the sequence of colors. The sequence will be longer with your progress.\nSequence length: %1$d</string>
     <string name="g1l1_correct">Correct!</string>
     <string name="g1l1_incorrect">Incorrect</string>
 
+    <string name="g1l2_name">Number memory</string>
     <string name="g1l2_code_length">Code length: %1$d</string>
     <string name="g1l2_info">Enter displayed code. The code will be longer with your progress.</string>
     <string name="g1l2_correct">Correct!</string>
     <string name="g1l2_incorrect">Incorrect\nCorrect code was %1$d</string>
 
+    <string name="g1l3_name">Chimp test</string>
     <string name="g1l3_tile_amount">Tiles: %1$d</string>
     <string name="g1l3_info">Replay tiles grid. There will be more tiles with your progress.</string>
     <string name="g1l3_correct">Correct!</string>
     <string name="g1l3_incorrect">Incorrect</string>
 
+    <string name="g2l1_name">Pure reaction</string>
     <string name="g2l1_remaining">Remaining: %1$d</string>
     <string name="g2l1_info">Tap the button to start, tap the button again when it turns green.</string>
     <string name="g2l1_incorrect">Incorrect</string>
 
+    <string name="g2l2_name">Reaction on color</string>
     <string name="g2l2_remaining">Remaining: %1$d</string>
     <string name="g2l2_incorrect">Incorrect</string>
     <string name="g2l2_info">Tap the button to start, tap the button again when it turns green.</string>
 
-    <string name="g2l3_info">Tap the button to start, tap the button again when the color written on the button is the same as the color of the text.\nRemaining measurements: %1$d</string>
+    <string name="g2l3_name">Reaction on match</string>
+    <string name="g2l3_remaining">Remaining: %1$d</string>
+    <string name="g2l3_incorrect">Incorrect</string>
+    <string name="g2l3_info">Tap the button to start, tap the button again when the color written on the button is the same as the color of the text.</string>
 
     <string name="g3l1_remaining">Remaining: %1$d</string>
     <string name="g3l1_info">Tap the target as fast as you can.</string>

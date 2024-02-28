@@ -12,7 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="colorButtonWaiting">@color/colorButtonWaiting</item>
+        <item name="colorButtonWaiting">@color/colorBackground</item>
 
         <item name="android:colorBackground">@color/colorBackground</item>
     </style>
