@@ -2,21 +2,24 @@ package com.narrowstudio.bigbrainz.ui.tasks.game2
 
 import android.os.Bundle
 import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.narrowstudio.bigbrainz.R
 import com.narrowstudio.bigbrainz.databinding.FragmentGame2L3Binding
-import com.narrowstudio.bigbrainz.viewmodel.game2.Game2l3ViewModel
 import com.narrowstudio.bigbrainz.viewmodel.TimerViewModel
+import com.narrowstudio.bigbrainz.viewmodel.game2.Game2l3ViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
@@ -150,6 +153,15 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
                     // this should work whether there was a resource id or not
                     binding.g2Button.setBackgroundResource(typedValue.data)
                 }
+
+                // setting text color
+                requireActivity().theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+                val arr = requireActivity().obtainStyledAttributes(
+                    typedValue.data, intArrayOf(
+                        android.R.attr.colorPrimary
+                    )
+                )
+                binding.g2l3ColorLabel.setTextColor(arr.getColor(0, -1))
             }
             else -> {
                 val typedValue = TypedValue()
@@ -197,11 +209,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
 
 
     private fun restartGame(){
-        if(g2l3ViewModel.shouldGameBeRestarted.value == true) {
-            binding.g2Textview.text = getString(R.string.game_over)
-        } else {
-            binding.g2Textview.text = ""
-        }
+
     }
 
     private fun openScoreFragment(){

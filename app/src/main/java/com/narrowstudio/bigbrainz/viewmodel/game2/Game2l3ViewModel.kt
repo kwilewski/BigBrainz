@@ -296,10 +296,11 @@ class Game2l3ViewModel @Inject constructor(
     private fun restartGame(){
         startTimer()
         setWrongTime()
-        gameState.postValue(3)
+        gameState.postValue(4)
         isButtonClickable.postValue(false)
         shouldGameBeRestarted.postValue(true)
-        resetValues()
+        buttonImageStatus.postValue(false)
+        buttonTextStatus.postValue(true)
     }
 
     private fun resetValues(){
