@@ -75,6 +75,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
         gameState.observe(viewLifecycleOwner, Observer {
             updateButtonColor()
             updateTopText()
+            updateButtonIcon()
         })
 
         g2l3ViewModel.averageTime.observe(viewLifecycleOwner, Observer {
@@ -107,7 +108,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
 
 
         g2l3ViewModel.buttonImageStatus.observe(viewLifecycleOwner, Observer {
-            updateButtonIcon()
+
         })
 
         g2l3ViewModel.buttonTextStatus.observe(viewLifecycleOwner, Observer{
@@ -179,7 +180,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
     }
 
     private fun updateButtonIcon(){
-        if(g2l3ViewModel.buttonImageStatus.value!!){
+        if(g2l3ViewModel.gameState.value == 0){
             binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
             return
         }
