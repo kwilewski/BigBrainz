@@ -71,10 +71,6 @@ class Game2ViewModel @Inject constructor(
                 if (gameState.value == 3){
                     init()
                 }
-            } else {
-//                if (gameState.value != 1){
-//                    gameState.postValue(1)
-//                }
             }
             handler.postDelayed(this, 1)
         }

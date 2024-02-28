@@ -142,7 +142,15 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
                 binding.g2Button.setImageDrawable(null)
             }
             3 -> {
-                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorBackground))
+                val typedValue = TypedValue()
+                requireActivity().theme.resolveAttribute(R.attr.colorButtonWaiting, typedValue, true)
+                if (typedValue.resourceId != 0) {
+                    binding.g2Button.setBackgroundResource(typedValue.resourceId)
+                } else {
+                    // this should work whether there was a resource id or not
+                    binding.g2Button.setBackgroundResource(typedValue.data)
+                }
+                binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
                 binding.g2Button.setImageDrawable(null)
             }
             else -> {
