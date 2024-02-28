@@ -42,6 +42,9 @@ class Game2ViewModel @Inject constructor(
     // nr of repetitions before score is opened
     private val repeats: Int = 5
 
+    // time of wrong message
+    private val wrongTime: Long = 1500
+
     // nr of measurements done
     var remainingMeasurements: Int = repeats
 
@@ -62,8 +65,11 @@ class Game2ViewModel @Inject constructor(
             if(System.currentTimeMillis() >= blankTime) {
                 millisecondTime = System.currentTimeMillis() - blankTime
                 millisecondLD.postValue(millisecondTime)
-                if (gameState.value != 2){
+                if (gameState.value == 1){
                     gameState.postValue(2)
+                }
+                if (gameState.value == 3){
+                    init()
                 }
             } else {
                 if (gameState.value != 1){
@@ -194,6 +200,10 @@ class Game2ViewModel @Inject constructor(
         blankTime = System.currentTimeMillis() + time.toLong()
     }
 
+    private fun setWrongTime(){
+        blankTime = System.currentTimeMillis() + wrongTime
+    }
+
     private fun startTimer(){
             isButtonClickable.postValue(true)
             startTime = System.currentTimeMillis()
@@ -214,6 +224,10 @@ class Game2ViewModel @Inject constructor(
     }
 
     private fun restartGame(){
+        startTimer()
+        setWrongTime()
+        gameState.postValue(3)
+        isButtonClickable.postValue(false)
         shouldGameBeRestarted.postValue(true)
         resetValues()
     }

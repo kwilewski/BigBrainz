@@ -46,6 +46,11 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        g2ViewModel.init()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -133,6 +138,10 @@ class Game2Fragment : Fragment(R.layout.fragment_game_2), LifecycleOwner {
             }
             2 -> {
                 binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
+                binding.g2Button.setImageDrawable(null)
+            }
+            3 -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorBackground))
                 binding.g2Button.setImageDrawable(null)
             }
             else -> {
