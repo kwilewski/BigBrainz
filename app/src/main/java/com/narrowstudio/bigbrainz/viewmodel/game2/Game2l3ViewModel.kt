@@ -34,6 +34,7 @@ class Game2l3ViewModel @Inject constructor(
      *     1 - running not matching - text do not match color
      *     2 - running text matching
      *     3 - running red button - no text
+     *     4 - displaying wrong
      */
     var gameState: MutableLiveData<Int> = MutableLiveData()
 
@@ -43,6 +44,7 @@ class Game2l3ViewModel @Inject constructor(
     var currentColorName: MutableLiveData<String> = MutableLiveData()
     private var colorCounter: Int = 0
     private val maxColorCounter: Int = 6
+
     // chance of getting the same color and name - in percent
     private val chanceOfMatch: Int = 30
     lateinit var colorList: IntArray
@@ -59,6 +61,9 @@ class Game2l3ViewModel @Inject constructor(
     // nr of repetitions before score is opened
     private val repeats: Int = 5
 
+    // time of wrong message
+    private val wrongTime: Long = 1500
+
     // nr of measurements done
     var remainingMeasurements: Int = repeats
 
@@ -74,11 +79,17 @@ class Game2l3ViewModel @Inject constructor(
     private var runnable: Runnable = object:  Runnable {
         override fun run(){
             if (System.currentTimeMillis() >= blankTime){
-                if (gameState.value == 2){
-                    millisecondTime = System.currentTimeMillis() - blankTime
-                    millisecondLD.postValue(millisecondTime)
-                } else {
-                    buttonColorHandler()
+                when (gameState.value) {
+                    2 -> {
+                        millisecondTime = System.currentTimeMillis() - blankTime
+                        millisecondLD.postValue(millisecondTime)
+                    }
+                    4 -> {
+                        init()
+                    }
+                    else -> {
+                        buttonColorHandler()
+                    }
                 }
             }
             handler.postDelayed(this, 1)
@@ -88,13 +99,7 @@ class Game2l3ViewModel @Inject constructor(
 
 
     fun init(){
-        millisecondLD.postValue(0)
-        isButtonClickable.postValue(false)
-        shouldGameBeRestarted.postValue(false)
-        openScore.postValue(false)
-        gameState.postValue(0)
-        colorCounter = 0
-        resetTimeArray()
+        resetValues()
         calculateTotalAverage()
         buttonImageStatus.postValue(true)
         buttonTextStatus.postValue(false)
@@ -217,7 +222,8 @@ class Game2l3ViewModel @Inject constructor(
     private fun handleTimeArray(){
         // first add time to the array, then process
         timeArray.add(millisecondTime)
-        val repeats: Int = 5
+        // update remainingMeasurements for fragment
+        remainingMeasurements = repeats - timeArray.size
         if (timeArray.size == repeats) {
             var average: Long = 0
             // counting average time
@@ -237,23 +243,7 @@ class Game2l3ViewModel @Inject constructor(
 
     }
 
-    fun getTimeInMillisLD(): MutableLiveData<Long>{
-        return millisecondLD
-    }
 
-    fun getTimeAsString(): String{
-        val time: Float = millisecondTime.toFloat()/1000
-        return time.toString() + "s"
-    }
-
-    fun getAverageTimeAsString(): String{
-        val at: Long? = averageTime.value
-        var time: Float = 0F
-        if (at != null) {
-            time = at!!.toFloat() / 1000
-        }
-        return time.toString() + "s"
-    }
 
     private fun randomizeTime(): Int {
         return (500..1500).random(Random(System.currentTimeMillis()))
@@ -274,27 +264,16 @@ class Game2l3ViewModel @Inject constructor(
     }
 
 
-
-
-
-    // function returns total average time as string
-    fun getTotalTimeAsString(): String{
-        if (totalAverage.value != null) {
-            val time: Float = totalAverage.value!!
-            // formatting the string to show 3 digits after dot
-            return String.format("%.3f", time)
-        }
-            //context.resources.getString(R.string.wda)
-        return " "
-    }
-
-
-
     private fun setBlankTime(time: Int) {
         blankTime = System.currentTimeMillis() + time.toLong()
     }
 
-    private suspend fun startTimer(){
+    private fun setWrongTime(){
+        blankTime = System.currentTimeMillis() + wrongTime
+    }
+
+
+    private fun startTimer(){
         //if(gameState.value != 0){
             isButtonClickable.postValue(true)
             startTime = System.currentTimeMillis()
@@ -315,9 +294,11 @@ class Game2l3ViewModel @Inject constructor(
     }
 
     private fun restartGame(){
+        startTimer()
+        setWrongTime()
+        gameState.postValue(3)
+        isButtonClickable.postValue(false)
         shouldGameBeRestarted.postValue(true)
-        buttonTextStatus.postValue(false)
-        buttonImageStatus.postValue(true)
         resetValues()
     }
 

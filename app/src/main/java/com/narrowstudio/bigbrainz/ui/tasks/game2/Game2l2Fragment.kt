@@ -23,9 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
 
     private val g2l2ViewModel : Game2l2ViewModel by viewModels()
-    private lateinit var timerViewModel: TimerViewModel
     private lateinit var gameState: LiveData<Int>
-    private lateinit var time: LiveData<Long>
 
     // opening score
     private lateinit var openScore: LiveData<Boolean>
@@ -53,27 +51,15 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         val view = binding.root
 
 
-
-
-
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
 
         g2l2ViewModel.init()
         //passing color array to VM
         g2l2ViewModel.colorList = requireContext().resources.getIntArray(R.array.g2l2)
-        g2l2ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
 
-        })
 
-        timerViewModel = ViewModelProvider(this)[TimerViewModel::class.java]
-        timerViewModel.init()
 
-        //updating timer text
-        time = g2l2ViewModel.millisecondLD
-        time.observe(viewLifecycleOwner, Observer {
-
-        } )
 
         //updating button color
         gameState = g2l2ViewModel.gameState
@@ -82,18 +68,11 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
             updateButtonText()
         })
 
-        g2l2ViewModel.averageTime.observe(viewLifecycleOwner, Observer {
-
-        })
         g2l2ViewModel.shouldGameBeRestarted.observe(viewLifecycleOwner, Observer {
             restartGame()
         })
 
 
-        //saves
-        g2l2ViewModel.saves.observe(viewLifecycleOwner) {
-
-        }
 
         //opening score fragment
         openScore = g2l2ViewModel.openScore

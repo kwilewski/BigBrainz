@@ -64,23 +64,14 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
         //passing color names to VM
         g2l3ViewModel.colorNameList = requireContext().resources.getStringArray(R.array.g2l3_color_names)
 
-        g2l3ViewModel.getTimeInMillisLD().observe(viewLifecycleOwner, Observer {
 
-        })
 
-        timerViewModel = ViewModelProvider(this)[TimerViewModel::class.java]
-        timerViewModel.init()
-
-        //updating timer text
-        time = g2l3ViewModel.millisecondLD
-        time.observe(viewLifecycleOwner, Observer {
-
-        } )
 
         //updating button color
         gameState = g2l3ViewModel.gameState
         gameState.observe(viewLifecycleOwner, Observer {
             updateButtonColor()
+            updateTopText()
         })
 
         g2l3ViewModel.averageTime.observe(viewLifecycleOwner, Observer {
@@ -130,7 +121,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
             true
         })
 
-
+        updateBottomText()
 
 
         return view
@@ -150,6 +141,16 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
                 }
             }
             3 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+            4 -> {
+                val typedValue = TypedValue()
+                requireActivity().theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
+                if (typedValue.resourceId != 0) {
+                    binding.g2Button.setBackgroundResource(typedValue.resourceId)
+                } else {
+                    // this should work whether there was a resource id or not
+                    binding.g2Button.setBackgroundResource(typedValue.data)
+                }
+            }
             else -> {
                 val typedValue = TypedValue()
                 requireActivity().theme.resolveAttribute(R.attr.colorButtonWaiting, typedValue, true)
@@ -162,7 +163,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
                 binding.g2l3ColorLabel.setTextColor(g2l3ViewModel.currentButtonColor.value!!)
             }
         }
-        binding.g2Textview.text = getString(R.string.g2l3_info, g2l3ViewModel.remainingMeasurements)
+        binding.g2Textview.text = getString(R.string.g2l3_info)
     }
 
     private fun updateButtonIcon(){
@@ -173,11 +174,23 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
         binding.g2Button.setImageDrawable(null)
     }
 
+    private fun updateTopText(){
+        binding.topTextView.text = getString(R.string.g2l3_remaining, g2l3ViewModel.remainingMeasurements)
+    }
+
+    private fun updateBottomText(){
+        binding.g2Textview.text = getString(R.string.g2l2_info)
+    }
+
     private fun updateButtonText(){
-        println("updateButtonText()")
         if(g2l3ViewModel.buttonTextStatus.value!!){
-            binding.g2l3ColorLabel.text = g2l3ViewModel.currentColorName.value
-            return
+            if (g2l3ViewModel.gameState.value == 4){
+                binding.g2l3ColorLabel.text = getString(R.string.g2l3_incorrect)
+                return
+            } else {
+                binding.g2l3ColorLabel.text = g2l3ViewModel.currentColorName.value
+                return
+            }
         }
         binding.g2l3ColorLabel.text = null
     }
