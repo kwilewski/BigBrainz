@@ -33,6 +33,7 @@ class Game2l2ViewModel @Inject constructor(
      *     0 - not running
      *     1 - running "red" - all but green
      *     2 - running green
+     *     3 - displaying wrong
      */
     var gameState: MutableLiveData<Int> = MutableLiveData()
 
@@ -48,6 +49,9 @@ class Game2l2ViewModel @Inject constructor(
 
     // nr of repetitions before score is opened
     private val repeats: Int = 5
+
+    // time of wrong message
+    private val wrongTime: Long = 1500
 
     // nr of measurements done
     var remainingMeasurements: Int = repeats
@@ -65,11 +69,17 @@ class Game2l2ViewModel @Inject constructor(
     private var runnable: Runnable = object:  Runnable {
         override fun run(){
             if (System.currentTimeMillis() >= blankTime){
-                if (gameState.value == 2){
-                    millisecondTime = System.currentTimeMillis() - blankTime
-                    millisecondLD.postValue(millisecondTime)
-                } else {
-                    buttonColorHandler()
+                when(gameState.value) {
+                    2 -> {
+                        millisecondTime = System.currentTimeMillis() - blankTime
+                        millisecondLD.postValue(millisecondTime)
+                    }
+                    3 -> {
+                        init()
+                    }
+                    else -> {
+                        buttonColorHandler()
+                    }
                 }
             }
             handler.postDelayed(this, 1)
@@ -80,13 +90,7 @@ class Game2l2ViewModel @Inject constructor(
 
     fun init(){
         millisecondLD.postValue(0)
-        isButtonClickable.postValue(false)
-        shouldGameBeRestarted.postValue(false)
-        openScore.postValue(false)
-        gameState.postValue(0)
-        colorCounter = 0
-        resetTimeArray()
-        calculateTotalAverage()
+        resetValues()
     }
 
     fun buttonPressed(){
@@ -218,6 +222,10 @@ class Game2l2ViewModel @Inject constructor(
         blankTime = System.currentTimeMillis() + time.toLong()
     }
 
+    private fun setWrongTime(){
+        blankTime = System.currentTimeMillis() + wrongTime
+    }
+
     private fun startTimer(){
         //if(gameState.value != 0){
             isButtonClickable.postValue(true)
@@ -239,8 +247,11 @@ class Game2l2ViewModel @Inject constructor(
     }
 
     private fun restartGame(){
+        startTimer()
+        setWrongTime()
+        gameState.postValue(3)
+        isButtonClickable.postValue(false)
         shouldGameBeRestarted.postValue(true)
-        resetValues()
     }
 
     private fun resetValues(){

@@ -79,6 +79,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         gameState = g2l2ViewModel.gameState
         gameState.observe(viewLifecycleOwner, Observer {
             updateButtonColor()
+            updateButtonText()
         })
 
         g2l2ViewModel.averageTime.observe(viewLifecycleOwner, Observer {
@@ -102,7 +103,9 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
 
 
         g2l2ViewModel.currentButtonColor.observe(viewLifecycleOwner, Observer {
-            binding.g2Button.setBackgroundColor(g2l2ViewModel.currentButtonColor.value!!)
+            if (g2l2ViewModel.gameState.value == 1){
+                binding.g2Button.setBackgroundColor(g2l2ViewModel.currentButtonColor.value!!)
+            }
         })
 
 
@@ -132,7 +135,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         when(gameState.value){
             0 -> {
                 val typedValue = TypedValue()
-                requireActivity().theme.resolveAttribute(R.attr.colorButtonWaiting, typedValue, true)
+                requireActivity().theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
                 if (typedValue.resourceId != 0) {
                     binding.g2Button.setBackgroundResource(typedValue.resourceId)
                 } else {
@@ -141,17 +144,51 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
                 }
                 binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
             }
+            1 -> {
+                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+                binding.g2Button.setImageDrawable(null)
+            }
             2 -> {
                 binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonReady))
                 binding.g2Button.setImageDrawable(null)
             }
+            3 -> {
+                val typedValue = TypedValue()
+                requireActivity().theme.resolveAttribute(R.attr.colorButtonWaiting, typedValue, true)
+                if (typedValue.resourceId != 0) {
+                    binding.g2Button.setBackgroundResource(typedValue.resourceId)
+                } else {
+                    // this should work whether there was a resource id or not
+                    binding.g2Button.setBackgroundResource(typedValue.data)
+                }
+                binding.g2Button.setImageResource(R.drawable.ic_baseline_touch)
+                binding.g2Button.setImageDrawable(null)
+            }
             else -> {
-                binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
+                val typedValue = TypedValue()
+                requireActivity().theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
+                if (typedValue.resourceId != 0) {
+                    binding.g2Button.setBackgroundResource(typedValue.resourceId)
+                } else {
+                    // this should work whether there was a resource id or not
+                    binding.g2Button.setBackgroundResource(typedValue.data)
+                }
                 binding.g2Button.setImageDrawable(null)
             }
         }
         binding.topTextView.text = getString(R.string.g2l1_remaining, g2l2ViewModel.remainingMeasurements)
         binding.bottomTextView.text = getString(R.string.g2l2_info)
+    }
+
+    private fun updateButtonText(){
+        when(gameState.value){
+            3 -> {
+                binding.middleText.text = getString(R.string.g2l1_incorrect)
+            }
+            else -> {
+                binding.middleText.text = ""
+            }
+        }
     }
 
 
