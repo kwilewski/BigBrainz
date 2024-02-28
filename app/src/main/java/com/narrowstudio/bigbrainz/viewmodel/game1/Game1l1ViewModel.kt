@@ -196,6 +196,11 @@ class Game1l1ViewModel @Inject constructor(
         }
     }
 
+    // function for fragment to reset starting amount of tries
+    fun restartStartingValue(){
+        colorsToBeShown = colorsAtTheBeginning
+    }
+
     private fun nextLevel(){
         colorsToBeShown += levelUp
         Log.d("Game status", "Level up. Current level: $colorsToBeShown")
@@ -235,6 +240,7 @@ class Game1l1ViewModel @Inject constructor(
 
     // transition from 4 to 0
     private fun wrongToStart(){
+        restartStartingValue()
         init()
     }
 

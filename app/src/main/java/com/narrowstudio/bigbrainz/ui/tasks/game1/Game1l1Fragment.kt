@@ -52,6 +52,7 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
         g1l1ViewModel.init()
+        g1l1ViewModel.restartStartingValue()
 
         binding.g1DisplayButton.setOnTouchListener(View.OnTouchListener{v, event ->
             g1l1ViewModel.mainButtonPressed()
@@ -77,7 +78,7 @@ class Game1l1Fragment : Fragment(R.layout.fragment_game_1_l_1), LifecycleOwner {
             openScoreFragment()
         })
 
-        // swtting progress bar
+        // setting progress bar
         g1l1ViewModel.progressBar.observe(viewLifecycleOwner, Observer {
             progressBarHandler()
         })
