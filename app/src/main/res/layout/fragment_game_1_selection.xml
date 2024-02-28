@@ -34,21 +34,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:padding="5dp"
-                android:text="@string/mode_easy"/>
+                android:text="@string/g1l1_name"/>
 
             <Button
                 android:id="@+id/g1s_m2_button"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:padding="5dp"
-                android:text="@string/mode_medium" />
+                android:text="@string/g1l2_name" />
 
             <Button
                 android:id="@+id/g1s_m3_button"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:padding="5dp"
-                android:text="@string/mode_hard" />
+                android:text="@string/g1l3_name" />
 
         </LinearLayout>
     </ScrollView>
