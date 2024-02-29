@@ -38,7 +38,7 @@
     <string name="g1l3_correct">Correct!</string>
     <string name="g1l3_incorrect">Incorrect</string>
 
-    <string name="g2l1_name">Pure reaction</string>
+    <string name="g2l1_name">Reaction</string>
     <string name="g2l1_remaining">Remaining: %1$d</string>
     <string name="g2l1_info">Tap the button to start, tap the button again when it turns green.</string>
     <string name="g2l1_incorrect">Incorrect</string>
@@ -53,7 +53,7 @@
     <string name="g2l3_incorrect">Incorrect</string>
     <string name="g2l3_info">Tap the button to start, tap the button again when the color written on the button is the same as the color of the text.</string>
 
-    <string name="g3l1_name">Pure aim</string>
+    <string name="g3l1_name">Aim</string>
     <string name="g3l1_remaining">Remaining: %1$d</string>
     <string name="g3l1_info">Tap the target as fast as you can.</string>
 
