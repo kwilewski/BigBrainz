@@ -137,7 +137,8 @@
             app:layout_constraintLeft_toLeftOf="@id/gl_g2l2_input_v_1"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/g1l2_sequence_input"
-            android:background="?attr/colorPrimary"/>
+            android:src="@drawable/ic_send"
+            android:background="@null"/>
 
 
 
