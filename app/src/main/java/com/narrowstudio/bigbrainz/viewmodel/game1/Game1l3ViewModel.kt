@@ -128,6 +128,7 @@ class Game1l3ViewModel @Inject constructor(
     }
 
     fun tileButtonPressed(id: Int){
+        if (gameState.value != 3) return
         val current: Int? = correctTiles.value
         // if the value is equal to the one from array, add +1 to counter
         if (current?.let { indexList[it] } == id){

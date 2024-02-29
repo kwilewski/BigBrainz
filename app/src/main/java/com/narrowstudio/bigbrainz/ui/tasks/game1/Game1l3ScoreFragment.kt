@@ -63,7 +63,7 @@ class Game1l3ScoreFragment : Fragment(R.layout.fragment_game_1_l_3_score), Lifec
 
         // repeat button
         binding.g1scoreButtonRepeat.setOnClickListener(View.OnClickListener { view ->
-            navController!!.navigate(R.id.action_game1l3Fragment_to_game1l3ScoreFragment)
+            navController!!.navigate(R.id.action_game1l3ScoreFragment_to_game1l3Fragment)
         })
 
 
