@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="@+id/gl_g1_h_1"
         app:layout_constraintBottom_toTopOf="@+id/gl_g1_h_2"
-        android:src="@drawable/ic_baseline_reaction"
+        android:src="@drawable/ic_memory"
         app:layout_constraintLeft_toRightOf="parent" />
 
     <TextView
