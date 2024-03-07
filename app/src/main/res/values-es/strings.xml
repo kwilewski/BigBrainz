@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="game_1">Memoria</string>
+    <string name="game_2">Reacción</string>
+    <string name="game_3">Puntería</string>
+    <string name="game_4">Más juegos próximamente!</string>
+    <string name="mode_easy">Fácil</string>
+    <string name="mode_medium">Medio</string>
+    <string name="mode_hard">Difícil</string>
+    <string name="wrong">Incorrecto! intente de nuevo</string>
+    <string name="score_sec">Puntuación : %1$ss</string>
+    <string name="best_score_sec">Mejor: %1$ss</string>
+    <string name="average_score_sec">Media: %1$ss</string>
+    <string name="score">Puntuación: %1$d</string>
+    <string name="best_score">Mejor: %1$d</string>
+    <string name="average_score">Media: %1$d</string>
+    <string name="green">Verde</string>
+    <string name="blue">Azul</string>
+    <string name="yellow">Amarillo</string>
+    <string name="red">Rojo</string>
+
+    <string name="g1l1_name">Secuencia</string>
+    <string name="g1l1_remaining">Restante: %1$d</string>
+    <string name="g1l1_info">Vuelve a reproducir la secuencia de colores. La secuencia será más larga con tu progreso.\nLongitud de la secuencia: %1$d</string>
+    <string name="g1l1_correct">Correcto!</string>
+    <string name="g1l1_incorrect">Incorrecto</string>
+
+    <string name="g1l2_name">Memoria numérica</string>
+    <string name="g1l2_code_length">Longitud del código: %1$d</string>
+    <string name="g1l2_info">Ingrese el código mostrado. El código será más largo con tu progreso.</string>
+    <string name="g1l2_correct">Correcto!</string>
+    <string name="g1l2_incorrect">Incorrecto\nEl código correcto fue %1$d</string>
+
+    <string name="g1l3_name">Prueba de chimpancé</string>
+    <string name="g1l3_tile_amount">Fichas: %1$d</string>
+    <string name="g1l3_info">Reproduce la secuencia de fichas. La secuencia se hará más larga con tu progreso.</string>
+    <string name="g1l3_correct">Correcto!</string>
+    <string name="g1l3_incorrect">Incorrecto</string>
+
+    <string name="g2l1_name">Reacción</string>
+    <string name="g2l1_remaining">Restante: %1$d</string>
+    <string name="g2l1_info">Toque para comenzar, toque nuevamente cuando se ponga verde.</string>
+    <string name="g2l1_incorrect">Incorrecto</string>
+
+    <string name="g2l2_name">Reacción sobre el color</string>
+    <string name="g2l2_remaining">Restante: %1$d</string>
+    <string name="g2l2_incorrect">Incorrecto</string>
+    <string name="g2l2_info">Toque para comenzar, toque nuevamente cuando se ponga verde.</string>
+
+    <string name="g2l3_name">Reacción sobre igualdad</string>
+    <string name="g2l3_remaining">Restante: %1$d</string>
+    <string name="g2l3_incorrect">Incorrecto</string>
+    <string name="g2l3_info">Toque para comenzar, toque nuevamente cuando el color escrito en el botón sea el mismo que el color del texto.</string>
+
+    <string name="g3l1_name">Puntería</string>
+    <string name="g3l1_remaining">Restante: %1$d</string>
+    <string name="g3l1_info">Toca el objetivo lo más rápido que puedas.</string>
+
+    <string name="g3l2_name">Puntería con detección de objetivos</string>
+    <string name="g3l2_remaining">Restante: %1$d</string>
+    <string name="g3l2_info">Toca el objetivo lo más rápido que puedas. No toques la cruz!</string>
+    <string name="g3l2_incorrect">Objetivo equivocado!</string>
+</resources>
