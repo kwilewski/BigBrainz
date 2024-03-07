@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="game_1">Pamięć</string>
+    <string name="game_2">Reakcja</string>
+    <string name="game_3">Celność</string>
+    <string name="game_4">Nowe gry wkrótce!</string>
+    <string name="mode_easy">Łatwy</string>
+    <string name="mode_medium">Średni</string>
+    <string name="mode_hard">Trudny</string>
+    <string name="wrong">Źle! Spróbuj ponownie</string>
+    <string name="score_sec">Czas: %1$ss</string>
+    <string name="best_score_sec">Najlepszy: %1$ss</string>
+    <string name="average_score_sec">Średni: %1$ss</string>
+    <string name="score">Wynik: %1$d</string>
+    <string name="best_score">Najlepszy: %1$d</string>
+    <string name="average_score">Średni: %1$d</string>
+    <string name="green">Zielony</string>
+    <string name="blue">Niebieski</string>
+    <string name="yellow">Żółty</string>
+    <string name="red">Czerwony</string>
+
+    <string name="g1l1_name">Sekwencja</string>
+    <string name="g1l1_remaining">Pozostało: %1$d</string>
+    <string name="g1l1_info">Odtwórz sekwencję kolorów. Sekwencja będzie się wydłużała z twoim postępem.\nDługość sekwencji: %1$d</string>
+    <string name="g1l1_correct">Dobrze!</string>
+    <string name="g1l1_incorrect">Źle</string>
+
+    <string name="g1l2_name">Liczby</string>
+    <string name="g1l2_code_length">Długość kodu: %1$d</string>
+    <string name="g1l2_info">Wprowadź wyświetlony kod. Kod będzie się wydłużał z twoim postępem.</string>
+    <string name="g1l2_correct">Dobrze!</string>
+    <string name="g1l2_incorrect">Źle\nWłaściwy kod to %1$d</string>
+
+    <string name="g1l3_name">Test szympansa</string>
+    <string name="g1l3_tile_amount">Kafelki: %1$d</string>
+    <string name="g1l3_info">Odtwórz sekwencję kafelków. Sekwencja będzie się wydłużała z twoim postępem.</string>
+    <string name="g1l3_correct">Dobrze!</string>
+    <string name="g1l3_incorrect">Źle</string>
+
+    <string name="g2l1_name">Reakcja</string>
+    <string name="g2l1_remaining">Pozostało: %1$d</string>
+    <string name="g2l1_info">Dotknij przycisk by zacząć, dotknij ponownie gdy przycisk zrobi się zielony.</string>
+    <string name="g2l1_incorrect">Źle</string>
+
+    <string name="g2l2_name">Reakcja na kolor</string>
+    <string name="g2l2_remaining">Pozostało: %1$d</string>
+    <string name="g2l2_incorrect">Źle</string>
+    <string name="g2l2_info">Dotknij przycisk by zacząć, dotknij ponownie gdy przycisk zrobi się zielony.</string>
+
+    <string name="g2l3_name">Reakcja na dopasowanie</string>
+    <string name="g2l3_remaining">Pozostało: %1$d</string>
+    <string name="g2l3_incorrect">Źle</string>
+    <string name="g2l3_info">Dotknij przycisk by zacząć, dotknij ponownie gdy przycisk kolor tekstu będzie pasować do wyświetlonego koloru.</string>
+
+    <string name="g3l1_name">Celność</string>
+    <string name="g3l1_remaining">Pozostało: %1$d</string>
+    <string name="g3l1_info">Dotknij cel tak szybko jak możesz.</string>
+
+    <string name="g3l2_name">Celność</string>
+    <string name="g3l2_remaining">Pozostało: %1$d</string>
+    <string name="g3l2_info">Dotknij cel tak szybko jak możesz. Nie dotykaj krzyżyka!</string>
+    <string name="g3l2_incorrect">Zły cel!</string>
+
+
+</resources>

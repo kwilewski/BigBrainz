@@ -1,13 +1,12 @@
 <resources>
-    <string name="app_name">BigBrainz</string>
+    <string name="app_name" translatable="false">BigBrainz</string>
     <string name="game_1">Memory</string>
     <string name="game_2">Reaction</string>
     <string name="game_3">Aim</string>
-    <string name="game_4">Coming soon!</string>
+    <string name="game_4">More Coming soon!</string>
     <string name="mode_easy">Easy</string>
     <string name="mode_medium">Medium</string>
     <string name="mode_hard">Hard</string>
-    <string name="game_over">OOOPS… TRY AGAIN!</string>
     <string name="wrong">Wrong! Try again</string>
     <string name="score_sec">Score: %1$ss</string>
     <string name="best_score_sec">Best: %1$ss</string>
@@ -57,10 +56,11 @@
     <string name="g3l1_remaining">Remaining: %1$d</string>
     <string name="g3l1_info">Tap the target as fast as you can.</string>
 
-    <string name="g3l2_name">Aim with target selection</string>
+    <string name="g3l2_name">Aim with target detection</string>
     <string name="g3l2_remaining">Remaining: %1$d</string>
     <string name="g3l2_info">Tap the target as fast as you can. Don\'t tap the cross!</string>
     <string name="g3l2_incorrect">Wrong target!</string>
+
 
     <array name="g2l3_color_names">
         <item>@string/green</item>
