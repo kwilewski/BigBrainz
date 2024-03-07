@@ -39,18 +39,18 @@
 
     <string name="g2l1_name">Reaction</string>
     <string name="g2l1_remaining">Remaining: %1$d</string>
-    <string name="g2l1_info">Tap the button to start, tap the button again when it turns green.</string>
+    <string name="g2l1_info">Tap to start, tap again when the button turns green.</string>
     <string name="g2l1_incorrect">Incorrect</string>
 
     <string name="g2l2_name">Reaction on color</string>
     <string name="g2l2_remaining">Remaining: %1$d</string>
     <string name="g2l2_incorrect">Incorrect</string>
-    <string name="g2l2_info">Tap the button to start, tap the button again when it turns green.</string>
+    <string name="g2l2_info">Tap to start, tap again when the button turns green.</string>
 
     <string name="g2l3_name">Reaction on match</string>
     <string name="g2l3_remaining">Remaining: %1$d</string>
     <string name="g2l3_incorrect">Incorrect</string>
-    <string name="g2l3_info">Tap the button to start, tap the button again when the color written on the button is the same as the color of the text.</string>
+    <string name="g2l3_info">Tap to start, tap again when the color written on the button is the same as the color of the text.</string>
 
     <string name="g3l1_name">Aim</string>
     <string name="g3l1_remaining">Remaining: %1$d</string>
