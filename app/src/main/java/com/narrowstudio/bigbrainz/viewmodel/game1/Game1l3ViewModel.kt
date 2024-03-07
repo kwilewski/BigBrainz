@@ -46,7 +46,7 @@ class Game1l3ViewModel @Inject constructor(
     val progressBar: MutableLiveData<Int> = MutableLiveData()
 
     // length of the first challenge
-    private val levelAtTheBeginning = 3
+    private val levelAtTheBeginning = 17
 
     // length of level
     var levelToBeShown = levelAtTheBeginning

@@ -147,7 +147,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
             3 -> binding.g2Button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.colorButtonNotReady))
             4 -> {
                 val typedValue = TypedValue()
-                requireActivity().theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
+                requireActivity().theme.resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValue, true)
                 if (typedValue.resourceId != 0) {
                     binding.g2Button.setBackgroundResource(typedValue.resourceId)
                 } else {
@@ -156,7 +156,7 @@ class Game2l3Fragment : Fragment(R.layout.fragment_game_2_l_3), LifecycleOwner {
                 }
 
                 // setting text color
-                requireActivity().theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+                requireActivity().theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
                 val arr = requireActivity().obtainStyledAttributes(
                     typedValue.data, intArrayOf(
                         android.R.attr.colorPrimary

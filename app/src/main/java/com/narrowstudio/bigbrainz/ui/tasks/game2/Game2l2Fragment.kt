@@ -114,7 +114,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
         when(gameState.value){
             0 -> {
                 val typedValue = TypedValue()
-                requireActivity().theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
+                requireActivity().theme.resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValue, true)
                 if (typedValue.resourceId != 0) {
                     binding.g2Button.setBackgroundResource(typedValue.resourceId)
                 } else {
@@ -145,7 +145,7 @@ class Game2l2Fragment : Fragment(R.layout.fragment_game_2_l_2), LifecycleOwner {
             }
             else -> {
                 val typedValue = TypedValue()
-                requireActivity().theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
+                requireActivity().theme.resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValue, true)
                 if (typedValue.resourceId != 0) {
                     binding.g2Button.setBackgroundResource(typedValue.resourceId)
                 } else {
