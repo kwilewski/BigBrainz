@@ -114,7 +114,7 @@ class Game1l1ViewModel @Inject constructor(
                 }
                 4 -> {
                     if (System.currentTimeMillis() >= startTime + wrongTime){
-                        wrongToStart()
+                        wrongToHandler()
                     }
                 }
                 5 -> {
@@ -192,7 +192,9 @@ class Game1l1ViewModel @Inject constructor(
         } else {
             // if any successful pattern, open score
             insertNewEntry()
-            openScore.postValue(true)
+            gameState.postValue(4)
+            startTime = System.currentTimeMillis()
+            startTimer()
         }
     }
 
@@ -238,11 +240,27 @@ class Game1l1ViewModel @Inject constructor(
     }
 
 
+    // handles if the VM should open score or restart the game
+    private fun wrongToHandler(){
+        if (colorsToBeShown == colorsAtTheBeginning){
+            wrongToStart()
+        } else {
+            wrongToOpenScore()
+        }
+    }
+
     // transition from 4 to 0
+    // if the wasn't correct input
     private fun wrongToStart(){
         restartStartingValue()
         init()
     }
+
+    // when any input was correct
+    private fun wrongToOpenScore(){
+        openScore.postValue(true)
+    }
+
 
     // transition from 5 to 0
     private fun correctToStart(){
